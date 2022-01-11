@@ -1,0 +1,49 @@
+{% extends "base.html" %}
+
+{% block content %}
+<header>
+  <div class="title">
+    <a href="javascript:void(0)" onclick="window.history.back()"><i class="fas fa-times"></i></a>
+  </div>
+  <div class="btn-group">
+  </div>
+</header>
+
+<!-- section.check -->
+<section class="check">
+  <h2>
+    잠깐, 글 작성에 앞서
+    <br>숙의적 시민으로서
+    <br>명예 서약을 실시합니다.
+  </h2>
+  <div class="check-type">
+    <div class="type-card type-highlight" onclick="location.href='/check_highlight'">
+      <div class="inner">
+        <img src="/static/images/highlight.png" alt="">
+        <p class="type-text type-text--highlight">밑줄</p>
+      </div>
+    </div>
+    <div class="type-card type-keyboard" onclick="location.href='/check_keyboard'">
+      <div class="inner">
+        <img src="/static/images/keyboard.png" alt="">
+        <p class="type-text type-text--keyboard">받아쓰기</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+{% endblock content %}
+
+{% block extrascript %}
+<script src="/static/js/btnActive.js"></script>
+
+<script>
+  var graph = document.getElementsByClassName('graph-bar-percent');
+  var percent = document.getElementsByClassName('percent');
+
+  for (var i = 0; i < graph.length; i++) {
+    graph[i].style.width = percent[i].innerText;
+  }
+</script>
+{% endblock extrascript %}

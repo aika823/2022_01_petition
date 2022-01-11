@@ -1,0 +1,34 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<div class="intro1 intro"></div>
+<div class="intro2 intro"></div>
+<h2 class="intro-h2">환영합니다</h2>
+
+<!-- section.welcome -->
+<section class="welcome content">
+  <div class="login naver" onclick="location.href='/main'">
+    <div class="icon-wrap">
+      <img src="/static/images/naver.png" alt="">
+    </div>
+    <p>네이버 로그인</p>
+  </div>
+  <div class="login kakao">
+    <div class="icon-wrap">
+      <img src="/static/images/kakao.png" alt="">
+    </div>
+    <p>카카오 로그인</p>
+  </div>
+  <div class="login google">
+    <div class="icon-wrap">
+      <img src="/static/images/google.png" alt="">
+    </div>
+    <p>구글 로그인</p>
+  </div>
+</section>
+{% endblock content %}
+
+{% block extrascripts %}
+<script src="/static/js/intro.js"></script>
+{% endblock extrascripts %}

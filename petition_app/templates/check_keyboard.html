@@ -1,0 +1,62 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="bg"></div>
+
+<header>
+  <div class="title">
+    <a href="javascript:void(0)" onclick="window.history.back()"><i class="fas fa-arrow-left"></i></a>
+  </div>
+  <div class="btn-group">
+  </div>
+</header>
+
+<!-- section.highlight-wrap -->
+<section class="highlight-wrap keyboard-wrap">
+  <div class="info">
+    <div class="img-hand">
+      <img src="/static/images/writing.png" alt="">
+    </div>
+    <p>
+      키보드로 직접 입력해보세요
+    </p>
+  </div>
+  <div class="keyboard-text">
+    <h3>
+      나는 성숙한 대한민국 시민으로서
+      <br>타인에 대한 배려심, 정직함, 청원에 대한
+      <br>책임감을 가지고 작성하겠습니다.
+    </h3>
+    <input class="keyboard-input" type="text" placeholder="" />
+    <p class="comment">작성 후 밑 버튼을 눌러주세요.</p>
+  </div>
+</section>
+
+<a class="btn-validation keyboard-validation" href="/good">꼭 지키겠습니다</a>
+{% endblock content %}
+
+
+{% block extrascripts %}
+<script>
+  $('.keyboard-input').focus(function () {
+    $(this).attr("placeholder", "나는 성숙한 대한민국");
+    $('.btn-validation').show();
+    $('.comment').show();
+    $('.bg').css("background-image", "url('/static/images/bg-red.png')")
+  });
+  $('.keyboard-input').blur(function () {
+    $(this).attr("placeholder", "");
+    $('.btn-validation').hide();
+    $('.comment').hide();
+    $('.bg').css("background-image", "url('/static/images/bg-blue.png')")
+  });
+  $('.keyboard-input').keyup(function () {
+    if ($('.keyboard-input').val() == '') {
+      $(this).attr("placeholder", "");
+      $('.btn-validation').hide();
+      $('.comment').hide();
+      $('.bg').css("background-image", "url('/static/images/bg-blue.png')")
+    }
+  });
+</script>
+{% endblock extrascripts %}

@@ -1,0 +1,148 @@
+{% extends "base.html" %}
+
+{% block content %}
+<header>
+  <div class="title">
+
+  </div>
+  <div class="btn-group">
+    <a href=""><i class="fas fa-search"></i></a>
+    <a href=""><i class="far fa-bell"></i></a>
+  </div>
+</header>
+
+<h2 class="welcome-h2">
+  <div class="img-wrap">
+    <img src="/static/images/waving-hand.png" alt="">
+  </div>
+  <span>시민이</span>님,
+  <br>환영합니다.
+</h2>
+
+<!-- section.top5 -->
+<section class="top5">
+  <h2>청원 추천 수 Top 5</h2>
+  <div class="slide-recommend">
+    
+    <div class="slide-card">
+      <div class="slide-wrap">
+        <div class="img-wrap" style="background-image: url('/static/images/sample1.png');"></div>
+        <div class="recommend-info">
+          <div class="info-row info-row--grid">
+            <div class="type">교통/건축/국토</div>
+            <p class="numberOfPeople">🖐 304,400명 서명</p>
+          </div>
+          <h3>문화재청 허가없이 증축한 아파트
+            건설을 제한하는 법안 청원합니다</h3>
+          <div class="graph-wrap">
+            <p class="percent">100%</p>
+            <div class="graph-bar">
+              <div class="graph-bar-percent"></div>
+            </div>
+            <a href="javascript:void(0)" class="btn-next" onclick="$('.slick-next').trigger('click');">
+              <img src="/static/images/arrow.png" alt="">
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="slide-card">
+      <div class="slide-wrap">
+        <div class="img-wrap" style="background-image: url('/static/images/sample2.png');"></div>
+        <div class="recommend-info">
+          <div class="info-row info-row--grid">
+            <div class="type">환경</div>
+            <p class="numberOfPeople">🖐 196,320명 서명</p>
+          </div>
+          <h3>플라스틱 재활용 교육 법제화 청원합니다</h3>
+          <div class="graph-wrap">
+            <p class="percent">98%</p>
+            <div class="graph-bar">
+              <div class="graph-bar-percent"></div>
+            </div>
+            <a href="javascript:void(0)" class="btn-next" onclick="$('.slick-next').trigger('click');">
+              <img src="/static/images/arrow.png" alt="">
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="slide-card">
+      <div class="slide-wrap">
+        <div class="img-wrap" style="background-image: url('/static/images/sample3.png');"></div>
+        <div class="recommend-info">
+          <div class="info-row info-row--grid">
+            <div class="type">환경</div>
+            <p class="numberOfPeople"> 🖐 133,400명 서명</p>
+          </div>
+          <h3>친환경을 위한 도약,
+            EV 충전소 증축 정책 청원 합니다</h3>
+          <div class="graph-wrap">
+            <p class="percent">66%</p>
+            <div class="graph-bar">
+              <div class="graph-bar-percent"></div>
+            </div>
+            <a href="javascript:void(0)" class="btn-next" onclick="$('.slick-next').trigger('click');">
+              <img src="/static/images/arrow.png" alt="">
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="slide-card">
+      <div class="slide-wrap">
+        <div class="img-wrap" style="background-image: url('/static/images/sample4.png');"></div>
+        <div class="recommend-info">
+          <div class="info-row info-row--grid">
+            <div class="type">환경</div>
+            <p class="numberOfPeople">🖐 110,560명 서명</p>
+          </div>
+          <h3>아이스팩 재사용 활성화를 위한 국가적인 대책을 마련해주세요</h3>
+          <div class="graph-wrap">
+            <p class="percent">55%</p>
+            <div class="graph-bar">
+              <div class="graph-bar-percent"></div>
+            </div>
+            <a href="javascript:void(0)" class="btn-next" onclick="$('.slick-next').trigger('click');">
+              <img src="/static/images/arrow.png" alt="">
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="slide-card">
+      <div class="slide-wrap">
+        <div class="img-wrap" style="background-image: url('/static/images/sample5.png');"></div>
+        <div class="recommend-info">
+          <div class="info-row info-row--grid">
+            <div class="type">안전</div>
+            <p class="numberOfPeople">🖐 88,320명 서명</p>
+          </div>
+          <h3>'수입 크릴오일' 제품을 국민청원 안전검사 대상으로 선정해주세요</h3>
+          <div class="graph-wrap">
+            <p class="percent">41%</p>
+            <div class="graph-bar">
+              <div class="graph-bar-percent"></div>
+            </div>
+            <a href="javascript:void(0)" class="btn-next" onclick="$('.slick-next').trigger('click');">
+              <img src="/static/images/arrow.png" alt="">
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+    
+  </div>
+
+</section>
+
+{% endblock content %}
+
+{% block extrascripts %}
+<script type="text/javascript" src="/static/slick/slick.min.js"></script>
+<script src="/static/js/top5.js"></script>
+{% endblock extrascripts %}

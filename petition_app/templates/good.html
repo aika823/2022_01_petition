@@ -1,0 +1,56 @@
+{% extends "base.html" %}
+
+{% block content %}
+<header>
+  <div class="title">
+    <!-- <a href="javascript:void(0)" onclick="window.history.back()"><i class="fas fa-arrow-left"></i></a> -->
+  </div>
+  <div class="btn-group">
+  </div>
+</header>
+
+<!-- section.highlight-wrap -->
+<section class="highlight-wrap keyboard-wrap">
+  <div class="info">
+    <div class="img-clap">
+      <img src="/static/images/clap.png" alt="">
+    </div>
+  </div>
+  <div class="good-text">
+    <h2>
+      좋습니다!
+    </h2>
+    <h3>
+      약속 꼭 지켜주실 줄 믿어요
+    </h3>
+  </div>
+</section>
+
+<a class="btn-validation" href="javascript:void(0)">청원 작성 시작하기</a>
+{% endblock content %}
+
+
+{% block extrascripts %}
+<script>
+  $('.keyboard-input').focus(function () {
+    $(this).attr("placeholder", "나는 성숙한 대한민국");
+    $('.btn-validation').show();
+    $('.comment').show();
+    $('.bg').css("background-image", "url('/static/images/bg-red.png')")
+  });
+  $('.keyboard-input').blur(function () {
+    $(this).attr("placeholder", "");
+    $('.btn-validation').hide();
+    $('.comment').hide();
+    $('.bg').css("background-image", "url('/static/images/bg-blue.png')")
+  });
+  $('.keyboard-input').keyup(function () {
+    if ($('.keyboard-input').val() == '') {
+      $(this).attr("placeholder", "");
+      $('.btn-validation').hide();
+      $('.comment').hide();
+      $('.bg').css("background-image", "url('/static/images/bg-blue.png')")
+    }
+  });
+</script>
+{% endblock extrascripts %}

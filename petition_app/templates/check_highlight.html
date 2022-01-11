@@ -1,0 +1,81 @@
+{% extends "base.html" %}
+
+{% block content %}
+<header>
+  <div class="title">
+    <a href="javascript:void(0)" onclick="window.history.back()"><i class="fas fa-arrow-left"></i></a>
+  </div>
+  <div class="btn-group">
+  </div>
+</header>
+
+<!-- section.highlight-wrap -->
+<section class="highlight-wrap">
+  <div class="info">
+    <div class="img-hand">
+      <img src="/static/images/point.png" alt="">
+    </div>
+    <p>
+      손가락으로 아래 문장을
+      <br>한 줄 한 줄 그어보세요!
+    </p>
+  </div>
+  <div class="highlight-text" id="text">
+    <p ontouchmove="touchDrag(event)">숙의적 시민으로서 거짓없이 작성하겠습니다.</p>
+    <p ontouchmove="touchDrag(event)">감정만을 호소하거나 분풀이 하지 않겠습니다.</p>
+    <p ontouchmove="touchDrag(event)">원하는 바를 명확하게 제시하겠습니다.</p>
+    <p ontouchmove="touchDrag(event)">청원의 합리성을 위해 근거를 제시하겠습니다.</p>
+    <p ontouchmove="touchDrag(event)">저는 타인을 배려하는 태도로 임하겠습니다.</p>
+    <p id="demo"></p>
+  </div>
+
+  <input id="search">
+</section>
+
+<a class="btn-validation" href="/good">꼭 지키겠습니다</a>
+
+
+{% endblock content %}
+
+
+{% block extrascripts %}
+<script>
+  var graph = document.getElementsByClassName('graph-bar-percent');
+  var percent = document.getElementsByClassName('percent');
+
+  for (var i = 0; i < graph.length; i++) {
+    graph[i].style.width = percent[i].innerText;
+  }
+</script>
+
+<script>
+  function touchDrag(event) {
+    var x = event.touches[0].clientX;
+    var y = event.touches[0].clientY;
+    document.getElementById("demo").innerHTML = x + ", " + y;
+  }
+</script>
+<script>
+  function selectText() {
+    var selectionText = "";
+    if (document.getSelection) {
+      selectionText = document.getSelection();
+    } else if (document.selection) {
+      selectionText = document.selection.createRange().text;
+    }
+    return selectionText;
+  }
+  document.onmouseup = function () {
+    document.getElementById("result").innerHTML = selectText();
+    $("#text:contains('" + selectText() + "')").each(function () {
+      var regex = new RegExp(selectText(), 'gi');
+      $(this).html($(this).text().replace(regex, "<span class='highlight-color'>" + search + "</span>"));
+    });
+  }
+</script>
+{% endblock extrascripts %}
+
+<body class="background-white2 check-page">
+  
+</body>
+</html>

@@ -1,0 +1,106 @@
+{% extends "base.html" %}
+
+{% block content %}
+<header>
+  <div class="title">
+    <h3>모아보기</h3>
+  </div>
+  <div class="btn-group">
+    <a href=""><i class="fas fa-search"></i></a>
+    <a href=""><i class="far fa-bell"></i></a>
+  </div>
+</header>
+
+<section class="category">
+  <a class="btn-category active" href="javascript:void(0)">전체</a>
+  <a class="btn-category" href="javascript:void(0)">정치개혁</a>
+  <a class="btn-category" href="javascript:void(0)">인권/성평등</a>
+  <a class="btn-category" href="javascript:void(0)">환경</a>
+  <a class="btn-category" href="javascript:void(0)">외교/통일/국방</a>
+  <a class="btn-category" href="javascript:void(0)">교통/건축/국토</a>
+  <a class="btn-category" href="javascript:void(0)">안전</a>
+  <a class="btn-category" href="javascript:void(0)">보건복지</a>
+  <a class="btn-category more" href="javascript:void(0)">+ 더보기</a>
+
+  <a class="btn-category hide" href="javascript:void(0)">육아/교육</a>
+  <a class="btn-category hide" href="javascript:void(0)">일자리</a>
+  <a class="btn-category hide" href="javascript:void(0)">저출산/고령화</a>
+  <a class="btn-category hide" href="javascript:void(0)">행정</a>
+  <a class="btn-category hide" href="javascript:void(0)">반려동물</a>
+  <a class="btn-category hide" href="javascript:void(0)">농산어촌</a>
+  <a class="btn-category hide" href="javascript:void(0)">경제민주화</a>
+  <a class="btn-category hide" href="javascript:void(0)">미래</a>
+  <a class="btn-category hide" href="javascript:void(0)">문화/예술/체육/언론</a>
+  <a class="btn-category hide" href="javascript:void(0)">기타</a>
+</section>
+
+<div class="line-middle"></div>
+
+<!-- section.list -->
+<section class="list">
+  <div class="list-item">
+    <div class="list-img" style="background-image: url('/static/images/sample2.png');"></div>
+    <div class="list-info">
+      <h3 class="list-title">플라스틱 재활용 교육 법제화 청원합니다.</h3>
+      <p class="numberOfPeople">🖐 196,320명 동의</p>
+      <div class="graph-wrap">
+        <p class="percent">98%</p>
+        <div class="graph-bar">
+          <div class="graph-bar-percent"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="line"></div>
+
+  <div class="list-item">
+    <div class="list-img" style="background-image: url('/static/images/sample3.png');"></div>
+    <div class="list-info">
+      <h3 class="list-title">친환경을 위한 도약, EV 충전소 증축 정책 청원 합니다.</h3>
+      <p class="numberOfPeople">🖐 43,320명 동의</p>
+      <div class="graph-wrap">
+        <p class="percent">21%</p>
+        <div class="graph-bar">
+          <div class="graph-bar-percent"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="line"></div>
+
+  <div class="list-item">
+    <div class="list-img" style="background-image: url('/static/images/sample6.png');"></div>
+    <div class="list-info">
+      <h3 class="list-title">‘플라스틱 OTHER’ 제품‧포장재, 분리배출 표기 금지 정책 청원 합니다.</h3>
+      <p class="numberOfPeople">🖐 11,504명 동의</p>
+      <div class="graph-wrap">
+        <p class="percent">50%</p>
+        <div class="graph-bar">
+          <div class="graph-bar-percent"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+
+
+{% endblock content %}
+
+
+{% block extrascripts %}
+<script>
+  var graph = document.getElementsByClassName('graph-bar-percent');
+  var percent = document.getElementsByClassName('percent');
+
+  for (var i = 0; i < graph.length; i++) {
+    graph[i].style.width = percent[i].innerText;
+  }
+</script>
+{% endblock extrascripts %}
+
+</body>
+</html>

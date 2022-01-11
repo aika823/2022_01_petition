@@ -1,0 +1,19 @@
+from django.contrib import admin
+from django.conf import settings
+from django.conf.urls.static import static
+from django.urls import path, include
+from django.views.generic import TemplateView
+
+from . import views
+
+app_name = "petition_app"
+
+urlpatterns = [
+    path('', views.index),
+    path('main', views.main),
+    path('check', views.check),
+    path('check_highlight', views.check_highlight),
+    path('check_keyboard', views.check_keyboard),
+    path('good', views.good),
+    path('list', views.list),
+]
