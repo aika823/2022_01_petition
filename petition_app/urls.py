@@ -10,10 +10,12 @@ app_name = "petition_app"
 
 urlpatterns = [
     path('', views.index),
+    path('user/callback/<str:type>', views.callback),
     path('main', views.main),
     path('check', views.check),
     path('check_highlight', views.check_highlight),
     path('check_keyboard', views.check_keyboard),
     path('good', views.good),
     path('list', views.list),
+    path('test', views.test),
 ]

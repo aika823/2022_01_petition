@@ -1,11 +1,28 @@
-from django.shortcuts import render
-import requests
-import json
+from django.shortcuts import redirect, render
+from api.check_appropriate import check_appropriate
+from api.social import login_social, callback_social
 
 
 def test(request):
-    data = json.dumps({"text":"동해물과 백두산이 마르고 닳도록"})
-    result = json.loads(requests.post("http://143.248.41.54:8000/predict", data=data).text)
+    text = "동해물과 백두산이 마르고 닳도록 하느님이 보우하사 우리나라 만세"
+    # result = check_appropriate(text)
+
+    social = "kakao"
+    return redirect(login_social(social))
+    # print(social_login_result)
+
+    # return render(request, "test.html", {'result':social})
+
+
+def callback(request, type):
+    print(request.GET)
+    code = request.GET.get('code')
+
+    user_info = callback_social(request, type)
+    print(user_info)
+    
+    return render(request, "test.html", {'result':user_info})
+
 
 
 def index(request):
