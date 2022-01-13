@@ -18,4 +18,8 @@ urlpatterns = [
     path('good', views.good),
     path('list', views.list),
     path('test', views.test),
+    path('title_finish', views.title_finish),
+    path('write', views.write),
+    path('write_template', views.write_template),
+    path('write_template_click', views.write_template_click),
 ]

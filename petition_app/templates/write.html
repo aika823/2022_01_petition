@@ -1,0 +1,78 @@
+{% extends "base.html" %}
+
+{% block content %}
+<!-- <header class="title-page">
+  <div class="title">
+    <a href="javascript:void(0)" onclick="location.href='./check.html'"><i class="fas fa-times"></i></a>
+  </div>
+  <div class="header-title">
+    <h3>청원 작성</h3>
+  </div>
+</header> -->
+
+
+<!-- section.write -->
+<section class="write">
+  <form action="">
+    <div class="form-header">
+      <a href="javascript:void(0)" onclick="location.href='./check.html'"><i class="fas fa-times"></i></a>
+      <h3>청원 작성</h3>
+      <button class="btn-submit">완료</button>
+    </div>
+    <div class="form-row">
+      <input id="title" type="text" placeholder="제목">
+      <div class="line"></div>
+    </div>
+
+    <div class="edit-tools">
+      <a href="javascript:void(0)">
+        <span class="material-icons-outlined">title</span>          
+      </a>
+      <a href="javascript:void(0)">
+        <span class="material-icons-outlined">keyboard_voice</span>
+      </a>
+      <a class="blue" href="javascript:void(0)">
+        <span class="material-icons-outlined">add</span>
+      </a>
+    </div>
+  </form>
+
+  <div class="bottom-template">
+    <a href="javascript:void(0)">
+      <i class="bi bi-archive"></i>
+      <p>서랍</p>
+    </a>
+    <a href="javascript:void(0)">
+      <i class="bi bi-book"></i>
+      <p>청원 글감</p>
+    </a>
+    <a href="javascript:void(0)" onclick="location.href='/write_template'">
+      <i class="bi bi-newspaper"></i>
+      <p>템플릿</p>
+    </a>
+    <a href="javascript:void(0)">
+      <i class="bi bi-link-45deg"></i>
+      <p>링크</p>
+    </a>
+  </div>
+</section>
+{% endblock content %}
+
+
+{% block extrascripts %}
+<script>
+  $('#title').click(function () {
+    $('.line').animate({
+      "width": "100%"
+    }, 400)
+  });
+</script>
+{% endblock extrascripts %}
+
+
+<body class="background-white2 check-page">
+
+  
+
+</body>
+</html>

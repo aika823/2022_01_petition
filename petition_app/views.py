@@ -1,3 +1,6 @@
+from django.shortcuts import render
+import requests
+import json
 from django.shortcuts import redirect, render
 from api.check_appropriate import check_appropriate
 from api.social import login_social, callback_social
@@ -22,8 +25,6 @@ def callback(request, type):
     print(user_info)
     
     return render(request, "test.html", {'result':user_info})
-
-
 
 def index(request):
     context={
@@ -85,8 +86,33 @@ def list(request):
 
 def title_finish(request):
     context={
-        'body_class':'background-white2',
+        'body_class':'background-white2 check-page',
         'active':{'list':"active"},
-        'bottom_nav':True
+        'bottom_nav':False
     }
     return render(request, "title_finish.html", context=context)
+
+
+def write(request):
+    context={
+        'body_class':'background-white2 check-page',
+        'active':{'list':"active"},
+        'bottom_nav':False
+    }
+    return render(request, "write.html", context=context)
+    
+def write_template(request):
+    context={
+        'body_class':'height-auto',
+        'active':{'list':"active"},
+        'bottom_nav':False
+    }
+    return render(request, "write_template.html", context=context)
+
+def write_template_click(request):
+    context={
+        'body_class':'height-auto',
+        'active':{'list':"active"},
+        'bottom_nav':False
+    }
+    return render(request, "write_template_click.html", context=context)
