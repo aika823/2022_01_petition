@@ -1,26 +1,27 @@
 {% extends "base.html" %}
 
 {% block content %}
-<!-- <header class="title-page">
-  <div class="title">
-    <a href="javascript:void(0)" onclick="location.href='./check.html'"><i class="fas fa-times"></i></a>
-  </div>
-  <div class="header-title">
-    <h3>청원 작성</h3>
-  </div>
-</header> -->
-
 
 <!-- section.write -->
 <section class="write">
-  <form action="">
+  <form id="formPetition" action="" method="post">
+  {% csrf_token %}
     <div class="form-header">
       <a href="javascript:void(0)" onclick="location.href='./check.html'"><i class="fas fa-times"></i></a>
       <h3>청원 작성</h3>
-      <button class="btn-submit">완료</button>
+      <button type="submit" class="btn-submit" form="formPetition">완료</button>
+    </div>
+    
+    <div class="form-row">
+      <input id="title" type="text" name="title" placeholder="제목" required>
+      <div class="line"></div>
     </div>
     <div class="form-row">
-      <input id="title" type="text" placeholder="제목">
+      <input id="department" type="text" name="department" placeholder="수신인" required>
+      <div class="line"></div>
+    </div>
+    <div class="form-row">
+      <input id="category" type="text" name="category" placeholder="카테고리" required>
       <div class="line"></div>
     </div>
 

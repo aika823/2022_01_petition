@@ -99,15 +99,45 @@ def write(request):
         'active':{'list':"active"},
         'bottom_nav':False
     }
-    return render(request, "write.html", context=context)
+    if request.method=="POST":
+        title = request.POST.get('title')
+        category = request.POST.get('category')
+        department = request.POST.get('department')
+        return redirect('/write_template?title={}&category={}&department={}'.format(title, category, department))
+    else:
+        return render(request, "write.html", context=context)
+
+    
+    
     
 def write_template(request):
+    title = request.GET.get('title')
+    category = request.GET.get('category')
+    department = request.GET.get('department')
     context={
         'body_class':'height-auto',
         'active':{'list':"active"},
-        'bottom_nav':False
+        'bottom_nav':False,
+        'title': title,
+        'category': category,
+        'department':department
     }
+    if request.method == "POST":
+        context['success'] = True
+        print(request.POST)
+
     return render(request, "write_template.html", context=context)
+
+
+def success(request):
+    if request.method == "POST":
+        print(request.POST)
+        request.POST.get('')
+
+
+
+    
+
 
 def write_template_click(request):
     context={

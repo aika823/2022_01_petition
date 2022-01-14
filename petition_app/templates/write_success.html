@@ -12,15 +12,12 @@
 
 <!-- section.write -->
 <section class="write template">
-  <form id="formPetition" action="/success" method="post">
+  <form id="formPetition" action="" method="post">
 
     {% csrf_token %}
     <input type="hidden" name="title" value="{{title}}">
     <input type="hidden" name="category" value="{{category}}">
     <input type="hidden" name="department" value="{{department}}">
-    <input type="file" name="thumbnail" id="imageInput" style="display: none" />
-    <input type="file" name="images" id="imagesInput" style="display: none" multiple />
-
 
     <div class="form-header">
       <a href="javascript:void(0)" onclick="location.href='./check.html'"><i class="fas fa-times"></i></a>
@@ -28,11 +25,8 @@
       <button type="submit" class="btn-submit" form="formPetition">완료</button>
     </div>
 
-    <div id="thumbnailImage2" style="backgroud-image:">
-    </div>
-
-    <div id="thumbnailImage" class="form-row form-row--image">
-      <a class="btn-img" href="javascript:void(0)" onclick="open_image_input()">
+    <div class="form-row form-row--image">
+      <a class="btn-img" href="javascript:void(0)">
         <i class="fas fa-plus"></i>
         <p>대표 이미지 추가</p>
       </a>
@@ -82,11 +76,10 @@
     <div class="template-form-item">
       <h3>이해를 돕기 위한 사진 첨부</h3>
       <p>청원글에 사진이 있으면 더 많은 사람들이 확인해요.</p>
-
-      <div id="preview" class="image-wrap">
+      <div class="image-wrap">
         <div class="uploaded-img" style="background-image: url('/static/images/sample1.png');"></div>
         <div class="uploaded-img" style="background-image: url('/static/images/sample3.png');"></div>
-        <a class="add-img" onclick="open_images_input()">
+        <a href="javascript:void(0)" class="add-img">
           <div class="inner">
             <p><i class="fas fa-plus"></i></p>
             <p><span class="img-count">0</span> / 10</p>
@@ -109,7 +102,7 @@
 
     <div class="edit-tools">
       <a href="javascript:void(0)">
-        <span class="material-icons-outlined">title</span>
+        <span class="material-icons-outlined">title</span>          
       </a>
       <a href="javascript:void(0)">
         <span class="material-icons-outlined">keyboard_voice</span>
@@ -134,83 +127,17 @@
 </script>
 
 <script>
-  $('.btn-template').click(function () {
+  $('.btn-template').click(function(){
     $('.btn-template').removeClass('active');
     $(this).addClass('active');
   });
 </script>
-
-
-<script type="text/javascript">
-  function open_image_input() {
-    document.getElementById("imageInput").click();
-  }
-
-  function open_images_input() {
-    $('#imagesInput').click();
-  }
-
-  $('#imageInput').change(function () {
-    var file = this.files[0];
-    var reader = new FileReader();
-    reader.onloadend = function () {
-      $('#thumbnailImage').css('background-image', 'url("' + reader.result + '")');
-    }
-    if (file) {
-      reader.readAsDataURL(file);
-    } else {}
-  });
-
-
-  $('#imagesInput').change(function () {
-    var $preview = $('#preview').empty();
-    if (this.files) $.each(this.files, readAndPreview);
-
-    function readAndPreview(i, file) {
-      var tmp_images = []
-      if (!/\.(jpe?g|png|gif)$/i.test(file.name)) {
-        return alert(file.name + " 파일은 이미지 형식이 아닙니다.");
-      }
-      var reader = new FileReader();
-      $(reader).on("load", function () {
-        
-        $preview.append(
-          $(
-            "<div />", {
-              class: "uploaded-img",
-              style: "background-image: url('" + this.result + "' )",
-            }
-          )
-        );
-      });
-      reader.readAsDataURL(file);
-    }
-
-
-
-  });
-
-  $('.open-input').click(function () {
-    $('.username-form').toggleClass('active');
-    $('.profile-tag-form').toggleClass('active');
-  });
-
-  function deleteTag(element, user_interest_id) {
-    console.log(user_interest_id)
-
-    $.ajax({
-      type: 'get',
-      url: '/user/delete',
-      data: {
-        'user_interest_id': user_interest_id
-      },
-      dataType: 'json',
-      success: function (result) {
-        console.log("성공")
-      }
-    });
-    element.parentNode.style.display = "none";
-    console.log('태그 삭제');
-  }
-</script>
 {% endblock extrascripts %}
+
+
+<body class="background-white2 check-page">
+
+  
+
+</body>
+</html>

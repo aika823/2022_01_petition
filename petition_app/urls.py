@@ -22,4 +22,5 @@ urlpatterns = [
     path('write', views.write),
     path('write_template', views.write_template),
     path('write_template_click', views.write_template_click),
+    path('success', views.success)
 ]
