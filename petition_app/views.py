@@ -146,3 +146,21 @@ def write_template_click(request):
         'bottom_nav':False
     }
     return render(request, "write_template_click.html", context=context)
+
+
+def inspection(request):
+    context={
+        'body_class':'height-auto',
+        'active':{'list':"active"},
+        'bottom_nav':False
+    }
+    return render(request, "inspection.html", context=context)
+
+
+def detail(request):
+    context={
+        'body_class':'height-auto',
+        'active':{'list':"active"},
+        'bottom_nav':False
+    }
+    return render(request, "detail.html", context=context)
