@@ -4,6 +4,7 @@ import json
 from django.shortcuts import redirect, render
 from api.check_appropriate import check_appropriate
 from api.social import login_social, callback_social
+from .models import Petition, User
 
 
 def test(request):
@@ -12,17 +13,14 @@ def test(request):
 
     social = "kakao"
     return redirect(login_social(social))
-    # print(social_login_result)
 
     # return render(request, "test.html", {'result':social})
 
 
 def callback(request, type):
-    print(request.GET)
     code = request.GET.get('code')
 
     user_info = callback_social(request, type)
-    print(user_info)
     
     return render(request, "test.html", {'result':user_info})
 
@@ -76,10 +74,14 @@ def good(request):
 
 
 def list(request):
+    petition_list = Petition.objects.all()
+    for petition in petition_list:
+        petition.percentage = (petition.agreements/200000) * 100
     context={
         'body_class':'background-white2',
         'active':{'list':"active"},
-        'bottom_nav':True
+        'bottom_nav':True,
+        'petition_list':petition_list
     }
     return render(request, "list.html", context=context)
 
@@ -122,17 +124,72 @@ def write_template(request):
         'category': category,
         'department':department
     }
+    
     if request.method == "POST":
-        context['success'] = True
-        print(request.POST)
+        user_id = 1
+        user = User.objects.get(id=user_id)
+
+        petition = Petition()
+
+        petition.user = user
+
+        petition.title = request.POST.get('title')
+        petition.category = request.POST.get('category')
+        petition.department = request.POST.get('department')
+        petition.thumbnail = request.FILES.get('thumbnail')
+
+        petition.content_1 = request.POST.get('content_1')
+        petition.content_2 = request.POST.get('content_2')
+        petition.content_3 = request.POST.get('content_3')
+        petition.content_4 = request.POST.get('content_4')
+        petition.content_5 = request.POST.get('content_5')
+        petition.content_6 = request.POST.get('content_6')
+        petition.content_7 = request.POST.get('content_7')
+
+        petition.keyword_1 = request.POST.get('keyword_1')
+        petition.keyword_2 = request.POST.get('keyword_2')
+        petition.keyword_3 = request.POST.get('keyword_3')
+
+        petition.save()
+
 
     return render(request, "write_template.html", context=context)
 
 
 def success(request):
     if request.method == "POST":
-        print(request.POST)
-        request.POST.get('')
+        user_id = 1
+        user = User.objects.get(id=user_id)
+
+        petition = Petition()
+
+        petition.user = user
+
+        petition.title = request.POST.get('title')
+        petition.category = request.POST.get('category')
+        petition.department = request.POST.get('department')
+        petition.thumbnail = request.FILES.get('thumbnail')
+
+        petition.content_1 = request.POST.get('content_1')
+        petition.content_2 = request.POST.get('content_2')
+        petition.content_3 = request.POST.get('content_3')
+        petition.content_4 = request.POST.get('content_4')
+        petition.content_5 = request.POST.get('content_5')
+        petition.content_6 = request.POST.get('content_6')
+        petition.content_7 = request.POST.get('content_7')
+
+        petition.keyword_1 = request.POST.get('keyword_1')
+        petition.keyword_2 = request.POST.get('keyword_2')
+        petition.keyword_3 = request.POST.get('keyword_3')
+
+        petition.save()
+        
+        
+        context = {
+            'petition': petition
+        }
+        
+        return render(request, "success.html", context=context)
 
 
 

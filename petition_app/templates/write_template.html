@@ -12,7 +12,7 @@
 
 <!-- section.write -->
 <section class="write template">
-  <form id="formPetition" action="/success" method="post">
+  <form id="formPetition" action="/success" method="post" enctype="multipart/form-data">
 
     {% csrf_token %}
     <input type="hidden" name="title" value="{{title}}">

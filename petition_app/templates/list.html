@@ -1,5 +1,7 @@
 {% extends "base.html" %}
 
+{% load humanize %}
+
 {% block content %}
 <header>
   <div class="title">
@@ -38,55 +40,25 @@
 
 <!-- section.list -->
 <section class="list">
+
+  {% for petition in petition_list %}
   <div class="list-item">
     <div class="list-img" style="background-image: url('/static/images/sample2.png');"></div>
     <div class="list-info">
-      <h3 class="list-title">플라스틱 재활용 교육 법제화 청원합니다.</h3>
-      <p class="numberOfPeople">🖐 196,320명 동의</p>
+      <h3 class="list-title">{{petition.title}}</h3>
+      <p class="numberOfPeople">🖐 {{petition.agreements | intcomma}}명 동의</p>
       <div class="graph-wrap">
-        <p class="percent">98%</p>
+        <p class="percent">{{petition.percentage}}%</p>
         <div class="graph-bar">
           <div class="graph-bar-percent"></div>
         </div>
       </div>
     </div>
   </div>
-
   <div class="line"></div>
+  {% endfor %}
 
-  <div class="list-item">
-    <div class="list-img" style="background-image: url('/static/images/sample3.png');"></div>
-    <div class="list-info">
-      <h3 class="list-title">친환경을 위한 도약, EV 충전소 증축 정책 청원 합니다.</h3>
-      <p class="numberOfPeople">🖐 43,320명 동의</p>
-      <div class="graph-wrap">
-        <p class="percent">21%</p>
-        <div class="graph-bar">
-          <div class="graph-bar-percent"></div>
-        </div>
-      </div>
-    </div>
-  </div>
-
-  <div class="line"></div>
-
-  <div class="list-item">
-    <div class="list-img" style="background-image: url('/static/images/sample6.png');"></div>
-    <div class="list-info">
-      <h3 class="list-title">‘플라스틱 OTHER’ 제품‧포장재, 분리배출 표기 금지 정책 청원 합니다.</h3>
-      <p class="numberOfPeople">🖐 11,504명 동의</p>
-      <div class="graph-wrap">
-        <p class="percent">50%</p>
-        <div class="graph-bar">
-          <div class="graph-bar-percent"></div>
-        </div>
-      </div>
-    </div>
-  </div>
 </section>
-
-
-
 
 {% endblock content %}
 
@@ -103,4 +75,5 @@
 {% endblock extrascripts %}
 
 </body>
+
 </html>

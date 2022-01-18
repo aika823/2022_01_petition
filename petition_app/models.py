@@ -3,19 +3,19 @@ from django.db.models.deletion import CASCADE
 
 
 class User(models.Model):
-    email = models.EmailField(max_length=300)
+    email = models.EmailField(max_length=300, db_column="email")
     name = models.CharField(max_length=20, db_column="name", null=False, default="")
-    password = models.CharField(max_length=300, default=None, null=True)
-    social_login = models.CharField(max_length=32, default='', null=True)
-    social_id = models.CharField(max_length=300, default=None, null=True)
-    registered_at = models.DateTimeField(auto_now_add=True)
+    password = models.CharField(max_length=300, db_column="password",default=None, null=True)
+    social_login = models.CharField(max_length=32, db_column="social_login",default='', null=True)
+    social_id = models.CharField(max_length=300, db_column="social_id",default=None, null=True)
+    registered_at = models.DateTimeField(db_column="registered_at",auto_now_add=True)
 
     class Meta:
         db_table = "user"
 
 
 class Petition(models.Model):
-    user = models.ForeignKey(to=User, on_delete=CASCADE)
+    user = models.ForeignKey(to=User, db_column="user", on_delete=CASCADE)
     title = models.CharField(max_length=100, db_column="title", null=False, default="")
     category = models.CharField(max_length=100, db_column="category", null=False, default="")
     department = models.CharField(max_length=100, db_column="department", null=False, default="")
@@ -40,7 +40,7 @@ class Petition(models.Model):
     keyword_3 = models.CharField(max_length=10, db_column="keyword_3", null=True, default=None)
 
     agreements = models.IntegerField(db_column="agreements", null=False, default=0)
-    thumbnail = models.ImageField(upload_to=("media/images"),default='default_image.png')
+    thumbnail = models.ImageField(upload_to=("images/"),default='default_image.png')
 
     class Meta:
         db_table = "petition"
@@ -48,7 +48,7 @@ class Petition(models.Model):
 
 class PetitionImage(models.Model):
     petition = models.ForeignKey(to=Petition, on_delete=CASCADE)
-    image = models.ImageField(upload_to=("media/images"))
+    image = models.ImageField(upload_to=("images/"))
 
     class Meta:
         db_table = "petition_image"
