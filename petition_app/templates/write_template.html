@@ -25,10 +25,11 @@
     <div class="form-header">
       <a href="javascript:void(0)" onclick="location.href='./check.html'"><i class="fas fa-times"></i></a>
       <h3>청원 작성</h3>
-      <button type="submit" class="btn-submit" form="formPetition">완료</button>
+      <!-- <button type="submit" class="btn-submit" form="formPetition">완료</button> -->
+      <button type="button" class="btn-submit">완료</button>
     </div>
 
-    <div id="thumbnailImage2" style="backgroud-image:">
+    <div id="thumbnailImage2" style="backgroud-image:url();">
     </div>
 
     <div id="thumbnailImage" class="form-row form-row--image">
@@ -84,8 +85,8 @@
       <p>청원글에 사진이 있으면 더 많은 사람들이 확인해요.</p>
 
       <div id="preview" class="image-wrap">
-        <div class="uploaded-img" style="background-image: url('/static/images/sample1.png');"></div>
-        <div class="uploaded-img" style="background-image: url('/static/images/sample3.png');"></div>
+        <!-- <div class="uploaded-img" style="background-image: url('/static/images/sample1.png');"></div>
+        <div class="uploaded-img" style="background-image: url('/static/images/sample3.png');"></div> -->
         <a class="add-img" onclick="open_images_input()">
           <div class="inner">
             <p><i class="fas fa-plus"></i></p>
@@ -120,6 +121,22 @@
     </div>
   </form>
 
+</section>
+
+<section class="modal_wrap">
+  <article class="modal_cnt">
+    <div class="modal_body">
+      <h4>
+        부적절 표현 감지
+        <br>AI 분석 중...
+      </h4>
+      <div class="img-wrap">
+        <img src="/static/images/loading.png" alt="">
+      </div>
+    </div>
+    <a href="javascript:void(0)" class="close_btn">닫기</a>
+  </article>
+  <div class="modal_dim"></div>
 </section>
 {% endblock content %}
 
@@ -163,18 +180,26 @@
 
 
   $('#imagesInput').change(function () {
-    var $preview = $('#preview').empty();
-    if (this.files) $.each(this.files, readAndPreview);
+    var $preview = $('#preview');
+    $img_count = $('.img-count');
+
+    if($img_count.text() == "10") {
+        alert("사진은 10장까지 등록할 수 있습니다.");
+    } else {
+      if (this.files) $.each(this.files, readAndPreview);
+      $img_count.text(String($('.uploaded-img').length + 1))
+    }
 
     function readAndPreview(i, file) {
       var tmp_images = []
       if (!/\.(jpe?g|png|gif)$/i.test(file.name)) {
         return alert(file.name + " 파일은 이미지 형식이 아닙니다.");
       }
+
       var reader = new FileReader();
       $(reader).on("load", function () {
         
-        $preview.append(
+        $preview.prepend(
           $(
             "<div />", {
               class: "uploaded-img",
@@ -212,5 +237,37 @@
     element.parentNode.style.display = "none";
     console.log('태그 삭제');
   }
+</script>
+
+<script>
+  $body = $('body');
+    $modalWrap = $('.modal_wrap');
+
+    $('.btn-submit').on('click', function () {
+      $body.addClass('modal_in');
+      $modalWrap.fadeIn(300);
+      $body.css('padding-right', getScrollWidth());
+    });
+
+    $('.close_btn, .modal_dim').on('click', function () {
+      var speed = 300;
+      $modalWrap.fadeOut(speed);
+      setTimeout(function () {
+        $body.removeClass('modal_in');
+        $body.css('padding-right', 0)
+      }, speed)
+    });
+
+    function getScrollWidth() {
+      var body = document.querySelector('body');
+      var scrollDiv = document.createElement('div');
+      scrollDiv.className = 'fake_sjwidth';
+      body.appendChild(scrollDiv);
+      var scrollbarWidth = $(document).height() > $(window).height() ? scrollDiv.offsetWidth - scrollDiv.clientWidth :
+      0;
+
+      body.removeChild(scrollDiv);
+      return scrollbarWidth;
+    }
 </script>
 {% endblock extrascripts %}
