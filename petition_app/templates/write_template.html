@@ -25,7 +25,7 @@
     <div class="form-header">
       <a href="javascript:void(0)" onclick="location.href='./check.html'"><i class="fas fa-times"></i></a>
       <h3>청원 작성</h3>
-      <!-- <button type="submit" class="btn-submit" form="formPetition">완료</button> -->
+      {# <button type="submit" class="btn-submit" form="formPetition">완료</button> #}
       <button type="button" class="btn-submit">완료</button>
     </div>
 
@@ -183,8 +183,8 @@
     var $preview = $('#preview');
     $img_count = $('.img-count');
 
-    if($img_count.text() == "10") {
-        alert("사진은 10장까지 등록할 수 있습니다.");
+    if ($img_count.text() == "10") {
+      alert("사진은 10장까지 등록할 수 있습니다.");
     } else {
       if (this.files) $.each(this.files, readAndPreview);
       $img_count.text(String($('.uploaded-img').length + 1))
@@ -198,7 +198,7 @@
 
       var reader = new FileReader();
       $(reader).on("load", function () {
-        
+
         $preview.prepend(
           $(
             "<div />", {
@@ -220,54 +220,59 @@
     $('.profile-tag-form').toggleClass('active');
   });
 
-  function deleteTag(element, user_interest_id) {
-    console.log(user_interest_id)
 
-    $.ajax({
-      type: 'get',
-      url: '/user/delete',
-      data: {
-        'user_interest_id': user_interest_id
-      },
-      dataType: 'json',
-      success: function (result) {
-        console.log("성공")
-      }
-    });
-    element.parentNode.style.display = "none";
-    console.log('태그 삭제');
-  }
 </script>
 
 <script>
   $body = $('body');
-    $modalWrap = $('.modal_wrap');
+  $modalWrap = $('.modal_wrap');
 
-    $('.btn-submit').on('click', function () {
-      $body.addClass('modal_in');
-      $modalWrap.fadeIn(300);
-      $body.css('padding-right', getScrollWidth());
-    });
+  $('.btn-submit').on('click', function () {
+    $body.addClass('modal_in');
+    $modalWrap.fadeIn(300);
+    $body.css('padding-right', getScrollWidth());
+    formSubmit();
+  });
 
-    $('.close_btn, .modal_dim').on('click', function () {
-      var speed = 300;
-      $modalWrap.fadeOut(speed);
-      setTimeout(function () {
-        $body.removeClass('modal_in');
-        $body.css('padding-right', 0)
-      }, speed)
-    });
+  $('.close_btn, .modal_dim').on('click', function () {
+    var speed = 300;
+    $modalWrap.fadeOut(speed);
+    setTimeout(function () {
+      $body.removeClass('modal_in');
+      $body.css('padding-right', 0)
+    }, speed)
+  });
 
-    function getScrollWidth() {
-      var body = document.querySelector('body');
-      var scrollDiv = document.createElement('div');
-      scrollDiv.className = 'fake_sjwidth';
-      body.appendChild(scrollDiv);
-      var scrollbarWidth = $(document).height() > $(window).height() ? scrollDiv.offsetWidth - scrollDiv.clientWidth :
+  function getScrollWidth() {
+    var body = document.querySelector('body');
+    var scrollDiv = document.createElement('div');
+    scrollDiv.className = 'fake_sjwidth';
+    body.appendChild(scrollDiv);
+    var scrollbarWidth = $(document).height() > $(window).height() ? scrollDiv.offsetWidth - scrollDiv.clientWidth :
       0;
 
-      body.removeChild(scrollDiv);
-      return scrollbarWidth;
-    }
+    body.removeChild(scrollDiv);
+    return scrollbarWidth;
+  }
+
+  function formSubmit() {
+    console.log("function formSubmit()");
+    var params = $("#formPetition").serialize();
+    console.log(params);
+    $.ajax({
+      url: '/api/check_validation',
+      type: 'POST',
+      data: params,
+      contentType: 'application/x-www-form-urlencoded; charset=UTF-8',
+      dataType: 'html',
+      success: function (data) {
+        data = JSON.parse(data)
+        console.log(data);
+        console.log(data.content_1.prediction);
+        console.log(data.content_2.prediction);
+        console.log(data.content_7.prediction);
+      }
+    });
+  }
 </script>
 {% endblock extrascripts %}

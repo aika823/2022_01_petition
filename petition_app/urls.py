@@ -10,6 +10,8 @@ app_name = "petition_app"
 
 urlpatterns = [
     path('', views.index),
+
+    path('user/login/<str:type>', views.login),
     path('user/callback/<str:type>', views.callback),
     path('main', views.main),
     path('check', views.check),
@@ -19,10 +21,11 @@ urlpatterns = [
     path('list', views.list),
     path('test', views.test),
     path('title_finish', views.title_finish),
+    
     path('write', views.write),
     path('write_template', views.write_template),
     path('write_template_click', views.write_template_click),
     path('inspection', views.inspection),
-    path('detail', views.detail),
+    path('detail/<int:id>', views.detail),
     path('success', views.success)
 ]

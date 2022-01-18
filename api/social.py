@@ -18,8 +18,10 @@ def login_social(type):
     }
     client_id = {
         'naver' : 'WO73y3DTPypJ9B7qq56N',
-        'kakao' : 'afa386bd37692148a6c914da561c8458',
-        'google': '1094555666329-b76moi8dkckmoe3vc9kb2qhf60r8t563.apps.googleusercontent.com'
+        # 'kakao' : 'afa386bd37692148a6c914da561c8458',
+        'kakao' : 'e17284c15b6929d2ee920faa9eb7f013',
+        # 'google': '1094555666329-b76moi8dkckmoe3vc9kb2qhf60r8t563.apps.googleusercontent.com',
+        'google': '733646076839-0hisc4n82c5o2hhlkhdlqo0s4b1nhbh1.apps.googleusercontent.com',
     }
     redirect_uri = {
         'naver' : url+'/user/callback/naver',
@@ -54,12 +56,15 @@ def callback_social(request, type):
         'kakao' : 'https://kauth.kakao.com/oauth/token'  
     }
     client_id={
-        'google': '1094555666329-b76moi8dkckmoe3vc9kb2qhf60r8t563.apps.googleusercontent.com',
+        # 'google': '1094555666329-b76moi8dkckmoe3vc9kb2qhf60r8t563.apps.googleusercontent.com',
+        'google': '733646076839-0hisc4n82c5o2hhlkhdlqo0s4b1nhbh1.apps.googleusercontent.com',
         'naver' : "WO73y3DTPypJ9B7qq56N",
-        'kakao' : '8697dec0f53599c5d7f2502389d16f72'
+        # 'kakao' : '8697dec0f53599c5d7f2502389d16f72',
+        'kakao' : 'e17284c15b6929d2ee920faa9eb7f013',
     }
     client_secret={
-        'google': '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',
+        # 'google': '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',
+        'google': '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',
         'naver' : "SOUKrwtgel",
     }
     scope={
@@ -93,6 +98,7 @@ def callback_social(request, type):
     if type in state:
         data['state'] = state[type] 
     response = requests.request("POST", url_auth[type], data=data,headers=headers).json()
+    print(response)
     
     # 액세스 토큰 발급
     access_token = response['access_token'] 
@@ -101,7 +107,8 @@ def callback_social(request, type):
     if type == 'google':
         url_user_info = "https://www.googleapis.com/oauth2/v3/userinfo"
         user_response = requests.request("POST", url_user_info, params={'access_token': access_token }).json()
-        username = user_response['email']
+        print(user_response)
+        username = user_response['name']
         email = user_response['email']
         social_id = user_response['sub']
 
@@ -117,6 +124,9 @@ def callback_social(request, type):
         url_user_info = "https://kapi.kakao.com/v2/user/me"
         header = {'Authorization':"Bearer " + access_token}
         user_response = requests.request("POST", url_user_info, headers=header, verify=False).json()
+
+        print(user_response)
+
         username = user_response['kakao_account']['profile']['nickname'] #카카오
         email = user_response['kakao_account']['email']
         social_id = user_response['id']

@@ -4,25 +4,39 @@ import json
 from django.shortcuts import redirect, render
 from api.check_appropriate import check_appropriate
 from api.social import login_social, callback_social
-from .models import Petition, User
+from .models import Petition, User, PetitionImage
 
 
 def test(request):
     text = "동해물과 백두산이 마르고 닳도록 하느님이 보우하사 우리나라 만세"
     # result = check_appropriate(text)
 
-    social = "kakao"
+    social = "google"
     return redirect(login_social(social))
 
-    # return render(request, "test.html", {'result':social})
+
+def login(request, type):
+    return redirect(login_social(type))
 
 
 def callback(request, type):
-    code = request.GET.get('code')
-
     user_info = callback_social(request, type)
-    
-    return render(request, "test.html", {'result':user_info})
+
+    if user_info:
+        try:
+            user = User.objects.get(social_id = user_info['social_id'])
+            request.session['user'] = user.id
+            return redirect('/main')
+        except:
+            user = User()
+            user.social_login = type
+            user.name = user_info['username']
+            user.email = user_info['email']
+            user.social_id = user_info['social_id']
+            user.save()
+            request.session['user'] = user.id
+            return redirect('/main')
+
 
 def index(request):
     context={
@@ -33,10 +47,12 @@ def index(request):
 
 
 def main(request):
+    user = User.objects.get(id=request.session.get('user'))
     context={
         'body_class':'background_white',
         'active':{'main':"active"},
-        'bottom_nav':True
+        'bottom_nav':True,
+        'user':user
     }
     return render(request, "main.html", context=context)
 
@@ -109,9 +125,7 @@ def write(request):
     else:
         return render(request, "write.html", context=context)
 
-    
-    
-    
+
 def write_template(request):
     title = request.GET.get('title')
     category = request.GET.get('category')
@@ -126,8 +140,8 @@ def write_template(request):
     }
     
     if request.method == "POST":
-        user_id = 1
-        user = User.objects.get(id=user_id)
+        
+        user = User.objects.get(id=request.session.get('user'))
 
         petition = Petition()
 
@@ -152,6 +166,12 @@ def write_template(request):
 
         petition.save()
 
+        images = request.FILES.getlist('images')
+        for image in images:
+            print(image)
+            petition_image = PetitionImage()
+            petition_image.petition = petition
+            petition_image.image = image
 
     return render(request, "write_template.html", context=context)
 
@@ -192,10 +212,6 @@ def success(request):
         return render(request, "success.html", context=context)
 
 
-
-    
-
-
 def write_template_click(request):
     context={
         'body_class':'height-auto',
@@ -214,8 +230,14 @@ def inspection(request):
     return render(request, "inspection.html", context=context)
 
 
-def detail(request):
+def detail(request, id):
+    try:
+        petition = Petition.objects.get(id=id)
+    except:
+        petition = None
+        
     context={
+        'petition':petition,
         'body_class':'height-auto',
         'active':{'list':"active"},
         'bottom_nav':False

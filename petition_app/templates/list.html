@@ -43,7 +43,7 @@
 
   {% for petition in petition_list %}
   <div class="list-item">
-    <div class="list-img" style="background-image: url('/static/images/sample2.png');"></div>
+    <div class="list-img" style="background-image: url('/media/{{petition.thumbnail}}');"></div>
     <div class="list-info">
       <h3 class="list-title">{{petition.title}}</h3>
       <p class="numberOfPeople">🖐 {{petition.agreements | intcomma}}명 동의</p>
