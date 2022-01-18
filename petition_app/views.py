@@ -7,14 +7,6 @@ from api.social import login_social, callback_social
 from .models import Petition, User, PetitionImage
 
 
-def test(request):
-    text = "동해물과 백두산이 마르고 닳도록 하느님이 보우하사 우리나라 만세"
-    # result = check_appropriate(text)
-
-    social = "google"
-    return redirect(login_social(social))
-
-
 def login(request, type):
     return redirect(login_social(type))
 
@@ -39,11 +31,16 @@ def callback(request, type):
 
 
 def index(request):
-    context={
-        'body_class':'splash',
-        'bottom_nav':True
-    }
-    return render(request, "index.html", context=context)
+    try:
+        user = User.objects.get(id=request.session.get('user'))
+        if user:
+            return redirect('/main')
+    except:
+        context={
+            'body_class':'splash',
+            'bottom_nav':True
+        }
+        return render(request, "index.html", context=context)
 
 
 def main(request):
