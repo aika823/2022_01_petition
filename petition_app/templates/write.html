@@ -16,14 +16,14 @@
       <input id="title" type="text" name="title" placeholder="제목" required>
       <div class="line"></div>
     </div>
-    <div class="form-row">
+    <!-- <div class="form-row">
       <input id="department" type="text" name="department" placeholder="수신인" required>
       <div class="line"></div>
     </div>
     <div class="form-row">
       <input id="category" type="text" name="category" placeholder="카테고리" required>
       <div class="line"></div>
-    </div>
+    </div> -->
 
     <div class="edit-tools">
       <a href="javascript:void(0)">
@@ -47,7 +47,7 @@
       <i class="bi bi-book"></i>
       <p>청원 글감</p>
     </a>
-    <a href="javascript:void(0)" onclick="location.href='/write_template'">
+    <a href="javascript:void(0)" class="open_modal">
       <i class="bi bi-newspaper"></i>
       <p>템플릿</p>
     </a>
@@ -56,6 +56,33 @@
       <p>링크</p>
     </a>
   </div>
+</section>
+
+<section class="modal_wrap choose-template">
+  <article class="modal_cnt">
+    <div class="modal_body">
+      <h2>
+        청원글 작성 시 사용할
+        <br>템플릿을 선택해주세요.
+      </h2>
+      <p>설정은 언제든지 바꾸실 수 있어요.</p>
+      <div class="template-box">
+        <div class="type type--simple">
+          <input type="radio" name="template" checked>
+          <img src="/static/images/simple.png" alt="">
+          <p>간편 응답형 청원 템플릿</p>
+        </div>
+        <div class="type type--check">
+          <input type="radio" name="template">
+          <img src="/static/images/check.png" alt="">
+          <p>자가체크형 템플릿</p>
+        </div>
+      </div>
+      <a href="javascript:void(0)" class="btn-choise">선택 완료</a>
+    </div>
+    <a href="javascript:void(0)" class="close_btn">닫기</a>
+  </article>
+  <div class="modal_dim"></div>
 </section>
 {% endblock content %}
 
@@ -66,6 +93,68 @@
     $('.line').animate({
       "width": "100%"
     }, 400)
+  });
+</script>
+
+<!-- js -->
+<script src="./assets/js/init.js"></script>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+
+<script>
+  $body = $('body');
+  $modalWrap = $('.modal_wrap');
+
+  $('.open_modal').on('click', function () {
+    $body.addClass('modal_in');
+    $modalWrap.fadeIn(300);
+    $body.css('padding-right', getScrollWidth());
+  });
+
+  $('.close_btn, .modal_dim').on('click', function () {
+    var speed = 300;
+    $modalWrap.fadeOut(speed);
+    setTimeout(function () {
+      $body.removeClass('modal_in');
+      $body.css('padding-right', 0)
+    }, speed)
+  });
+
+  function getScrollWidth() {
+    var body = document.querySelector('body');
+    var scrollDiv = document.createElement('div');
+    scrollDiv.className = 'fake_sjwidth';
+    body.appendChild(scrollDiv);
+    var scrollbarWidth = $(document).height() > $(window).height() ? scrollDiv.offsetWidth - scrollDiv.clientWidth : 0;
+
+    body.removeChild(scrollDiv);
+    return scrollbarWidth;
+  }
+</script>
+
+<script>
+  $('.type--simple input').click(function() {
+      $('.type img').css("border", "2px solid #E4E4E4");
+      $('.type p').css("color", "#7B7B7B");
+      $('.type--simple img').css("border", "2px solid #4361EE");
+      $('.type--simple p').css("color", "#4361EE");
+      $(".type--simple input").attr('checked', true);
+  });
+  $('.type--check input').click(function() {
+    $('.type img').css("border", "2px solid #E4E4E4");
+    $('.type p').css("color", "#7B7B7B");
+    $('.type--check img').css("border", "2px solid #4361EE");
+    $('.type--check p').css("color", "#4361EE");
+    $(".type--check input").attr('checked', true);
+  });
+</script>
+
+<script>
+  $('.btn-choise').click(function() {
+    if($(".type--simple input:radio[name='template']").is(':checked') == true) {
+      location.href='/write_template';
+    } else {
+      location.href='/write_template_click';
+    }
   });
 </script>
 {% endblock extrascripts %}

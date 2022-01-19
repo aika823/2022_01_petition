@@ -567,6 +567,10 @@ body.check-page header.title-page {
 }
 
 header.title-page .order-header {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    align-items: center;
+    justify-content: center;
     height: 30px;
     width: 260px;
     border-radius: 20px;
@@ -577,13 +581,17 @@ header.title-page .order-header {
 }
 
 header.title-page .order-header p {
-    background: #2A3B9F;
+    background: #4E72ED;
     border-radius: 20px;
     padding: 2px 7px;
     color: #fff;
     width: fit-content;
     font-size: 14px;
+    width: 100%;
+    text-align: center;
+    box-sizing: border-box;
 }
+
 
 
 /* section.title-finish */
@@ -606,6 +614,7 @@ section.title-finish .form-row input {
     width: 100%;
     font-size: 18px;
     caret-color: #1546F1;
+    background-color: #FAFAFC;
 }
 
 section.title-finish .form-row .line {
@@ -653,6 +662,114 @@ section.title-finish .example p {
 section.title-finish .example .icon,
 section.title-finish .example .icon img {
     width: 100%;
+}
+
+
+/***
+* choose_category.html
+***/
+
+/* section.choose-category */
+section.choose-category {
+  padding: 220px 30px 150px;
+  box-sizing: border-box;
+}
+section.choose-category h2 {
+  text-align: center;
+}
+section.choose-category p {
+  text-align: center;
+  color: #8D8D8D;
+  margin-top: 20px;
+}
+section.choose-category .form-row {
+  position: relative;
+}
+section.choose-category .category-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  gap: 20px;
+  box-sizing: border-box;
+  margin-top: 50px;
+}
+section.choose-category .btn-multiple {
+  background-color:#fff;
+  border-radius:25px;
+  border:1px solid #D0D0D0;
+  overflow:auto;
+}
+section.choose-category .btn-multiple label {
+  width:100%;
+  cursor: pointer;
+}
+section.choose-category .btn-multiple label span {
+  text-align:center;
+  padding:10px 0px;
+  display:block;
+  color: #989898;
+}
+section.choose-category .btn-multiple label input {
+  position:absolute;
+  top:-20px;
+  visibility: hidden;
+}
+section.choose-category .btn-multiple input:checked + span {
+  background-color:#4361EE;
+  color:#fff;
+}
+section.choose-category .btn-validation {
+  margin-left: -30px;
+  border: none;
+  background-color:#4361EE;
+}
+
+section.choose-category .category-grid.category-grid--receiver {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr 1fr;
+  gap: 20px;
+  box-sizing: border-box;
+  margin-top: 50px;
+}
+section.choose-category .category-grid--receiver .btn-multiple label {
+  position: relative;
+  width: 100%;
+}
+section.choose-category .category-grid--receiver .btn-multiple label span {
+  height: 160px;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+section.choose-category .category-grid--receiver .btn-multiple label span img {
+  width: 30px;
+  height: 30px;
+  margin: 0 auto;
+}
+section.choose-category .category-grid--receiver .btn-multiple label span p {
+  color: #989898;
+  margin-top: 10px;
+  font-weight: 600;
+  font-size: 18px;
+}
+section.choose-category .category-grid--receiver .btn-multiple :checked + span p {
+  color: #fff;
+}
+/* section.choose-category .category-grid--receiver .btn-multiple label::after {
+  display: block;
+  content: "";
+  padding-bottom: 100%;
+}
+section.choose-category .btn-multiple label div {
+  position: absolute;
+  display: block;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center; */
 }
 
 
@@ -727,6 +844,7 @@ section.write .form-header .btn-submit {
 section.write .form-row input {
     border: none;
     border-bottom: 1px solid #C9C9C9;
+    background-color: #FAFAFC;
     width: 100%;
     padding: 15px 15px;
     font-size: 21px;

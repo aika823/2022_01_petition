@@ -24,6 +24,8 @@ urlpatterns = [
     path('list', views.list),
     
     path('title_finish', views.title_finish),
+    path('choose_category', views.choose_category),
+    path('choose_receiver', views.choose_receiver),
     path('write', views.write),
     path('write_template', views.write_template),
     path('write_template_click', views.write_template_click),

@@ -108,6 +108,24 @@ def title_finish(request):
     return render(request, "title_finish.html", context=context)
 
 
+def choose_category(request):
+    context={
+        'body_class':'background-white2 check-page',
+        'active':{'list':"active"},
+        'bottom_nav':False
+    }
+    return render(request, "choose_category.html", context=context)
+
+
+def choose_receiver(request):
+    context={
+        'body_class':'background-white2 check-page',
+        'active':{'list':"active"},
+        'bottom_nav':False
+    }
+    return render(request, "choose_receiver.html", context=context)
+
+
 def write(request):
     context={
         'body_class':'background-white2 check-page',

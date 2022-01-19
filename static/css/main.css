@@ -271,7 +271,53 @@ nav.bottom-nav .menu-group .menu-item.active p {
   content: '';
   background: rgba(0, 0, 0, .5);
 }
-
+.modal_wrap.choose-template .modal_cnt {
+  height: fit-content;
+  width: 700px;
+  padding: 50px 20px;
+  box-sizing: border-box;
+}
+.modal_wrap.choose-template .modal_cnt p {
+  color: #7B7B7B;
+  margin: 20px 0 50px;
+}
+.modal_wrap.choose-template .modal_cnt .template-box {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  align-items: center;
+  justify-items: center;
+  column-gap: 20px;
+}
+.modal_wrap.choose-template .modal_cnt .template-box .type {
+  width: 100%;
+}
+.modal_wrap.choose-template .modal_cnt .template-box .type input[type="radio"]{
+  width: 30px;
+  height: 30px;
+  cursor: pointer;
+}
+.modal_wrap.choose-template .modal_cnt .template-box .type img {
+  width: 100%;
+  border: 2px solid #E4E4E4;
+  border-radius: 10px;
+  margin-top: 15px;
+}
+.modal_wrap.choose-template .modal_cnt .template-box .type--simple img {
+  border: 2px solid #4361EE;
+}
+.modal_wrap.choose-template .modal_cnt .template-box .type--simple p {
+  color: #4361EE;
+}
+.modal_wrap.choose-template .modal_cnt .btn-choise {
+  width: 100%;
+  display: block;
+  box-sizing: border-box;
+  padding: 10px 0;
+  text-align: center;
+  color: #fff;
+  background-color: #4361EE;
+  border-radius: 10px;
+}
 .modal_wrap .modal_cnt {
   position: relative;
   height: 295px;
