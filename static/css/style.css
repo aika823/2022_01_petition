@@ -401,6 +401,9 @@ section.check .check-type .type-card .type-text.type-text--keyboard {
 
 body.check-page {
     position: relative;
+  }
+body.check-page.category {
+  height: auto;
 }
 
 body.check-page header {
@@ -1015,13 +1018,14 @@ section.write.template .template-items p.subtitle {
 }
 
 section.write.template .template-items .template-buttons {
-    padding: 0 40px;
+    padding: 0 5px;
     box-sizing: border-box;
     display: grid;
     grid-template-columns: 1fr 1fr;
-    column-gap: 20px;
+    column-gap: 5px;
     row-gap: 10px;
     margin: 30px 0;
+    word-break: keep-all;
 }
 
 section.write.template .template-items .template-buttons .btn-template {
@@ -1032,7 +1036,7 @@ section.write.template .template-items .template-buttons .btn-template {
     display: inline-block;
     color: #5F5F5F;
     transition: all .2s;
-    font-size: 13px;
+    font-size: 12px;
     /* text-align: center; */
 }
 
@@ -1105,6 +1109,7 @@ section.write.template .template-form-item textarea:focus {
 section.write.template .template-form-item textarea::placeholder {
     color: #B4B4B4;
     font-size: 16px;
+    word-break: keep-all;
 }
 
 section.write.template .template-form-item p {
@@ -1115,7 +1120,7 @@ section.write.template .template-form-item p {
 section.write.template .template-form-item .image-wrap {
     width: 100%;
     display: grid;
-    grid-template-columns: 25% 25% 25% 25%;
+    grid-template-columns: 1fr 1fr 1fr 1fr;
     gap: 10px;
     box-sizing: border-box;
     justify-content: center;
@@ -1388,4 +1393,197 @@ section.write.template .line {
   width: 90%;
   height: 1px;
   background-color: #C9C9C9;
+}
+
+
+
+/* max-height 반응형 */
+@media all and (max-height: 1080px) {
+  .modal_wrap.choose-template .modal_cnt .template-box {
+    width: 60%;
+    margin: 0 auto;
+  }
+  .modal_wrap.choose-template .modal_cnt p {
+    word-break: keep-all;
+    margin: 20px 0;
+  }
+}
+@media all and (max-height: 1024px) {
+  body.check-page {
+    height: auto;
+  }
+  body.check-page.write {
+    height: 100%;
+  }
+  body.check-page header.title-page {
+    padding: 40px 40px 20px;
+  }
+
+  .btn-validation {
+    position: fixed;
+    left: 0;
+  }
+  section.choose-category .btn-validation {
+    margin-left: 0;
+  }
+  section.choose-category {
+    padding: 120px 40px 150px;
+  }
+}
+
+
+/* 반응형 */
+@media all and (max-width: 768px) {
+  .modal_wrap.choose-template .modal_cnt {
+    width: 95%;
+  }
+  section.inspection {
+    width: 90%;
+  }
+}
+@media all and (max-width: 650px) {
+  section.check .check-type .type-card {
+    width: 80%;
+  }
+  section.check .check-type .type-card .type-text {
+    font-size: 33px;
+  }
+  section.check .check-type .type-card img {
+    width: 80%;
+  }
+}
+@media all and (max-width: 480px) {
+  section.check {
+    padding: 50px 0 100px;
+    height: auto;
+  }
+  section.check .check-type .type-card {
+    width: 100%;
+  }
+  section.check h2 {
+    font-size: 25px;
+  }
+  section.check .check-type .type-card .type-text {
+    font-size: 30px;
+  }
+  section.check .check-type .type-card img {
+    width: 90%;
+  }
+  section.check .check-type {
+    padding: 0 50px;
+  }
+}
+@media all and (max-width: 450px) {
+  header {
+    padding: 40px 20px 20px;
+  }
+  section.welcome {
+    padding: 25px;
+  }
+  section.welcome .login {
+    padding: 10px 20px;
+  }
+  section.welcome .login .icon-wrap {
+    width: 40px;
+    height: 40px;
+  }
+
+  nav.bottom-nav {
+    padding: 20px;
+  }
+  nav.bottom-nav .menu-group .menu-item span {
+    font-size: 30px;
+  }
+
+  section.category {
+    padding: 20px 10px;
+  }
+  section.category .btn-category {
+    font-size: 14px;
+  }
+  section.list {
+    padding: 50px 20px;
+  }
+  section.list .list-item {
+    grid-template-columns: 100px 1fr;
+    gap: 10px;
+  }
+  section.list .list-item .list-img {
+    width: 100px;
+    height: 100px;
+  }
+
+  section.title-finish {
+    padding: 120px 30px 50px;
+  }
+  body.check-page {
+    height: auto;
+  }
+  body.check-page.write {
+    height: 100%;
+  }
+  body.check-page header.title-page {
+    padding: 40px 20px 20px;
+  }
+
+  .btn-validation {
+    position: fixed;
+    left: 0;
+  }
+  section.choose-category .btn-validation {
+    margin-left: 0;
+  }
+  section.choose-category {
+    padding: 120px 10px;
+  }
+  section.choose-category .btn-multiple label span {
+    font-size: 13px;
+  }
+  section.choose-category .btn-multiple.long label span {
+    padding: 0 12px;
+  }
+
+  section.choose-category .category-grid--receiver .btn-multiple label span {
+    height: 85px;
+    display: grid;
+    grid-template-rows: 50% 50%;
+  }
+  section.choose-category .category-grid.category-grid--receiver {
+    gap: 10px;
+  }
+  section.choose-category .category-grid--receiver .btn-multiple label span img {
+    width: 20px;
+    height: 20px;
+    align-self: flex-end;
+  }
+  section.choose-category .category-grid--receiver .btn-multiple label span p {
+    font-size: 14px;
+    align-self: flex-start;
+    margin: 0;
+    word-break: keep-all;
+  }
+
+  section.write .form-row input::placeholder {
+    font-size: 21px;
+  }
+
+  section.write.template .title-wrap {
+    padding: 35px 20px 0;
+  }
+  section.write.template .template-form-item {
+    padding: 0 20px;
+  }
+  section.write.template .template-form-item .image-wrap .add-img .inner p {
+    font-size: 25px;
+    margin: 0;
+  }
+  
+  section.write.template .template-form-item .tag-keywords .keyword {
+    grid-template-columns: 10px 1fr;
+    align-items: center;
+  }
+  section.write.template .template-form-item .tag-keywords .keyword.done {
+    font-size: 12px;
+  }
+
 }

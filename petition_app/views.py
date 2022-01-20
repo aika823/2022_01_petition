@@ -110,7 +110,7 @@ def title_finish(request):
 
 def choose_category(request):
     context={
-        'body_class':'background-white2 check-page',
+        'body_class':'background-white2 check-page category',
         'active':{'list':"active"},
         'bottom_nav':False
     }
@@ -128,7 +128,7 @@ def choose_receiver(request):
 
 def write(request):
     context={
-        'body_class':'background-white2 check-page',
+        'body_class':'background-white2 check-page write',
         'active':{'list':"active"},
         'bottom_nav':False
     }
