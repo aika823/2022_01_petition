@@ -1,0 +1,242 @@
+{% extends "base.html" %}
+
+{% block content %}
+<header class="title-page">
+  <div class="title">
+    <a href="javascript:void(0)" onclick="location.href='./check.html'"><i class="fas fa-times"></i></a>
+  </div>
+  <div class="order-header">
+    <span></span>
+    <span></span>
+    <p>수신인선택</p>
+  </div>
+</header>
+
+
+<!-- section.choose-category -->
+<section class="choose-category">
+  <h2>수신인을 선택해주세요.</h2>
+  <p>직접 선택할 수도 있어요!</p>
+  <form action="">
+    <div class="category-grid category-grid--receiver">
+      <div class="btn-multiple">
+        <label>
+          <input type="radio" name="category" id="category" value="" checked="">
+          <span>
+            <img src="/static/images/naver.png" alt="">
+            <p>국토교통부</p>
+          </span>
+        </label>
+      </div>
+      <div class="btn-multiple">
+        <label>
+          <input type="radio" name="category" id="category" value="" >
+          <span>
+            <img src="/static/images/naver.png" alt="">
+            <p>교육부</p>
+          </span>
+        </label>
+      </div>
+      <div class="btn-multiple">
+        <label>
+          <input type="radio" name="category" id="category" value="" >
+          <span>
+            <img src="/static/images/naver.png" alt="">
+            <p>미래
+              창조과학부</p>
+          </span>
+        </label>
+      </div>
+      <div class="btn-multiple">
+        <label>
+          <input type="radio" name="category" id="category" value="" >
+          <span>
+            <img src="/static/images/naver.png" alt="">
+            <p>외교부</p>
+          </span>
+        </label>
+      </div>
+      <div class="btn-multiple">
+        <label>
+          <input type="radio" name="category" id="category" value="" >
+          <span>
+            <img src="/static/images/naver.png" alt="">
+            <p>통일부</p>
+          </span>
+        </label>
+      </div>
+      <div class="btn-multiple">
+        <label>
+          <input type="radio" name="category" id="category" value="" >
+          <span>
+            <img src="/static/images/naver.png" alt="">
+            <p>법무부</p>
+          </span>
+        </label>
+      </div>
+      <div class="btn-multiple">
+        <label>
+          <input type="radio" name="category" id="category" value="" >
+          <span>
+            <img src="/static/images/naver.png" alt="">
+            <p>국방부</p>
+          </span>
+        </label>
+      </div>
+      <div class="btn-multiple">
+        <label>
+          <input type="radio" name="category" id="category" value="" >
+          <span>
+            <img src="/static/images/naver.png" alt="">
+            <p>환경부</p>
+          </span>
+        </label>
+      </div>
+      <div class="btn-multiple">
+        <label>
+          <input type="radio" name="category" id="category" value="" >
+          <span>
+            <img src="/static/images/naver.png" alt="">
+            <p>문화체육
+              관광부</p>
+          </span>
+        </label>
+      </div>
+      <div class="btn-multiple">
+        <label>
+          <input type="radio" name="category" id="category" value="" >
+          <span>
+            <img src="/static/images/naver.png" alt="">
+            <p>농림축산
+              식품부</p>
+          </span>
+        </label>
+      </div>
+      <div class="btn-multiple">
+        <label>
+          <input type="radio" name="category" id="category" value="" >
+          <span>
+            <img src="/static/images/naver.png" alt="">
+            <p>산업통상
+              자원부</p>
+          </span>
+        </label>
+      </div>
+      <div class="btn-multiple">
+        <label>
+          <input type="radio" name="category" id="category" value="" >
+          <span>
+            <img src="/static/images/naver.png" alt="">
+            <p>보건복지부</p>
+          </span>
+        </label>
+      </div>
+      <div class="btn-multiple">
+        <label>
+          <input type="radio" name="category" id="category" value="" >
+          <span>
+            <img src="/static/images/naver.png" alt="">
+            <p>행정안전부</p>
+          </span>
+        </label>
+      </div>
+      <div class="btn-multiple">
+        <label>
+          <input type="radio" name="category" id="category" value="" >
+          <span>
+            <img src="/static/images/naver.png" alt="">
+            <p>기획재정부</p>
+          </span>
+        </label>
+      </div>
+      <div class="btn-multiple">
+        <label>
+          <input type="radio" name="category" id="category" value="" >
+          <span>
+            <img src="/static/images/naver.png" alt="">
+            <p>여성가족부</p>
+          </span>
+        </label>
+      </div>
+      <div class="btn-multiple">
+        <label>
+          <input type="radio" name="category" id="category" value="" >
+          <span>
+            <img src="/static/images/naver.png" alt="">
+            <p>해양수산부</p>
+          </span>
+        </label>
+      </div>
+    </div>
+    
+    <p class="messege">
+      국토교통부
+    </p>
+
+    <button type="button" class="btn-validation" onclick="loading()">수신인 선택 완료</button>
+  </form>
+</section>
+
+<div class="loading-box">
+  <img src="/static/images/loading2.png" alt="">
+  <h3>
+    좋습니다!
+    <br>수신인에게 전달할
+    <br>청원을 작성해볼까요?
+  </h3>
+</div>
+{% endblock content %}
+
+
+{% block extrascripts %}
+<script>
+  $('#title').click(function () {
+    $('.line').animate({
+      "width": "100%"
+    }, 400)
+  });
+</script>
+
+<script>
+  var messege = [
+    '국토교통부',
+    '교육부',
+    '미래 창조과학부',
+    '외교부',
+    '통일부',
+    '법무부',
+    '국방부',
+    '환경부는 자연환경, 생활환경의 보전, 환경오염방지, 수자원의 보전·이용 및 개발에 관한 사무를 관장해요!',
+    '문화체육 관광부',
+    '농림축산 식품부',
+    '산업통상 자원부',
+    '보건복지부',
+    '행정안전부',
+    '기획재정부',
+    '여성가족부',
+    '해양수산부'
+  ]
+  // console.log($('.btn-multiple:eq(1) span').text())
+  // console.log(messege[2])
+  var $item = $('.item').on('click', function() {
+    var idx = $item.index(this); // <- 변경된 코드
+    console.log(idx);
+  });
+  var $btn = $('.btn-multiple span').click(function() {
+    var $index = $btn.index(this)
+    console.log($index)
+    $('.messege').text(messege[$index]);
+  });
+
+</script>
+
+<script>
+  function loading() {
+    $('.loading-box').fadeIn(300);
+    $('.loading-box').css('display', 'flex');
+    setInterval(() => {
+      location.href = '/write';
+    }, 1000);
+  }
+</script>
+{% endblock extrascripts %}

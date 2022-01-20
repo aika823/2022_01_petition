@@ -1,0 +1,130 @@
+{% extends "base.html" %}
+
+{% block content %}
+<header class="title-page">
+  <div class="title">
+    <a href="javascript:void(0)" onclick="location.href='./check.html'"><i class="fas fa-times"></i></a>
+  </div>
+  <div class="order-header">
+    <span></span>
+    <p>카테고리</p>
+    <span></span>
+  </div>
+</header>
+
+
+<!-- section.choose-category -->
+<section class="choose-category">
+  <h2>카테고리를 선택해주세요.</h2>
+  <p>직접 여러개를 선택할 수 있어요!</p>
+  <form action="">
+    <div class="category-grid">
+      <div class="btn-multiple">
+        <label>
+          <input type="checkbox" name="category" id="category" value="" checked=""><span>정치개혁</span>
+        </label>
+      </div>
+      <div class="btn-multiple">
+        <label>
+          <input type="checkbox" name="category" id="category" value=""><span>인권/성평등</span>
+        </label>
+      </div>
+      <div class="btn-multiple">
+        <label>
+          <input type="checkbox" name="category" id="category" value=""><span>교통/건축/국토</span>
+        </label>
+      </div>
+      <div class="btn-multiple">
+        <label>
+          <input type="checkbox" name="category" id="category" value=""><span>안전</span>
+        </label>
+      </div>
+      <div class="btn-multiple">
+        <label>
+          <input type="checkbox" name="category" id="category" value=""><span>외교/통일/국방</span>
+        </label>
+      </div>
+      <div class="btn-multiple">
+        <label>
+          <input type="checkbox" name="category" id="category" value=""><span>육아/교육</span>
+        </label>
+      </div>
+      <div class="btn-multiple">
+        <label>
+          <input type="checkbox" name="category" id="category" value=""><span>환경</span>
+        </label>
+      </div>
+      <div class="btn-multiple">
+        <label>
+          <input type="checkbox" name="category" id="category" value=""><span>보건복지</span>
+        </label>
+      </div>
+      <div class="btn-multiple">
+        <label>
+          <input type="checkbox" name="category" id="category" value=""><span>행정</span>
+        </label>
+      </div>
+      <div class="btn-multiple">
+        <label>
+          <input type="checkbox" name="category" id="category" value=""><span>일자리</span>
+        </label>
+      </div>
+      <div class="btn-multiple">
+        <label>
+          <input type="checkbox" name="category" id="category" value=""><span>저출산/고령화</span>
+        </label>
+      </div>
+      <div class="btn-multiple">
+        <label>
+          <input type="checkbox" name="category" id="category" value=""><span>경제민주화</span>
+        </label>
+      </div>
+      <div class="btn-multiple">
+        <label>
+          <input type="checkbox" name="category" id="category" value=""><span>반려동물</span>
+        </label>
+      </div>
+      <div class="btn-multiple">
+        <label>
+          <input type="checkbox" name="category" id="category" value=""><span>농산어촌</span>
+        </label>
+      </div>
+      <div class="btn-multiple">
+        <label>
+          <input type="checkbox" name="category" id="category" value=""><span>미래</span>
+        </label>
+      </div>
+      <div class="btn-multiple long">
+        <label>
+          <input type="checkbox" name="category" id="category" value=""><span>문화/예술/체육/언론</span>
+        </label>
+      </div>
+      <div class="btn-multiple">
+        <label>
+          <input type="checkbox" name="category" id="category" value=""><span>기타</span>
+        </label>
+      </div>
+    </div>
+    <button type="button" class="btn-validation" onclick="location.href='/choose_receiver'">카테고리 선택 완료</button>
+  </form>
+</section>
+{% endblock content %}
+
+
+{% block extrascripts %}
+<script>
+  $('#title').click(function () {
+    $('.line').animate({
+      "width": "100%"
+    }, 400)
+  });
+</script>
+{% endblock extrascripts %}
+
+
+<body class="background-white2 check-page">
+
+  
+
+</body>
+</html>
