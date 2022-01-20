@@ -16,25 +16,20 @@
 <section class="category">
 
   <a class="btn-category active" href="javascript:void(0)">전체</a>
-  <a class="btn-category" href="javascript:void(0)">정치개혁</a>
-  <a class="btn-category" href="javascript:void(0)">인권/성평등</a>
-  <a class="btn-category" href="javascript:void(0)">환경</a>
-  <a class="btn-category" href="javascript:void(0)">외교/통일/국방</a>
-  <a class="btn-category" href="javascript:void(0)">교통/건축/국토</a>
-  <a class="btn-category" href="javascript:void(0)">안전</a>
-  <a class="btn-category" href="javascript:void(0)">보건복지</a>
-  <a class="btn-category more" href="javascript:void(0)">+ 더보기</a>
+  {% for category in category_list %}
+  
+  {% if forloop.counter < 7 %}
+  <a class="btn-category" href="/list?category={{category.id}}">{{category.name}}</a>
+  {% elif forloop.counter > 7 %}
+  <a class="btn-category hide" href="/list?category={{category.id}}">{{category.name}}</a>
+  {% else %}
+  <a class="btn-category" href="/list?category={{category.id}}">{{category.name}}</a>
+  <a class="btn-category more">+ 더보기</a>
+  {% endif %}
 
-  <a class="btn-category hide" href="javascript:void(0)">육아/교육</a>
-  <a class="btn-category hide" href="javascript:void(0)">일자리</a>
-  <a class="btn-category hide" href="javascript:void(0)">저출산/고령화</a>
-  <a class="btn-category hide" href="javascript:void(0)">행정</a>
-  <a class="btn-category hide" href="javascript:void(0)">반려동물</a>
-  <a class="btn-category hide" href="javascript:void(0)">농산어촌</a>
-  <a class="btn-category hide" href="javascript:void(0)">경제민주화</a>
-  <a class="btn-category hide" href="javascript:void(0)">미래</a>
-  <a class="btn-category hide" href="javascript:void(0)">문화/예술/체육/언론</a>
-  <a class="btn-category hide" href="javascript:void(0)">기타</a>
+  {% endfor %}
+
+
 </section>
 
 <div class="line-middle"></div>

@@ -89,13 +89,20 @@ def good(request):
 
 
 def list(request):
+    category = request.GET.get('category')
     category_list = Category.objects.all()
-    petition_list = Petition.objects.all()
+    if category:
+        petition_list = Petition.objects.filter(petitioncategory__category__id = category)
+    else:
+        petition_list = Petition.objects.filter()
+        
     for petition in petition_list:
-        petition.percentage = (petition.agreements/200000) * 100
+        petition.percentage = round((petition.agreements/200000) * 100, 2)
+    
+    
     context={
         'body_class':'background-white2',
-        'active':{'list':"active"},
+        'active':{'all':"active"},
         'bottom_nav':True,
         'category_list':category_list,
         'petition_list':petition_list,
