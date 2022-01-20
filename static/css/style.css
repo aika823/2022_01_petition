@@ -756,20 +756,29 @@ section.choose-category .category-grid--receiver .btn-multiple label span p {
 section.choose-category .category-grid--receiver .btn-multiple :checked + span p {
   color: #fff;
 }
-/* section.choose-category .category-grid--receiver .btn-multiple label::after {
-  display: block;
-  content: "";
-  padding-bottom: 100%;
-}
-section.choose-category .btn-multiple label div {
+
+.loading-box {
+  display: none;
   position: absolute;
-  display: block;
+  top: 0;
   width: 100%;
   height: 100%;
-  display: flex;
+  z-index: 10;
+  background-color: rgba(30, 30, 30, 0.8);
   flex-direction: column;
   align-items: center;
-  justify-content: center; */
+  justify-content: center;
+}
+.loading-box img {
+  width: 80%;
+  display: block;
+  margin: 0 auto;
+}
+.loading-box h3 {
+  color: #fff;
+  text-align: center;
+  font-size: 35px;
+  margin-bottom: 100px;
 }
 
 
