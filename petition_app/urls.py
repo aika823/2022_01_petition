@@ -28,7 +28,6 @@ urlpatterns = [
     path('write_template', views.write_template),
     path('write_template_click', views.write_template_click),
     path('inspection', views.inspection),
-    path('success', views.success),
     
     path('detail/<int:id>', views.detail),
 ]

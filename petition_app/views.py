@@ -4,6 +4,7 @@ import json
 from django.shortcuts import redirect, render
 from api.check_appropriate import check_appropriate
 from api.social import login_social, callback_social
+from api.petition import create_petition
 from .models import Petition, User, PetitionImage
 
 
@@ -135,78 +136,7 @@ def write_template(request):
         'category': category,
         'department':department
     }
-    
-    if request.method == "POST":
-        
-        user = User.objects.get(id=request.session.get('user'))
-
-        petition = Petition()
-
-        petition.user = user
-
-        petition.title = request.POST.get('title')
-        petition.category = request.POST.get('category')
-        petition.department = request.POST.get('department')
-        petition.thumbnail = request.FILES.get('thumbnail')
-
-        petition.content_1 = request.POST.get('content_1')
-        petition.content_2 = request.POST.get('content_2')
-        petition.content_3 = request.POST.get('content_3')
-        petition.content_4 = request.POST.get('content_4')
-        petition.content_5 = request.POST.get('content_5')
-        petition.content_6 = request.POST.get('content_6')
-        petition.content_7 = request.POST.get('content_7')
-
-        petition.keyword_1 = request.POST.get('keyword_1')
-        petition.keyword_2 = request.POST.get('keyword_2')
-        petition.keyword_3 = request.POST.get('keyword_3')
-
-        petition.save()
-
-        images = request.FILES.getlist('images')
-        for image in images:
-            print(image)
-            petition_image = PetitionImage()
-            petition_image.petition = petition
-            petition_image.image = image
-
     return render(request, "write_template.html", context=context)
-
-
-def success(request):
-    if request.method == "POST":
-        user_id = 1
-        user = User.objects.get(id=user_id)
-
-        petition = Petition()
-
-        petition.user = user
-
-        petition.title = request.POST.get('title')
-        petition.category = request.POST.get('category')
-        petition.department = request.POST.get('department')
-        petition.thumbnail = request.FILES.get('thumbnail')
-
-        petition.content_1 = request.POST.get('content_1')
-        petition.content_2 = request.POST.get('content_2')
-        petition.content_3 = request.POST.get('content_3')
-        petition.content_4 = request.POST.get('content_4')
-        petition.content_5 = request.POST.get('content_5')
-        petition.content_6 = request.POST.get('content_6')
-        petition.content_7 = request.POST.get('content_7')
-
-        petition.keyword_1 = request.POST.get('keyword_1')
-        petition.keyword_2 = request.POST.get('keyword_2')
-        petition.keyword_3 = request.POST.get('keyword_3')
-
-        petition.save()
-        
-        
-        context = {
-            'petition': petition
-        }
-        
-        return render(request, "success.html", context=context)
 
 
 def write_template_click(request):
@@ -219,12 +149,27 @@ def write_template_click(request):
 
 
 def inspection(request):
-    context={
-        'body_class':'height-auto',
-        'active':{'list':"active"},
-        'bottom_nav':False
-    }
-    return render(request, "inspection.html", context=context)
+    if request.method == "POST":
+        petition = create_petition(request)
+        image_list = PetitionImage.objects.filter(petition=petition)
+        
+        status = {
+            'content_1': check_appropriate(petition.content_1)['prediction'],
+            'content_2': check_appropriate(petition.content_2)['prediction'],
+            'content_7': check_appropriate(petition.content_7)['prediction'],
+        }
+
+        print(status)
+
+        context={
+            'petition':petition,
+            'image_list':image_list,
+            'status':status,
+            'body_class':'height-auto',
+            'active':{'list':"active"},
+            'bottom_nav':False
+        }
+        return render(request, "inspection.html", context=context)
 
 
 def detail(request, id):

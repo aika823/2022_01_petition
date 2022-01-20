@@ -12,7 +12,7 @@
 
 <!-- section.write -->
 <section class="write template">
-  <form id="formPetition" action="/success" method="post" enctype="multipart/form-data">
+  <form id="formPetition" action="/inspection" method="post" enctype="multipart/form-data">
 
     {% csrf_token %}
     <input type="hidden" name="title" value="{{title}}">
@@ -25,8 +25,8 @@
     <div class="form-header">
       <a href="javascript:void(0)" onclick="location.href='./check.html'"><i class="fas fa-times"></i></a>
       <h3>청원 작성</h3>
-      {# <button type="submit" class="btn-submit" form="formPetition">완료</button> #}
-      <button type="button" class="btn-submit">완료</button>
+      <button type="submit" class="btn-submit" form="formPetition">완료</button>
+      {# <button type="button" class="btn-submit">완료</button> #}
     </div>
 
     <div id="thumbnailImage2" style="backgroud-image:url();">

@@ -12,7 +12,7 @@
 
 <!-- section.write -->
 <section class="write template">
-  <form id="formPetition" action="/success" method="post">
+  <form id="formPetition" action="" method="">
 
     {% csrf_token %}
     <input type="hidden" name="title" value="{{title}}">
@@ -24,15 +24,14 @@
 
     <div class="form-header">
       <a href="javascript:void(0)" onclick="location.href='./check.html'"><i class="fas fa-times"></i></a>
-      <h3>청원 작성</h3>
+      <h3>청원 작성 {{petition.title}}</h3>
       <!-- <button type="submit" class="btn-submit" form="formPetition">완료</button> -->
       <button type="button" class="btn-submit">완료</button>
     </div>
 
-    <div id="thumbnailImage2" style="backgroud-image:url('/static/images/sample1.png');">
-    </div>
 
-    <div id="thumbnailImage" class="form-row form-row--image" style="background-image:url('/static/images/sample1.png');">
+    <div id="thumbnailImage" class="form-row form-row--image"
+      style="background-image:url('/media/{{petition.thumbnail}}');">
       <!-- <a class="btn-img" href="javascript:void(0)" onclick="open_image_input()">
         <i class="fas fa-plus"></i>
         <p>대표 이미지 추가</p>
@@ -40,15 +39,15 @@
     </div>
 
     <div class="title-wrap">
-      <h2 class="write-title">{{title}}</h2>
+      <h2 class="write-title">{{petition.title}}</h2>
       <div class="category-tag">
         <div class="tag">
           <p>카테고리</p>
-          <p class="category">{{category}}</p>
+          <p class="category">{{petition.category}}</p>
         </div>
         <div class="tag">
           <p>희망 수신자</p>
-          <p class="receiver">{{department}}</p>
+          <p class="receiver">{{petition.department}}</p>
         </div>
       </div>
     </div>
@@ -56,49 +55,45 @@
     <div class="template-form-item">
       <div class="item-title">
         <h3>💭 청원을 작성한 배경</h3>
+        {% if status.content_1 == '적절' %}
         <div class="status good"><i class="fas fa-check"></i></div>
+        {% else %}
+        <div class="status bad"><i class="fas fa-exclamation"></i></div>
+        {% endif %}
       </div>
-      <p class="item-content">
-        환경부에 따르면 지난해 플라스틱 폐기물은 하루 평균 848톤씩 발생했다. 이 가운데 일회용 포장재 폐기물이 약 60%로 큰 비중을 차지하고 있다. 환경 파괴의 주범인 플라스틱은 소각·매립으로 처리한다더라도 다이옥신이나 환경 호르몬 등 인체에 해로운 유해 물질을 유출하고 불완전 연소에 따른 대기오염을 유발한다.
-      </p>
-      <!-- <textarea name="content_1" id="" placeholder="청원을 하게 된 배경을 상세하게 적어주세요."></textarea> -->
+      <p class="item-content">{{petition.content_1}}</p>
     </div>
 
     <div class="template-form-item">
       <div class="item-title">
         <h3>📑 제안하는 정책의 효과</h3>
+        {% if status.content_2 == '적절' %}
         <div class="status good"><i class="fas fa-check"></i></div>
+        {% else %}
+        <div class="status bad"><i class="fas fa-exclamation"></i></div>
+        {% endif %}
       </div>
-      <p class="item-content">
-        우리나라의 부동산 시장의 교란을 예방할 수 있습니다. 외국인들이 투기를 해 부동산 가격을 올려놓으면 결국 그 가격에 내국인도 거래를 하게 되는 투기 현상을 막을 수 있습니다. 
-
-더불어, 오랜 선조부터 지켜온 우리 땅이 외국인 사유화 되는 것을 예방할 수 있습니다. 내국인들이 정당히 토지를 소유할 수 있도록 청원합니다.
-      </p>
+      <p class="item-content">{{petition.content_2}}</p>
     </div>
 
     <div class="template-form-item">
       <div class="item-title">
         <h3>✨ 청원이 이루어지면 어떤 효과가 있을까요?</h3>
+        {% if status.content_7 == '적절' %}
+        <div class="status good"><i class="fas fa-check"></i></div>
+        {% else %}
         <div class="status bad"><i class="fas fa-exclamation"></i></div>
+        {% endif %}
       </div>
-      <p class="item-content">
-        환경부에 따르면 지난해 플라스틱 폐기물은 하루 평균 848톤씩 발생했다. 이 가운데 일회용 포장재 폐기물이 약 60%로 큰 비중을 차지하고 있다. 환경 파괴의 주범인 플라스틱은 소각·매립으로 처리한다더라도 다이옥신이나 환경 호르몬 등 인체에 해로운 유해 물질을 유출하고 불완전 연소에 따른 대기오염을 유발한다.
-      </p>
+      <p class="item-content">{{petition.content_7}}</p>
     </div>
 
     <div class="template-form-item">
       <h3>이해를 돕기 위한 사진 첨부</h3>
-      <p>청원글에 사진이 있으면 더 많은 사람들이 확인해요.</p>
-
       <div id="preview" class="image-wrap">
-        <!-- <div class="uploaded-img" style="background-image: url('/static/images/sample1.png');"></div>
-        <div class="uploaded-img" style="background-image: url('/static/images/sample3.png');"></div> -->
-        <a class="add-img" onclick="open_images_input()">
-          <div class="inner">
-            <p><i class="fas fa-plus"></i></p>
-            <p><span class="img-count">0</span> / 10</p>
-          </div>
-        </a>
+        {% for image in image_list %}
+        <div class="uploaded-img" style="background-image: url('/media/{{image.image}}');"></div>
+        {% endfor %}
       </div>
     </div>
 
@@ -106,9 +101,9 @@
       <h3>🔖 핵심 단어 세 가지</h3>
       <p>다른 시민들이 이 청원을 찾을 수 있도록 도와요</p>
       <div class="tag-keywords">
-        <p class="keyword done"># <span>친환경지킴</span></p>
-        <p class="keyword done"># <span>플라스틱오염</span></p>
-        <p class="keyword done"># <span>환경오염</span></p>
+        <p class="keyword done"># <span>{{petition.keyword_1}}</span></p>
+        <p class="keyword done"># <span>{{petition.keyword_2}}</span></p>
+        <p class="keyword done"># <span>{{petition.keyword_3}}</span></p>
       </div>
     </div>
 
@@ -201,9 +196,11 @@
 </script>
 
 <script>
-  $('.status').click(function(){
-    $('section.inspection').css({'bottom':'-300px'});
-    if($(this).hasClass('good') == true) {
+  $('.status').click(function () {
+    $('section.inspection').css({
+      'bottom': '-300px'
+    });
+    if ($(this).hasClass('good') == true) {
       $('.mention').html(`
         <span>적절한</span> 표현입니다.
       `);
@@ -218,51 +215,59 @@
       $('.inspection-box').removeClass('bad');
       $('.inspection-box').addClass('bad');
     }
-      $('section.inspection').animate({'bottom':'10px'},300);
+    $('section.inspection').animate({
+      'bottom': '10px'
+    }, 300);
   });
 
-  $('.btn-close').click(function() {
-    $('section.inspection').animate({'bottom':'-300px'}, 300);
+  $('.btn-close').click(function () {
+    $('section.inspection').animate({
+      'bottom': '-300px'
+    }, 300);
   });
 
-  $('.btn-close').click(function() {
-    $('section.inspection').animate({'bottom':'-300px'}, 300);
+  $('.btn-close').click(function () {
+    $('section.inspection').animate({
+      'bottom': '-300px'
+    }, 300);
   });
-  $('.done').click(function() {
-    $('section.inspection').animate({'bottom':'-300px'}, 300);
+  $('.done').click(function () {
+    $('section.inspection').animate({
+      'bottom': '-300px'
+    }, 300);
   });
 </script>
 
 
 <script>
   $body = $('body');
-    $modalWrap = $('.modal_wrap');
+  $modalWrap = $('.modal_wrap');
 
-    $('.btn-submit').on('click', function () {
-      $body.addClass('modal_in');
-      $modalWrap.fadeIn(300);
-      $body.css('padding-right', getScrollWidth());
-    });
+  $('.btn-submit').on('click', function () {
+    $body.addClass('modal_in');
+    $modalWrap.fadeIn(300);
+    $body.css('padding-right', getScrollWidth());
+  });
 
-    $('.close_btn, .modal_dim').on('click', function () {
-      var speed = 300;
-      $modalWrap.fadeOut(speed);
-      setTimeout(function () {
-        $body.removeClass('modal_in');
-        $body.css('padding-right', 0)
-      }, speed)
-    });
+  $('.close_btn, .modal_dim').on('click', function () {
+    var speed = 300;
+    $modalWrap.fadeOut(speed);
+    setTimeout(function () {
+      $body.removeClass('modal_in');
+      $body.css('padding-right', 0)
+    }, speed)
+  });
 
-    function getScrollWidth() {
-      var body = document.querySelector('body');
-      var scrollDiv = document.createElement('div');
-      scrollDiv.className = 'fake_sjwidth';
-      body.appendChild(scrollDiv);
-      var scrollbarWidth = $(document).height() > $(window).height() ? scrollDiv.offsetWidth - scrollDiv.clientWidth :
+  function getScrollWidth() {
+    var body = document.querySelector('body');
+    var scrollDiv = document.createElement('div');
+    scrollDiv.className = 'fake_sjwidth';
+    body.appendChild(scrollDiv);
+    var scrollbarWidth = $(document).height() > $(window).height() ? scrollDiv.offsetWidth - scrollDiv.clientWidth :
       0;
 
-      body.removeChild(scrollDiv);
-      return scrollbarWidth;
-    }
+    body.removeChild(scrollDiv);
+    return scrollbarWidth;
+  }
 </script>
 {% endblock extrascripts %}
