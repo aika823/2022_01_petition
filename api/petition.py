@@ -1,4 +1,4 @@
-from petition_app.models import Petition, PetitionImage, User
+from petition_app.models import Category, Department, Petition, PetitionCategory, PetitionImage, User
 
 def create_petition(request):
     
@@ -8,8 +8,8 @@ def create_petition(request):
     petition.user = user
 
     petition.title = request.POST.get('title')
-    petition.category = request.POST.get('category')
-    petition.department = request.POST.get('department')
+    department = Department.objects.get(id=request.POST.get('department'))
+    petition.department = department
     petition.thumbnail = request.FILES.get('thumbnail')
 
     petition.content_1 = request.POST.get('content_1')
@@ -27,11 +27,18 @@ def create_petition(request):
     petition.save()
 
     images = request.FILES.getlist('images')
-
     for image in images:
         petition_image = PetitionImage()
         petition_image.petition = petition
         petition_image.image = image
         petition_image.save()
+
+    categories = request.POST.getlist('category[]')
+    for category in categories:
+        petition_category = PetitionCategory()
+        category =  Category.objects.get(id=category)
+        petition_category.petition = petition
+        petition_category.category = category
+        petition_category.save()
 
     return petition

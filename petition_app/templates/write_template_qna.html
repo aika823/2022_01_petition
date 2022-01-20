@@ -1,0 +1,274 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<!-- section.write -->
+<section class="write template">
+  <form id="formPetition" action="/inspection" method="post" enctype="multipart/form-data">
+
+    {% csrf_token %}
+    <input type="hidden" name="title" value="{{title}}">
+    {% for category in category_list %}
+    <input type="hidden" name="category[]" value="{{category.id}}">
+    {% endfor %}
+    <input type="hidden" name="department" value="{{department.id}}">
+
+    <input type="file" name="thumbnail" id="imageInput" style="display: none" />
+    <input type="file" name="images" id="imagesInput" style="display: none" multiple />
+
+    <div class="form-header">
+      <a href="javascript:void(0)" onclick="location.href='./check.html'"><i class="fas fa-times"></i></a>
+      <h3>청원 작성</h3>
+      <button type="submit" class="btn-submit" form="formPetition">완료</button>
+      {# <button type="button" class="btn-submit">완료</button> #}
+    </div>
+
+    <div id="thumbnailImage2" style="backgroud-image:url();">
+    </div>
+
+    <div id="thumbnailImage" class="form-row form-row--image">
+      <a class="btn-img" href="javascript:void(0)" onclick="open_image_input()">
+        <i class="fas fa-plus"></i>
+        <p>대표 이미지 추가</p>
+      </a>
+    </div>
+
+    <div class="title-wrap">
+      <h2 class="write-title">{{title}}</h2>
+      <div class="category-tag">
+        <div class="tag">
+          <p>카테고리</p>
+          {% for category in category_list %}
+          <p class="category">{{category.name}}</p>
+          {% endfor %}
+        </div>
+        <div class="tag">
+          <p>희망 수신자</p>
+          <p class="receiver">{{department.name}}</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="line"></div>
+
+    <div class="template-form-item">
+      <h3>💭 청원을 작성한 배경</h3>
+      <textarea name="content_1" id="" placeholder="청원을 하게 된 배경을 상세하게 적어주세요."></textarea>
+    </div>
+
+    <div class="line"></div>
+
+    <div class="template-form-item">
+      <h3>📑 제안하는 정책의 효과</h3>
+      <textarea name="content_2" id="" placeholder="경험했던 사실을 구체적으로 기술해주세요.
+기사, 책, 논문, SNS 자료 등 청자를 납득시킬 수
+있는 근거들을 활용해서 적어주세요."></textarea>
+    </div>
+
+    <div class="line"></div>
+
+    <div class="template-form-item">
+      <h3>✨ 청원이 이루어지면 어떤 효과가 있을까요?</h3>
+      <textarea name="content_7" id="" placeholder="공익적으로 효과가 있어야 정책으로 반영됩니다.
+요청하는 청원이 이루어진 세상은 어떻게 바뀔지,
+어떤 효과가 있을지 기술해주세요."></textarea>
+    </div>
+
+    <div class="line"></div>
+
+    <div class="template-form-item">
+      <h3>이해를 돕기 위한 사진 첨부</h3>
+      <p>청원글에 사진이 있으면 더 많은 사람들이 확인해요.</p>
+
+      <div id="preview" class="image-wrap">
+        <!-- <div class="uploaded-img" style="background-image: url('/static/images/sample1.png');"></div>
+        <div class="uploaded-img" style="background-image: url('/static/images/sample3.png');"></div> -->
+        <a class="add-img" onclick="open_images_input()">
+          <div class="inner">
+            <p><i class="fas fa-plus"></i></p>
+            <p><span class="img-count">0</span> / 10</p>
+          </div>
+        </a>
+      </div>
+    </div>
+
+    <div class="line"></div>
+
+    <div class="template-form-item">
+      <h3>🔖 핵심 단어 세 가지</h3>
+      <p>다른 시민들이 이 청원을 찾을 수 있도록 도와요</p>
+      <div class="tag-keywords">
+        <p class="keyword"># <input type="text" name="keyword_1"></p>
+        <p class="keyword"># <input type="text" name="keyword_2"></p>
+        <p class="keyword"># <input type="text" name="keyword_3"></p>
+      </div>
+    </div>
+
+    <div class="edit-tools">
+      <a href="javascript:void(0)">
+        <span class="material-icons-outlined">title</span>
+      </a>
+      <a href="javascript:void(0)">
+        <span class="material-icons-outlined">keyboard_voice</span>
+      </a>
+      <a class="blue" href="javascript:void(0)">
+        <span class="material-icons-outlined">add</span>
+      </a>
+    </div>
+  </form>
+
+</section>
+
+<section class="modal_wrap">
+  <article class="modal_cnt">
+    <div class="modal_body">
+      <h4>
+        부적절 표현 감지
+        <br>AI 분석 중...
+      </h4>
+      <div class="img-wrap">
+        <img src="/static/images/loading.png" alt="">
+      </div>
+    </div>
+    <a href="javascript:void(0)" class="close_btn">닫기</a>
+  </article>
+  <div class="modal_dim"></div>
+</section>
+{% endblock content %}
+
+
+{% block extrascripts %}
+<script>
+  $('#title').click(function () {
+    $('.line').animate({
+      "width": "100%"
+    }, 400)
+  });
+</script>
+
+<script>
+  $('.btn-template').click(function () {
+    $('.btn-template').removeClass('active');
+    $(this).addClass('active');
+  });
+</script>
+
+
+<script type="text/javascript">
+  function open_image_input() {
+    document.getElementById("imageInput").click();
+  }
+
+  function open_images_input() {
+    $('#imagesInput').click();
+  }
+
+  $('#imageInput').change(function () {
+    var file = this.files[0];
+    var reader = new FileReader();
+    reader.onloadend = function () {
+      $('#thumbnailImage').css('background-image', 'url("' + reader.result + '")');
+    }
+    if (file) {
+      reader.readAsDataURL(file);
+    } else {}
+  });
+
+
+  $('#imagesInput').change(function () {
+    var $preview = $('#preview');
+    $img_count = $('.img-count');
+
+    if ($img_count.text() == "10") {
+      alert("사진은 10장까지 등록할 수 있습니다.");
+    } else {
+      if (this.files) $.each(this.files, readAndPreview);
+      $img_count.text(String($('.uploaded-img').length + 1))
+    }
+
+    function readAndPreview(i, file) {
+      var tmp_images = []
+      if (!/\.(jpe?g|png|gif)$/i.test(file.name)) {
+        return alert(file.name + " 파일은 이미지 형식이 아닙니다.");
+      }
+
+      var reader = new FileReader();
+      $(reader).on("load", function () {
+
+        $preview.prepend(
+          $(
+            "<div />", {
+              class: "uploaded-img",
+              style: "background-image: url('" + this.result + "' )",
+            }
+          )
+        );
+      });
+      reader.readAsDataURL(file);
+    }
+
+
+
+  });
+
+  $('.open-input').click(function () {
+    $('.username-form').toggleClass('active');
+    $('.profile-tag-form').toggleClass('active');
+  });
+
+
+</script>
+
+<script>
+  $body = $('body');
+  $modalWrap = $('.modal_wrap');
+
+  $('.btn-submit').on('click', function () {
+    $body.addClass('modal_in');
+    $modalWrap.fadeIn(300);
+    $body.css('padding-right', getScrollWidth());
+    formSubmit();
+  });
+
+  $('.close_btn, .modal_dim').on('click', function () {
+    var speed = 300;
+    $modalWrap.fadeOut(speed);
+    setTimeout(function () {
+      $body.removeClass('modal_in');
+      $body.css('padding-right', 0)
+    }, speed)
+  });
+
+  function getScrollWidth() {
+    var body = document.querySelector('body');
+    var scrollDiv = document.createElement('div');
+    scrollDiv.className = 'fake_sjwidth';
+    body.appendChild(scrollDiv);
+    var scrollbarWidth = $(document).height() > $(window).height() ? scrollDiv.offsetWidth - scrollDiv.clientWidth :
+      0;
+
+    body.removeChild(scrollDiv);
+    return scrollbarWidth;
+  }
+
+  function formSubmit() {
+    console.log("function formSubmit()");
+    var params = $("#formPetition").serialize();
+    console.log(params);
+    $.ajax({
+      url: '/api/check_validation',
+      type: 'POST',
+      data: params,
+      contentType: 'application/x-www-form-urlencoded; charset=UTF-8',
+      dataType: 'html',
+      success: function (data) {
+        data = JSON.parse(data)
+        console.log(data);
+        console.log(data.content_1.prediction);
+        console.log(data.content_2.prediction);
+        console.log(data.content_7.prediction);
+      }
+    });
+  }
+</script>
+{% endblock extrascripts %}

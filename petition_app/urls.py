@@ -17,19 +17,19 @@ urlpatterns = [
     path('main', views.main),
     
     path('check', views.check),
-    path('check_highlight', views.check_highlight),
-    path('check_keyboard', views.check_keyboard),
+    path('check/highlight', views.check_highlight),
+    path('check/keyboard', views.check_keyboard),
     path('good', views.good),
     
-    path('list', views.list),
-    
-    path('title_finish', views.title_finish),
-    path('choose_category', views.choose_category),
-    path('choose_receiver', views.choose_receiver),
     path('write', views.write),
-    path('write_template', views.write_template),
-    path('write_template_click', views.write_template_click),
+    path('write/title', views.write_title),
+    path('write/category', views.write_category),
+    path('write/receiver', views.write_receiver),
+    path('write/template/qna', views.write_template_qna),
+    path('write/template/click', views.write_template_click),
+    
     path('inspection', views.inspection),
     
+    path('list', views.list),
     path('detail/<int:id>', views.detail),
 ]

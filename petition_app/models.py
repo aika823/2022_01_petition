@@ -14,11 +14,26 @@ class User(models.Model):
         db_table = "user"
 
 
+class Category(models.Model):
+    name = models.CharField(max_length=30, db_column="name", null=False)
+    content = models.CharField(max_length=100, db_column="content", null=False)
+
+    class Meta:
+        db_table = "category"
+
+
+class Department(models.Model):
+    name = models.CharField(max_length=10, db_column="name", null=False)
+    content = models.CharField(max_length=100, db_column="content", null=False)
+
+    class Meta:
+        db_table = "department"
+
+
 class Petition(models.Model):
-    user = models.ForeignKey(to=User, db_column="user", on_delete=CASCADE)
+    user = models.ForeignKey(to=User, db_column="user", on_delete=CASCADE, default=None)
     title = models.CharField(max_length=100, db_column="title", null=False, default="")
-    category = models.CharField(max_length=100, db_column="category", null=False, default="")
-    department = models.CharField(max_length=100, db_column="department", null=False, default="")
+    department = models.ForeignKey(to=Department, db_column="department", on_delete=CASCADE, default=None)
     
     # 청원을 작성한 배경
     content_1 = models.CharField(max_length=500, db_column="content_1", null=True, default=None)
@@ -44,6 +59,14 @@ class Petition(models.Model):
 
     class Meta:
         db_table = "petition"
+
+
+class PetitionCategory(models.Model):
+    petition = models.ForeignKey(to=Petition, db_column="petition", on_delete=CASCADE)
+    category = models.ForeignKey(to=Category, db_column="category", on_delete=CASCADE)
+
+    class Meta:
+        db_table = "petition_category"
 
 
 class PetitionImage(models.Model):

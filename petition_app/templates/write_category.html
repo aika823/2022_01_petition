@@ -1,0 +1,53 @@
+{% extends "base.html" %}
+
+{% block content %}
+<header class="title-page">
+  <div class="title">
+    <a href="javascript:void(0)" onclick="location.href='./check.html'"><i class="fas fa-times"></i></a>
+  </div>
+  <div class="order-header">
+    <span></span>
+    <p>카테고리</p>
+    <span></span>
+  </div>
+</header>
+
+
+<!-- section.choose-category -->
+<section class="choose-category">
+  <h2>카테고리를 선택해주세요.</h2>
+  <p>직접 여러개를 선택할 수 있어요!</p>
+  <form action="/write/receiver">
+  <input type="hidden" name="title" value="{{title}}">
+    <div class="category-grid">
+      {% for category in category_list %}
+      <div class="btn-multiple">
+        <label>
+          <input type="checkbox" name="category[]" value="{{category.id}}"><span>{{category.name}}</span>
+        </label>
+      </div>
+      {% endfor %}
+    </div>
+    <button type="submit" class="btn-validation">카테고리 선택 완료</button>
+  </form>
+</section>
+{% endblock content %}
+
+
+{% block extrascripts %}
+<script>
+  $('#title').click(function () {
+    $('.line').animate({
+      "width": "100%"
+    }, 400)
+  });
+</script>
+{% endblock extrascripts %}
+
+
+<body class="background-white2 check-page">
+
+  
+
+</body>
+</html>

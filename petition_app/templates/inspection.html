@@ -15,27 +15,16 @@
   <form id="formPetition" action="" method="">
 
     {% csrf_token %}
-    <input type="hidden" name="title" value="{{title}}">
-    <input type="hidden" name="category" value="{{category}}">
-    <input type="hidden" name="department" value="{{department}}">
-    <input type="file" name="thumbnail" id="imageInput" style="display: none" />
-    <input type="file" name="images" id="imagesInput" style="display: none" multiple />
-
 
     <div class="form-header">
       <a href="javascript:void(0)" onclick="location.href='./check.html'"><i class="fas fa-times"></i></a>
-      <h3>청원 작성 {{petition.title}}</h3>
-      <!-- <button type="submit" class="btn-submit" form="formPetition">완료</button> -->
+      <h3>청원 작성</h3>
       <button type="button" class="btn-submit">완료</button>
     </div>
 
 
     <div id="thumbnailImage" class="form-row form-row--image"
       style="background-image:url('/media/{{petition.thumbnail}}');">
-      <!-- <a class="btn-img" href="javascript:void(0)" onclick="open_image_input()">
-        <i class="fas fa-plus"></i>
-        <p>대표 이미지 추가</p>
-      </a> -->
     </div>
 
     <div class="title-wrap">
@@ -47,7 +36,7 @@
         </div>
         <div class="tag">
           <p>희망 수신자</p>
-          <p class="receiver">{{petition.department}}</p>
+          <p class="receiver">{{petition.department.name}}</p>
         </div>
       </div>
     </div>
@@ -240,24 +229,6 @@
 
 
 <script>
-  $body = $('body');
-  $modalWrap = $('.modal_wrap');
-
-  $('.btn-submit').on('click', function () {
-    $body.addClass('modal_in');
-    $modalWrap.fadeIn(300);
-    $body.css('padding-right', getScrollWidth());
-  });
-
-  $('.close_btn, .modal_dim').on('click', function () {
-    var speed = 300;
-    $modalWrap.fadeOut(speed);
-    setTimeout(function () {
-      $body.removeClass('modal_in');
-      $body.css('padding-right', 0)
-    }, speed)
-  });
-
   function getScrollWidth() {
     var body = document.querySelector('body');
     var scrollDiv = document.createElement('div');

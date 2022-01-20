@@ -4,30 +4,28 @@
 
 <!-- section.write -->
 <section class="write">
-  <form id="formPetition" action="" method="post">
-  {% csrf_token %}
+  <form id="formPetition" action="" method="get">
+
+    {% for category in category_list %}
+    <input type="hidden" name="category[]" value="{{category}}">
+    {% endfor %}
+    <input type="hidden" name="department" value="{{department}}">
+
+    {% csrf_token %}
     <div class="form-header">
       <a href="javascript:void(0)" onclick="location.href='./check.html'"><i class="fas fa-times"></i></a>
       <h3>청원 작성</h3>
       <button type="submit" class="btn-submit" form="formPetition">완료</button>
     </div>
-    
+
     <div class="form-row">
-      <input id="title" type="text" name="title" placeholder="제목" required>
+      <input id="title" type="text" name="title" value="{{title}}" placeholder="제목" required>
       <div class="line"></div>
     </div>
-    <!-- <div class="form-row">
-      <input id="department" type="text" name="department" placeholder="수신인" required>
-      <div class="line"></div>
-    </div>
-    <div class="form-row">
-      <input id="category" type="text" name="category" placeholder="카테고리" required>
-      <div class="line"></div>
-    </div> -->
 
     <div class="edit-tools">
       <a href="javascript:void(0)">
-        <span class="material-icons-outlined">title</span>          
+        <span class="material-icons-outlined">title</span>
       </a>
       <a href="javascript:void(0)">
         <span class="material-icons-outlined">keyboard_voice</span>
@@ -68,17 +66,17 @@
       <p>설정은 언제든지 바꾸실 수 있어요.</p>
       <div class="template-box">
         <div class="type type--simple">
-          <input type="radio" name="template" checked>
+          <input type="radio" name="template" value="qna" checked>
           <img src="/static/images/simple.png" alt="">
           <p>간편 응답형 청원 템플릿</p>
         </div>
         <div class="type type--check">
-          <input type="radio" name="template">
+          <input type="radio" name="template" value="click">
           <img src="/static/images/check.png" alt="">
           <p>자가체크형 템플릿</p>
         </div>
       </div>
-      <a href="javascript:void(0)" class="btn-choise">선택 완료</a>
+      <a href="javascript:void(0)" class="btn-choise" onclick="selectTemplate()">선택 완료</a>
     </div>
     <a href="javascript:void(0)" class="close_btn">닫기</a>
   </article>
@@ -98,7 +96,8 @@
 
 <!-- js -->
 <script src="./assets/js/init.js"></script>
-<script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"
+  integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
 
 <script>
   $body = $('body');
@@ -132,14 +131,14 @@
 </script>
 
 <script>
-  $('.type--simple input').click(function() {
-      $('.type img').css("border", "2px solid #E4E4E4");
-      $('.type p').css("color", "#7B7B7B");
-      $('.type--simple img').css("border", "2px solid #4361EE");
-      $('.type--simple p').css("color", "#4361EE");
-      $(".type--simple input").attr('checked', true);
+  $('.type--simple input').click(function () {
+    $('.type img').css("border", "2px solid #E4E4E4");
+    $('.type p').css("color", "#7B7B7B");
+    $('.type--simple img').css("border", "2px solid #4361EE");
+    $('.type--simple p').css("color", "#4361EE");
+    $(".type--simple input").attr('checked', true);
   });
-  $('.type--check input').click(function() {
+  $('.type--check input').click(function () {
     $('.type img').css("border", "2px solid #E4E4E4");
     $('.type p').css("color", "#7B7B7B");
     $('.type--check img').css("border", "2px solid #4361EE");
@@ -149,20 +148,15 @@
 </script>
 
 <script>
-  $('.btn-choise').click(function() {
-    if($(".type--simple input:radio[name='template']").is(':checked') == true) {
-      location.href='/write_template';
-    } else {
-      location.href='/write_template_click';
+  function selectTemplate(template) {
+    var template = $('input[name=template]:checked').val()
+    if (template == 'qna') {
+      $("#formPetition").attr("action", "/write/template/qna");
+      $('#formPetition').submit();
+    } else if (template == 'click') {
+      $("#formPetition").attr("action", "/write/template/click");
+      $('#formPetition').submit();
     }
-  });
+  }
 </script>
 {% endblock extrascripts %}
-
-
-<body class="background-white2 check-page">
-
-  
-
-</body>
-</html>

@@ -1,0 +1,80 @@
+{% extends "base.html" %}
+
+{% block content %}
+<header class="title-page">
+  <div class="title">
+    <a href="javascript:void(0)" onclick="location.href='./check.html'"><i class="fas fa-times"></i></a>
+  </div>
+  <div class="order-header">
+    <span></span>
+    <span></span>
+    <p>수신인선택</p>
+  </div>
+</header>
+
+
+<!-- section.choose-category -->
+<section class="choose-category">
+  <h2>수신인을 선택해주세요.</h2>
+  <p>직접 선택할 수도 있어요!</p>
+  <form id="formDepartment" action="/write" method="get">
+    <input type="hidden" name="title" value="{{title}}">
+    {% for category in category_list %}
+    <input type="hidden" name="category[]" value="{{category}}">
+    {% endfor %}
+
+    <div class="category-grid category-grid--receiver">
+      {% for department in department_list %}
+      <div class="btn-multiple" onclick="changeText('{{department.content}}')">
+        <label>
+          <input type="radio" name="department" value="{{department.id}}">
+          <span>
+            <img src="/static/images/naver.png" alt="">
+            <p>{{department.name}}</p>
+          </span>
+        </label>
+      </div>
+      {% endfor %}
+    </div>
+
+    <p class="messege">
+      국토교통부
+    </p>
+
+    <button type="button" class="btn-validation" onclick="loading()">수신인 선택 완료</button>
+  </form>
+</section>
+
+<div class="loading-box">
+  <img src="/static/images/loading2.png" alt="">
+  <h3>
+    좋습니다!
+    <br>수신인에게 전달할
+    <br>청원을 작성해볼까요?
+  </h3>
+</div>
+{% endblock content %}
+
+
+{% block extrascripts %}
+<script>
+  $('#title').click(function () {
+    $('.line').animate({
+      "width": "100%"
+    }, 400)
+  });
+
+  function changeText(text) {
+    $('.messege').text(text);
+  }
+
+  function loading() {
+    $('.loading-box').fadeIn(300);
+    $('.loading-box').css('display', 'flex');
+    setInterval(() => {
+      $('#formDepartment').submit();
+      //location.href = '/write';
+    }, 1000);
+  }
+</script>
+{% endblock extrascripts %}
