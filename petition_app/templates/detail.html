@@ -36,6 +36,11 @@
   <div class="line"></div>
 
   <div class="template-form-item">
+    
+    {% if petition.content %}
+    <p class="item-content">{{petition.content}}</p>
+    {% endif %}
+
     {% if petition.content_1 %}
     <p class="item-content">{{petition.content_1}}</p>
     {% endif %}
@@ -43,21 +48,27 @@
     {% if petition.content_2 %}
     <p class="item-content">{{petition.content_2}}</p>
     {% endif %}
+
     {% if petition.content_3 %}
     <p class="item-content">{{petition.content_3}}</p>
     {% endif %}
+
     {% if petition.content_4 %}
     <p class="item-content">{{petition.content_4}}</p>
     {% endif %}
+
     {% if petition.content_5 %}
     <p class="item-content">{{petition.content_5}}</p>
     {% endif %}
+
     {% if petition.content_6 %}
     <p class="item-content">{{petition.content_7}}</p>
     {% endif %}
+
     {% if petition.content_7 %}
     <p class="item-content">{{petition.content_7}}</p>
     {% endif %}
+
   </div>
 
   <div class="template-form-item">

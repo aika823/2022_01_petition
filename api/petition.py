@@ -12,6 +12,7 @@ def create_petition(request):
     petition.department = department
     petition.thumbnail = request.FILES.get('thumbnail')
 
+    petition.content = request.POST.get('content')
     petition.content_1 = request.POST.get('content_1')
     petition.content_2 = request.POST.get('content_2')
     petition.content_3 = request.POST.get('content_3')

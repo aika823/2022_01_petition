@@ -1,42 +1,46 @@
 {% extends "base.html" %}
 
 {% block content %}
-<!-- <header class="title-page">
-  <div class="title">
-    <a href="javascript:void(0)" onclick="location.href='./check.html'"><i class="fas fa-times"></i></a>
-  </div>
-  <div class="header-title">
-    <h3>청원 작성</h3>
-  </div>
-</header> -->
-
 
 <!-- section.write -->
 <section class="write template">
-  <form action="">
+  <form id="formPetition" action="/inspection" method="post" enctype="multipart/form-data">
+
+    {% csrf_token %}
+    <input type="hidden" name="title" value="{{title}}">
+    {% for category in category_list %}
+    <input type="hidden" name="category[]" value="{{category.id}}">
+    {% endfor %}
+    <input type="hidden" name="department" value="{{department.id}}">
+
+    <input type="file" name="thumbnail" id="imageInput" style="display: none" />
+    <input type="file" name="images" id="imagesInput" style="display: none" multiple />
+
     <div class="form-header">
       <a href="javascript:void(0)" onclick="location.href='./check.html'"><i class="fas fa-times"></i></a>
       <h3>청원 작성</h3>
       <button class="btn-submit">완료</button>
     </div>
 
-    <div class="form-row form-row--image">
-      <a class="btn-img" href="javascript:void(0)">
+    <div id="thumbnailImage" class="form-row form-row--image">
+      <a class="btn-img" href="javascript:void(0)" onclick="open_image_input()">
         <i class="fas fa-plus"></i>
         <p>대표 이미지 추가</p>
       </a>
     </div>
 
     <div class="title-wrap">
-      <h2 class="write-title">점진적인 플라스틱 사용 및 생산 규제 시행을 위한 지침 제정 원합니다.</h2>
+      <h2 class="write-title">{{title}}</h2>
       <div class="category-tag">
         <div class="tag">
           <p>카테고리</p>
-          <p class="category">환경</p>
+          {% for category in category_list %}
+          <p class="category">{{category.name}}</p>
+          {% endfor %}
         </div>
         <div class="tag">
           <p>희망 수신자</p>
-          <p class="receiver">환경부</p>
+          <p class="receiver">{{department.name}}</p>
         </div>
       </div>
     </div>
@@ -59,12 +63,12 @@
     <div class="line"></div>
 
     <div class="form-row">
-      <textarea name="" id="" placeholder="위의 내용들이 반영이 되었는지 체크해가며, 청원을 작성해보세요."></textarea>
+      <textarea name="content" placeholder="위의 내용들이 반영이 되었는지 체크해가며, 청원을 작성해보세요."></textarea>
     </div>
 
     <div class="edit-tools">
       <a href="javascript:void(0)">
-        <span class="material-icons-outlined">title</span>          
+        <span class="material-icons-outlined">title</span>
       </a>
       <a href="javascript:void(0)">
         <span class="material-icons-outlined">keyboard_voice</span>
@@ -80,26 +84,18 @@
 
 
 {% block extrascripts %}
+<script src="/static/js/media.js"></script>
+
 <script>
   $('#title').click(function () {
     $('.line').animate({
       "width": "100%"
     }, 400)
   });
-</script>
 
-<script>
-  $('.btn-template').click(function(){
-    $('.btn-template').removeClass('active');
-    $(this).addClass('active');
+  $('.btn-template').click(function () {
+    //$('.btn-template').removeClass('active');
+    $(this).toggleClass('active');
   });
 </script>
 {% endblock extrascripts %}
-
-
-<body class="background-white2 check-page">
-
-  
-
-</body>
-</html>

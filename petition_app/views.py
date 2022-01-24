@@ -173,10 +173,16 @@ def write_template_qna(request):
 
 
 def write_template_click(request):
+    category_list = [Category.objects.get(id=id) for id in request.GET.getlist('category[]')]
+    department = Department.objects.get(id=request.GET.get('department'))
+
     context={
         'body_class':'height-auto',
         'active':{'list':"active"},
-        'bottom_nav':False
+        'bottom_nav':False,
+        'title':request.GET.get('title'),
+        'category_list':category_list,
+        'department':department
     }
     return render(request, "write_template_click.html", context=context)
 
@@ -184,18 +190,27 @@ def write_template_click(request):
 def inspection(request):
     if request.method == "POST":
         petition = create_petition(request)
-        category_list = PetitionCategory.objects.filter(petition=petition)
+        # category_list = PetitionCategory.objects.filter(petition=petition)
+        category_list = Category.objects.filter(petitioncategory__petition = petition)
         image_list = PetitionImage.objects.filter(petition=petition)
+
+        if request.POST.get('content'):
+            status = {
+                'content': check_appropriate(petition.content)['prediction']
+            }
+        else:
+            status = {
+                'content_1': check_appropriate(petition.content_1)['prediction'],
+                'content_2': check_appropriate(petition.content_2)['prediction'],
+                # 'content_3': check_appropriate(petition.content_3)['prediction'],
+                # 'content_4': check_appropriate(petition.content_4)['prediction'],
+                # 'content_5': check_appropriate(petition.content_5)['prediction'],
+                # 'content_6': check_appropriate(petition.content_6)['prediction'],
+                'content_7': check_appropriate(petition.content_7)['prediction'],
+            }
+
         
-        status = {
-            'content_1': check_appropriate(petition.content_1)['prediction'],
-            'content_2': check_appropriate(petition.content_2)['prediction'],
-            # 'content_3': check_appropriate(petition.content_3)['prediction'],
-            # 'content_4': check_appropriate(petition.content_4)['prediction'],
-            # 'content_5': check_appropriate(petition.content_5)['prediction'],
-            # 'content_6': check_appropriate(petition.content_6)['prediction'],
-            'content_7': check_appropriate(petition.content_7)['prediction'],
-        }
+        
 
         print(status)
 

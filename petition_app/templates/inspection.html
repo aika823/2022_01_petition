@@ -1,27 +1,16 @@
 {% extends "base.html" %}
 
 {% block content %}
-<!-- <header class="title-page">
-  <div class="title">
-    <a href="javascript:void(0)" onclick="location.href='./check.html'"><i class="fas fa-times"></i></a>
-  </div>
-  <div class="header-title">
-    <h3>청원 작성</h3>
-  </div>
-</header> -->
 
 <!-- section.write -->
 <section class="write template">
   <form id="formPetition" action="" method="">
 
-    {% csrf_token %}
-
     <div class="form-header">
-      <a href="javascript:void(0)" onclick="location.href='./check.html'"><i class="fas fa-times"></i></a>
+      <a href="javascript:void(0)"><i class="fas fa-times"></i></a>
       <h3>청원 작성</h3>
-      <button type="button" class="btn-submit">완료</button>
+      <button type="button" class="btn-submit" onclick="location.href='/detail/{{petition.id}}'">완료</button>
     </div>
-
 
     <div id="thumbnailImage" class="form-row form-row--image"
       style="background-image:url('/media/{{petition.thumbnail}}');">
@@ -32,7 +21,9 @@
       <div class="category-tag">
         <div class="tag">
           <p>카테고리</p>
-          <p class="category">{{petition.category}}</p>
+          {% for category in category_list %}
+          <p class="category">{{category.name}}</p>
+          {% endfor %}
         </div>
         <div class="tag">
           <p>희망 수신자</p>
@@ -41,6 +32,21 @@
       </div>
     </div>
 
+    {% if petition.content %}
+    <div class="template-form-item">
+      <div class="item-title">
+        <h3>💭 청원 내용</h3>
+        {% if status.content == '적절' %}
+        <div class="status good"><i class="fas fa-check"></i></div>
+        {% else %}
+        <div class="status bad"><i class="fas fa-exclamation"></i></div>
+        {% endif %}
+      </div>
+      <p class="item-content">{{petition.content}}</p>
+    </div>
+    
+    
+    {% else %}
     <div class="template-form-item">
       <div class="item-title">
         <h3>💭 청원을 작성한 배경</h3>
@@ -76,6 +82,8 @@
       </div>
       <p class="item-content">{{petition.content_7}}</p>
     </div>
+    {% endif %}
+
 
     <div class="template-form-item">
       <h3>이해를 돕기 위한 사진 첨부</h3>

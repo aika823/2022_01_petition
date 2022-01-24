@@ -17,13 +17,10 @@
     <input type="file" name="images" id="imagesInput" style="display: none" multiple />
 
     <div class="form-header">
-      <a href="javascript:void(0)" onclick="location.href='./check.html'"><i class="fas fa-times"></i></a>
+      <a href="javascript:void(0)"><i class="fas fa-times"></i></a>
       <h3>청원 작성</h3>
       <button type="submit" class="btn-submit" form="formPetition">완료</button>
       {# <button type="button" class="btn-submit">완료</button> #}
-    </div>
-
-    <div id="thumbnailImage2" style="backgroud-image:url();">
     </div>
 
     <div id="thumbnailImage" class="form-row form-row--image">
@@ -138,97 +135,11 @@
 
 
 {% block extrascripts %}
-<script>
-  $('#title').click(function () {
-    $('.line').animate({
-      "width": "100%"
-    }, 400)
-  });
-</script>
-
-<script>
-  $('.btn-template').click(function () {
-    $('.btn-template').removeClass('active');
-    $(this).addClass('active');
-  });
-</script>
-
-
-<script type="text/javascript">
-  function open_image_input() {
-    document.getElementById("imageInput").click();
-  }
-
-  function open_images_input() {
-    $('#imagesInput').click();
-  }
-
-  $('#imageInput').change(function () {
-    var file = this.files[0];
-    var reader = new FileReader();
-    reader.onloadend = function () {
-      $('#thumbnailImage').css('background-image', 'url("' + reader.result + '")');
-    }
-    if (file) {
-      reader.readAsDataURL(file);
-    } else {}
-  });
-
-
-  $('#imagesInput').change(function () {
-    var $preview = $('#preview');
-    $img_count = $('.img-count');
-
-    if ($img_count.text() == "10") {
-      alert("사진은 10장까지 등록할 수 있습니다.");
-    } else {
-      if (this.files) $.each(this.files, readAndPreview);
-      $img_count.text(String($('.uploaded-img').length + 1))
-    }
-
-    function readAndPreview(i, file) {
-      var tmp_images = []
-      if (!/\.(jpe?g|png|gif)$/i.test(file.name)) {
-        return alert(file.name + " 파일은 이미지 형식이 아닙니다.");
-      }
-
-      var reader = new FileReader();
-      $(reader).on("load", function () {
-
-        $preview.prepend(
-          $(
-            "<div />", {
-              class: "uploaded-img",
-              style: "background-image: url('" + this.result + "' )",
-            }
-          )
-        );
-      });
-      reader.readAsDataURL(file);
-    }
-
-
-
-  });
-
-  $('.open-input').click(function () {
-    $('.username-form').toggleClass('active');
-    $('.profile-tag-form').toggleClass('active');
-  });
-
-
-</script>
+<script src="/static/js/media.js"></script>
 
 <script>
   $body = $('body');
   $modalWrap = $('.modal_wrap');
-
-  $('.btn-submit').on('click', function () {
-    $body.addClass('modal_in');
-    $modalWrap.fadeIn(300);
-    $body.css('padding-right', getScrollWidth());
-    formSubmit();
-  });
 
   $('.close_btn, .modal_dim').on('click', function () {
     var speed = 300;
@@ -244,31 +155,20 @@
     var scrollDiv = document.createElement('div');
     scrollDiv.className = 'fake_sjwidth';
     body.appendChild(scrollDiv);
-    var scrollbarWidth = $(document).height() > $(window).height() ? scrollDiv.offsetWidth - scrollDiv.clientWidth :
-      0;
-
+    var scrollbarWidth = $(document).height() > $(window).height() ? scrollDiv.offsetWidth - scrollDiv.clientWidth : 0;
     body.removeChild(scrollDiv);
     return scrollbarWidth;
   }
 
-  function formSubmit() {
-    console.log("function formSubmit()");
-    var params = $("#formPetition").serialize();
-    console.log(params);
-    $.ajax({
-      url: '/api/check_validation',
-      type: 'POST',
-      data: params,
-      contentType: 'application/x-www-form-urlencoded; charset=UTF-8',
-      dataType: 'html',
-      success: function (data) {
-        data = JSON.parse(data)
-        console.log(data);
-        console.log(data.content_1.prediction);
-        console.log(data.content_2.prediction);
-        console.log(data.content_7.prediction);
-      }
-    });
-  }
+  $('#title').click(function () {
+    $('.line').animate({
+      "width": "100%"
+    }, 400)
+  });
+
+  $('.btn-template').click(function () {
+    $('.btn-template').removeClass('active');
+    $(this).addClass('active');
+  });
 </script>
 {% endblock extrascripts %}
