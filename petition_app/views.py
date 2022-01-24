@@ -10,6 +10,7 @@ from .models import Category, Department, Petition, PetitionCategory, User, Peti
 
 
 def login(request, type):
+    print(type)
     return redirect(login_social(type))
 
 

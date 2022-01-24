@@ -1,0 +1,64 @@
+{% extends "base.html" %}
+
+{% block content %}
+<header class="title-page">
+  <div class="title">
+    <a href="javascript:void(0)" onclick="location.href='./check.html'"><i class="fas fa-times"></i></a>
+  </div>
+  <div class="order-header">
+    <p>제목입력</p>
+  </div>
+</header>
+
+
+<!-- section.title-finish -->
+<section class="title-finish">
+  <h2>청원 제목 입력하기</h2>
+  <form action="">
+    <div class="form-row">
+      <input id="title" type="text">
+      <div class="line"></div>
+    </div>
+
+    <div class="example">
+      <div class="icon">
+        <img src="/static/images/thumb-up.png" alt="">
+      </div>
+      <div class="example-good">
+        <h4>원하는 바가 명확히 드러나게, 길이는 간결히!</h4>
+        <p>(O) 청소노동자 휴게시설 설치 의무화 해주세요.</p>
+        <p>(O) GMO 표시 강화 방안 수립해주세요.</p>
+      </div>
+
+      <div class="icon">
+        <img src="/static/images/thumb-down.png" alt="">
+      </div>
+      <div class="example-bad">
+        <h4>해결안이 드러나지 않는 분풀이 제목은 자제!</h4>
+        <p>(X) 맥도날드 추방해주세요!</p>
+        <p>(X) 대통령님 저는 너무 억울합니다.</p>
+      </div>
+    </div>
+    <button type="button" class="btn-validation" onclick="location.href='/choose_category'">제목 작성 완료</button>
+  </form>
+</section>
+{% endblock content %}
+
+
+{% block extrascripts %}
+<script>
+  $('#title').click(function () {
+    $('.line').animate({
+      "width": "100%"
+    }, 400)
+  });
+</script>
+{% endblock extrascripts %}
+
+
+<body class="background-white2 check-page">
+
+  
+
+</body>
+</html>

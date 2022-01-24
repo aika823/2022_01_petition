@@ -5,7 +5,9 @@ import base64
 
 def login_social(type):
 
-    url = "http://localhost:8000"
+    # url = "http://localhost:8000"
+    url = "http://petition.kr"
+
     url_auth = {
         'naver' : "https://nid.naver.com/oauth2.0/authorize",
         'kakao' : "https://kauth.kakao.com/oauth/authorize",
@@ -17,11 +19,9 @@ def login_social(type):
         'google': 'code'
     }
     client_id = {
-        'naver' : 'WO73y3DTPypJ9B7qq56N',
-        # 'kakao' : 'afa386bd37692148a6c914da561c8458',
+        # 'naver' : 'WO73y3DTPypJ9B7qq56N',
         'kakao' : 'e17284c15b6929d2ee920faa9eb7f013',
-        # 'google': '1094555666329-b76moi8dkckmoe3vc9kb2qhf60r8t563.apps.googleusercontent.com',
-        'google': '733646076839-0hisc4n82c5o2hhlkhdlqo0s4b1nhbh1.apps.googleusercontent.com',
+        'google': '733646076839-m726ap70dqicfec5kuo18qhi6ipap99k.apps.googleusercontent.com',
     }
     redirect_uri = {
         'naver' : url+'/user/callback/naver',
@@ -34,19 +34,23 @@ def login_social(type):
         'google': "https://www.googleapis.com/auth/userinfo.email "+"https://www.googleapis.com/auth/userinfo.profile"
     }
     state = {
-        'naver' : '7a74649e-d714-438f-a3fc-991c8b6f4bc7',
+        # 'naver' : '7a74649e-d714-438f-a3fc-991c8b6f4bc7',
         'kakao' : None,
         'google': None
     }
     str_auth = f"{url_auth[type]}?response_type={response_type[type]}&client_id={client_id[type]}&redirect_uri={redirect_uri[type]}&state={state[type]}"
     if scope[type]: str_auth += "&scope={}".format(scope[type])
     
+
+    print(str_auth)
+
     return str_auth
 
 
 def callback_social(request, type):    
     
-    url = "http://localhost:8000"
+    # url = "http://localhost:8000"
+    url = "http://petition.kr"
 
     # 생성된 코드를 통해 유저 인증 진행
     code = request.GET.get('code')    
@@ -56,16 +60,13 @@ def callback_social(request, type):
         'kakao' : 'https://kauth.kakao.com/oauth/token'  
     }
     client_id={
-        # 'google': '1094555666329-b76moi8dkckmoe3vc9kb2qhf60r8t563.apps.googleusercontent.com',
-        'google': '733646076839-0hisc4n82c5o2hhlkhdlqo0s4b1nhbh1.apps.googleusercontent.com',
-        'naver' : "WO73y3DTPypJ9B7qq56N",
-        # 'kakao' : '8697dec0f53599c5d7f2502389d16f72',
+        'google': '733646076839-m726ap70dqicfec5kuo18qhi6ipap99k.apps.googleusercontent.com',
+        # 'naver' : "WO73y3DTPypJ9B7qq56N",
         'kakao' : 'e17284c15b6929d2ee920faa9eb7f013',
     }
     client_secret={
-        # 'google': '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',
-        'google': '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',
-        'naver' : "SOUKrwtgel",
+        'google': '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',
+        # 'naver' : "SOUKrwtgel",
     }
     scope={
         'google': "https://www.googleapis.com/auth/userinfo.profile"

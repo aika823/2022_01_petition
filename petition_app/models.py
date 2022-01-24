@@ -35,6 +35,9 @@ class Petition(models.Model):
     title = models.CharField(max_length=100, db_column="title", null=False, default="")
     department = models.ForeignKey(to=Department, db_column="department", on_delete=CASCADE, default=None)
     
+    # 자가응답형 템플릿
+    content = models.CharField(max_length=500, db_column="content", null=True, default=None)
+    
     # 청원을 작성한 배경
     content_1 = models.CharField(max_length=500, db_column="content_1", null=True, default=None)
     # 제안하는 정책의 효과
@@ -75,3 +78,13 @@ class PetitionImage(models.Model):
 
     class Meta:
         db_table = "petition_image"
+
+
+class PetitionPrediction(models.Model):
+    petition = models.ForeignKey(to=Petition, db_column="petition", on_delete=CASCADE)
+    ai = models.BooleanField(db_column="ai", null=False)
+    user = models.ForeignKey(to=User, db_column="user", on_delete=CASCADE)
+    prediction = models.BooleanField(db_column='prediction', null=False)
+    
+    class Meta:
+        db_table = "petition_prediction"
