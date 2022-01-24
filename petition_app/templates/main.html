@@ -23,6 +23,32 @@
 <section class="top5">
   <h2>청원 추천 수 Top 5</h2>
   <div class="slide-recommend">
+
+
+  {% for petition in petition_list %}
+  <div class="slide-card">
+    <div class="slide-wrap">
+      <div class="img-wrap" style="background-image: url('/static/images/sample1.png');"></div>
+      <div class="recommend-info">
+        <div class="info-row info-row--grid">
+          <div class="type">교통/건축/국토</div>
+          <p class="numberOfPeople">🖐 {{petition.agreements}}명 서명</p>
+        </div>
+        <h3>{{petition.title}}</h3>
+        <div class="graph-wrap">
+          <p class="percent">100%</p>
+          <div class="graph-bar">
+            <div class="graph-bar-percent"></div>
+          </div>
+          <a href="javascript:void(0)" class="btn-next" onclick="$('.slick-next').trigger('click');">
+            <img src="/static/images/arrow.png" alt="">
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+  {% endfor %}
+    
     
     <div class="slide-card">
       <div class="slide-wrap">

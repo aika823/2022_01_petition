@@ -48,11 +48,14 @@ def index(request):
 
 def main(request):
     user = User.objects.get(id=request.session.get('user'))
+    petition_list = Petition.objects.all().order_by('-agreements')[:5]
+    print(petition_list)
     context={
         'body_class':'background_white',
         'active':{'main':"active"},
         'bottom_nav':True,
-        'user':user
+        'user':user,
+        'petition_list':petition_list
     }
     return render(request, "main.html", context=context)
 
@@ -92,6 +95,7 @@ def good(request):
 def list(request):
     category = request.GET.get('category')
     category_list = Category.objects.all()
+
     if category:
         petition_list = Petition.objects.filter(petitioncategory__category__id = category)
     else:
