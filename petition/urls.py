@@ -8,6 +8,7 @@ from api import views as api_views
 
 urlpatterns = [
     path("api/check_validation", api_views.check_validation),
+    path("api/predict_petition", api_views.predict_petition),
     path("", include("petition_app.urls")),
 ]
 

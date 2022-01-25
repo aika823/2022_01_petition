@@ -6,11 +6,10 @@ from django.shortcuts import redirect, render
 from api.check_appropriate import check_appropriate
 from api.social import login_social, callback_social
 from api.petition import create_petition
-from .models import Category, Department, Petition, PetitionCategory, User, PetitionImage
+from .models import Category, Department, Petition, PetitionCategory, PetitionPrediction, User, PetitionImage
 
 
 def login(request, type):
-    print(type)
     return redirect(login_social(type))
 
 
@@ -49,7 +48,10 @@ def index(request):
 def main(request):
     user = User.objects.get(id=request.session.get('user'))
     petition_list = Petition.objects.all().order_by('-agreements')[:5]
-    print(petition_list)
+    for petition in petition_list:
+        petition.category_list = Category.objects.filter(petitioncategory__petition=petition)
+        petition.percentage = min(100,round(100*(petition.agreements/200000), 2))
+    
     context={
         'body_class':'background_white',
         'active':{'main':"active"},
@@ -93,24 +95,29 @@ def good(request):
 
 
 def list(request):
-    category = request.GET.get('category')
+    active_category = request.GET.get('category')
     category_list = Category.objects.all()
-
-    if category:
-        petition_list = Petition.objects.filter(petitioncategory__category__id = category)
+    active_all = "active"
+    for category in category_list:
+        if active_category and (category.id == int(active_category)):
+            category.active = "active"
+            active_all = None
+    if active_category:
+        petition_list = Petition.objects.filter(petitioncategory__category = active_category)
     else:
         petition_list = Petition.objects.filter()
         
     for petition in petition_list:
-        petition.percentage = round((petition.agreements/200000) * 100, 2)
+        petition.percentage = min(100,round(100*(petition.agreements/200000), 2))
+
     
     
     context={
         'body_class':'background-white2',
-        'active':{'all':"active"},
         'bottom_nav':True,
         'category_list':category_list,
         'petition_list':petition_list,
+        'active_all':active_all,
     }
     return render(request, "list.html", context=context)
 
@@ -213,10 +220,18 @@ def inspection(request):
                 'content_7': check_appropriate(petition.content_7)['prediction'],
             }
 
-        
-        
+        # 적절성 여부 데이터 입력
+        prediction = False
+        for key in status:
+            if status[key] == "부적절":
+                prediction = True
+                break
 
-        print(status)
+        petition_prediction = PetitionPrediction()
+        petition_prediction.ai = True
+        petition_prediction.petition = petition
+        petition_prediction.prediction = prediction
+        petition_prediction.save()
 
         context={
             'petition':petition,
@@ -232,12 +247,15 @@ def inspection(request):
 
 def detail(request, id):
     try:
+        user= User.objects.get(id=request.session.get('user'))
         petition = Petition.objects.get(id=id)
     except:
+        user = None
         petition = None
     category_list = PetitionCategory.objects.filter(petition=petition)
     image_list = PetitionImage.objects.filter(petition=petition)
     context={
+        'user':user,
         'petition':petition,
         'body_class':'height-auto',
         'active':{'list':"active"},

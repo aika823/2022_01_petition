@@ -15,15 +15,16 @@
 
 <section class="category">
 
-  <a class="btn-category active" href="javascript:void(0)">전체</a>
+  <a class="btn-category {{active_all}}" href="/list">전체</a>
+  
   {% for category in category_list %}
   
   {% if forloop.counter < 7 %}
-  <a class="btn-category" href="/list?category={{category.id}}">{{category.name}}</a>
+  <a class="btn-category {{category.active}}" href="/list?category={{category.id}}">{{category.name}}</a>
   {% elif forloop.counter > 7 %}
-  <a class="btn-category hide" href="/list?category={{category.id}}">{{category.name}}</a>
+  <a class="btn-category hide {{category.active}}" href="/list?category={{category.id}}">{{category.name}}</a>
   {% else %}
-  <a class="btn-category" href="/list?category={{category.id}}">{{category.name}}</a>
+  <a class="btn-category {{category.active}}" href="/list?category={{category.id}}">{{category.name}}</a>
   <a class="btn-category more">+ 더보기</a>
   {% endif %}
 

@@ -82,8 +82,8 @@ class PetitionImage(models.Model):
 
 class PetitionPrediction(models.Model):
     petition = models.ForeignKey(to=Petition, db_column="petition", on_delete=CASCADE)
-    ai = models.BooleanField(db_column="ai", null=False)
-    user = models.ForeignKey(to=User, db_column="user", on_delete=CASCADE)
+    ai = models.BooleanField(db_column="ai", null=True, default=None)
+    user = models.ForeignKey(to=User, db_column="user", on_delete=CASCADE, null=True, default=None)
     prediction = models.BooleanField(db_column='prediction', null=False)
     
     class Meta:

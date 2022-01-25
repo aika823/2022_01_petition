@@ -1,5 +1,6 @@
 from petition_app.models import Category, Department, Petition, PetitionCategory, PetitionImage, User
 
+
 def create_petition(request):
     
     user = User.objects.get(id=request.session.get('user'))

@@ -5,7 +5,7 @@
 <!-- section.write -->
 <section class="write template">
   <div class="form-header">
-    <a href="javascript:void(0)" onclick="location.href='./check.html'"><i class="fas fa-times"></i></a>
+    <!--<a><i class="fas fa-times"></i></a>-->
     <h3>{{petition.title}}</h3>
   </div>
 
@@ -36,7 +36,7 @@
   <div class="line"></div>
 
   <div class="template-form-item">
-    
+
     {% if petition.content %}
     <p class="item-content">{{petition.content}}</p>
     {% endif %}
@@ -97,8 +97,8 @@
     </div>
     <h3 class="mention"><span>부적절한 글</span>인가요?</h3>
     <div class="box-bottom box-bottom--grid">
-      <a class="btn-apply done" href="javascript:void(0)">네</a>
-      <a class="btn-apply done" href="javascript:void(0)">아니요</a>
+      <a class="btn-apply done" onclick="predictPetition({{user.id}},{{petition.id}},true)">네</a>
+      <a class="btn-apply done" onclick="predictPetition({{user.id}},{{petition.id}},false)">아니요</a>
     </div>
     <p class="btn-close"><i class="fas fa-times"></i></p>
   </div>
@@ -152,6 +152,27 @@
 
     body.removeChild(scrollDiv);
     return scrollbarWidth;
+  }
+
+  function predictPetition(userID, petitionID, prediction) {
+    $.ajax({
+      url: "/api/predict_petition",
+      data: {
+        user_id: userID,
+        petition_id: petitionID,
+        prediction: prediction,
+        csrfmiddlewaretoken: '{{ csrf_token }}'
+      },
+      method: "POST",
+      dataType: "json"
+    }).done(function (data) {
+      if(data.duplicate){
+        alert("수정");
+      }else{
+        alert("완료");
+      }
+      
+    });
   }
 </script>
 {% endblock extrascripts %}
