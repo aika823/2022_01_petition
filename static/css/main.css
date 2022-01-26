@@ -394,3 +394,7 @@ footer .policy a {
   color: #B2B2B2;
   font-size: 18px;
 }
+
+body.background_white {
+  background-color: #F3F3F5;
+}

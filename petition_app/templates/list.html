@@ -18,7 +18,6 @@
   <a class="btn-category {{active_all}}" href="/list">전체</a>
   
   {% for category in category_list %}
-  
   {% if forloop.counter < 7 %}
   <a class="btn-category {{category.active}}" href="/list?category={{category.id}}">{{category.name}}</a>
   {% elif forloop.counter > 7 %}
@@ -27,9 +26,7 @@
   <a class="btn-category {{category.active}}" href="/list?category={{category.id}}">{{category.name}}</a>
   <a class="btn-category more">+ 더보기</a>
   {% endif %}
-
   {% endfor %}
-
 
 </section>
 

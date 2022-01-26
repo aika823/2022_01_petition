@@ -33,9 +33,11 @@
         <div class="img-wrap" style="background-image: url('/media/{{petition.thumbnail}}');"></div>
         <div class="recommend-info">
           <div class="info-row info-row--grid">
-            {% for category in petition.category_list %}
-            <div class="type">{{category.name}}</div>
-            {% endfor %}
+            <div class="type-wrap">
+              {% for category in petition.category_list %}
+              <div class="type">{{category.name}}</div>
+              {% endfor %}
+            </div>
             <p class="numberOfPeople">🖐 {{petition.agreements|intcomma}}명 서명</p>
           </div>
           <h3>{{petition.title}}</h3>
@@ -62,4 +64,22 @@
 {% block extrascripts %}
 <script type="text/javascript" src="/static/slick/slick.min.js"></script>
 <script src="/static/js/top5.js"></script>
+<script>
+  $(window).resize(function () {
+    if (window.innerWidth > 650) {
+      for (var i = 0; i < $('.slide-card').length; i++) {
+        for (var j = 3; j < $('.type').length; j++) {
+          $('.slide-card').eq(i).children('.type').eq(j).css('visibility', 'visible');
+        }
+      }
+    } else {
+      for (var i = 0; i < $('.slide-card').length; i++) {
+        for (var j = 3; j < $('.type').length; j++) {
+          $('.slide-card').eq(i).children('.type').eq(j).css('visibility', 'hidden');
+        }
+      }
+    }
+  }).resize();
+
+</script>
 {% endblock extrascripts %}

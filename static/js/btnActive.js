@@ -7,3 +7,8 @@ $('.btn-category').click(function() {
     $(this).addClass('active');
   } 
 });
+
+if($('.btn-category.hide').hasClass('active') == true) {
+  $('.more').hide();
+  $('.btn-category.hide').show();
+}
