@@ -1422,6 +1422,9 @@ section.write.template .line {
   body.check-page {
     height: auto;
   }
+  body.check-page.height-100 {
+    height: 100%;
+  }
   body.check-page.write {
     height: 100%;
   }
@@ -1429,6 +1432,10 @@ section.write.template .line {
     padding: 40px 40px 20px;
   }
 
+  body.check-page.height-100 .btn-validation {
+    position: absolute;
+    left: 0;
+  }
   .btn-validation {
     position: fixed;
     left: 0;

@@ -72,7 +72,7 @@ def check(request):
 
 def check_highlight(request):
     context={
-        'body_class':'background-white2 check-page',
+        'body_class':'background-white2 check-page height-100',
         'bottom_nav':False
     }
     return render(request, "check_highlight.html", context=context)
@@ -80,7 +80,7 @@ def check_highlight(request):
 
 def check_keyboard(request):
     context={
-        'body_class':'background-white2 check-page',
+        'body_class':'background-white2 check-page height-100',
         'bottom_nav':False
     }
     return render(request, "check_keyboard.html", context=context)
