@@ -88,7 +88,7 @@ def check_keyboard(request):
 
 def good(request):
     context={
-        'body_class':'check-page',
+        'body_class':'check-page height-100',
         'bottom_nav':False
     }
     return render(request, "good.html", context=context)
@@ -127,7 +127,7 @@ def list(request):
 
 def write_title(request):
     context={
-        'body_class':'background-white2 check-page',
+        'body_class':'background-white2 check-page height-100',
         'active':{'list':"active"},
         'bottom_nav':False
     }
@@ -137,7 +137,7 @@ def write_title(request):
 def write_category(request):
     category_list = Category.objects.all()
     context={
-        'body_class':'background-white2 check-page category',
+        'body_class':'background-white2 check-page category height-100',
         'active':{'list':"active"},
         'bottom_nav':False,
         'title':request.GET.get('title'),
@@ -149,7 +149,7 @@ def write_category(request):
 def write_receiver(request):
     department_list = Department.objects.all()
     context={
-        'body_class':'background-white2 check-page',
+        'body_class':'background-white2 check-page height-100',
         'active':{'list':"active"},
         'bottom_nav':False,
         'title':request.GET.get('title'),
