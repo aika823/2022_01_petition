@@ -18,12 +18,12 @@ $('.slide-recommend').slick({
   dots: true,
   centerMode: true,
   // focusOnSelect: true
-  centerPadding: '30px',
+  centerPadding: '20px',
   adaptiveHeight: true,
   responsive: [{
     breakpoint: 450,
     settings: {
-      centerPadding: '10px',
+      centerPadding: '20px',
     }
   }]
 }).on("afterChange", function () {

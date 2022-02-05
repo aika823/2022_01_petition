@@ -2,19 +2,19 @@
 
 {% block content %}
 <header class="title-page">
-  <div class="title">
-    <a href="javascript:void(0)" onclick="location.href='./check.html'"><i class="fas fa-times"></i></a>
-  </div>
+  <a href="javascript:void(0)" onclick="location.href='/write/title'">
+    <img src="/static/images/icons/close.png" alt="">
+  </a>
   <div class="order-header">
     <span></span>
     <span></span>
-    <p>수신인선택</p>
+    <p class="reciever">수신인선택</p>
   </div>
 </header>
 
 
 <!-- section.choose-category -->
-<section class="choose-category">
+<section class="choose-category choose-reciever">
   <h2>수신인을 선택해주세요.</h2>
   <p>직접 선택할 수도 있어요!</p>
   <form id="formDepartment" action="/write" method="get">
@@ -29,8 +29,8 @@
         <label>
           <input type="radio" name="department" value="{{department.id}}">
           <span>
-            <img src="/static/images/naver.png" alt="">
-            <p>{{department.name}}</p>
+            <img class="reciever-img" src="/static/images/reciever/01.png" alt="">
+            <p class="department-name">{{department.name}}</p>
           </span>
         </label>
       </div>
@@ -46,7 +46,7 @@
 </section>
 
 <div class="loading-box">
-  <img src="/static/images/loading2.png" alt="">
+  <img src="/static/images/reciever/loading.png" alt="">
   <h3>
     좋습니다!
     <br>수신인에게 전달할
@@ -76,5 +76,20 @@
       //location.href = '/write';
     }, 1000);
   }
+</script>
+
+<script>
+  for(var i = 0; i < $('.reciever-img').length; i++) {
+    if(i < 9) {
+      $('.reciever-img').eq(i).attr('src','/static/images/reciever/0' + (i + 1) + '.png');
+    } else {
+      $('.reciever-img').eq(i).attr('src','/static/images/reciever/' + (i + 1) + '.png');
+    }
+  }
+
+  $('.department-name').eq(2).text('미래 창조과학부');
+  $('.department-name').eq(8).text('문화체육 관광부');
+  $('.department-name').eq(9).text('농림축산 식품부');
+  $('.department-name').eq(10).text('산업통상 자원부');
 </script>
 {% endblock extrascripts %}

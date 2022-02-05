@@ -8,17 +8,17 @@
 
   </div>
   <div class="btn-group">
-    <a href=""><i class="fas fa-search"></i></a>
-    <a href=""><i class="far fa-bell"></i></a>
+    <img src="/static/images/icons/search.png" alt="">
+    <img src="/static/images/icons/bell.png" alt="">
   </div>
 </header>
 
 <h2 class="welcome-h2">
   <div class="img-wrap">
-    <img src="/static/images/waving-hand.png" alt="">
+    <img src="/static/images/icons/waving-hand.png" alt="">
   </div>
-  <span>{{user.name}}</span>님,
-  <br>환영합니다.
+  <span>{{user.name}}님,
+환영합니다.</span>
 </h2>
 
 <!-- section.top5 -->
@@ -47,7 +47,9 @@
               <div class="graph-bar-percent"></div>
             </div>
             <a href="javascript:void(0)" class="btn-next" onclick="$('.slick-next').trigger('click');">
-              <img src="/static/images/arrow.png" alt="">
+              <span class="material-icons-outlined">
+                east
+              </span>
             </a>
           </div>
         </div>
@@ -65,17 +67,18 @@
 <script type="text/javascript" src="/static/slick/slick.min.js"></script>
 <script src="/static/js/top5.js"></script>
 <script>
+  console.log($('.slide-card').length)
   $(window).resize(function () {
     if (window.innerWidth > 650) {
       for (var i = 0; i < $('.slide-card').length; i++) {
         for (var j = 3; j < $('.type').length; j++) {
-          $('.slide-card').eq(i).children('.type').eq(j).css('visibility', 'visible');
+          $('.slide-card').eq(i).find('.type').eq(j).css('display', 'inline-block');
         }
       }
     } else {
       for (var i = 0; i < $('.slide-card').length; i++) {
-        for (var j = 3; j < $('.type').length; j++) {
-          $('.slide-card').eq(i).children('.type').eq(j).css('visibility', 'hidden');
+        for (var j = 1; j < $('.type').length; j++) {
+          $('.slide-card').eq(i).find('.type').eq(j).css('display', 'none');
         }
       }
     }

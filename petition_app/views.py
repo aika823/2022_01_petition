@@ -40,7 +40,7 @@ def index(request):
     except:
         context={
             'body_class':'splash',
-            'bottom_nav':True
+            'bottom_nav':False
         }
         return render(request, "index.html", context=context)
 
@@ -64,7 +64,7 @@ def main(request):
 
 def check(request):
     context={
-        'body_class':'background_white2',
+        'body_class':'background-white2 choose-page',
         'bottom_nav':False
     }
     return render(request, "check.html", context=context)
@@ -88,7 +88,7 @@ def check_keyboard(request):
 
 def good(request):
     context={
-        'body_class':'check-page',
+        'body_class':'check-page good-page',
         'bottom_nav':False
     }
     return render(request, "good.html", context=context)
@@ -116,7 +116,7 @@ def list(request):
     
     
     context={
-        'body_class':'background-white2',
+        'body_class':'background-white2 listpage',
         'bottom_nav':True,
         'category_list':category_list,
         'petition_list':petition_list,
@@ -127,7 +127,7 @@ def list(request):
 
 def write_title(request):
     context={
-        'body_class':'background-white2 check-page',
+        'body_class':'background-white2 check-page titlepage',
         'active':{'list':"active"},
         'bottom_nav':False
     }
@@ -161,7 +161,7 @@ def write_receiver(request):
 
 def write(request):
     context={
-        'body_class':'background-white2 check-page write',
+        'body_class':'check-page write',
         'active':{'list':"active"},
         'bottom_nav':False,
         'title':request.GET.get('title'),
