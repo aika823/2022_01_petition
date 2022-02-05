@@ -137,7 +137,7 @@ def write_title(request):
 def write_category(request):
     category_list = Category.objects.all()
     context={
-        'body_class':'background-white2 check-page category',
+        'body_class':'background-white2 check-page category height-100',
         'active':{'list':"active"},
         'bottom_nav':False,
         'title':request.GET.get('title'),
@@ -149,7 +149,7 @@ def write_category(request):
 def write_receiver(request):
     department_list = Department.objects.all()
     context={
-        'body_class':'background-white2 check-page',
+        'body_class':'background-white2 check-page height-100',
         'active':{'list':"active"},
         'bottom_nav':False,
         'title':request.GET.get('title'),

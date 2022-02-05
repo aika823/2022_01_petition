@@ -2,11 +2,10 @@ from django.shortcuts import redirect
 import requests
 import base64
 
+# url = "http://localhost:8000"
+url = "http://petition.kr"
 
 def login_social(type):
-
-    url = "http://localhost:8000"
-    # url = "http://petition.kr"
 
     url_auth = {
         'naver' : "https://nid.naver.com/oauth2.0/authorize",
@@ -48,9 +47,6 @@ def login_social(type):
 
 
 def callback_social(request, type):    
-    
-    url = "http://localhost:8000"
-    # url = "http://petition.kr"
 
     # 생성된 코드를 통해 유저 인증 진행
     code = request.GET.get('code')    
