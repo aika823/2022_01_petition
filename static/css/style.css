@@ -492,6 +492,10 @@ section.highlight-wrap .highlight-text p {
     font-size: 17px;
     border-bottom: 1px solid #DCDCDC;
 }
+#console {
+  visibility: hidden;
+  position: absolute;
+}
 
 .btn-validation {
     width: 100%;
@@ -506,6 +510,10 @@ section.highlight-wrap .highlight-text p {
     position: absolute;
     bottom: 0;
     cursor: pointer;
+}
+
+.btn-validation.btn-highlight {
+  pointer-events: none;
 }
 
 section.highlight-wrap .highlight-text p::selection {
