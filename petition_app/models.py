@@ -1,6 +1,6 @@
 from django.db import models
 from django.db.models.deletion import CASCADE
-import datetime
+from datetime import datetime    
 
 
 class User(models.Model):
@@ -61,6 +61,8 @@ class Petition(models.Model):
     agreements = models.IntegerField(db_column="agreements", null=False, default=0)
     thumbnail = models.ImageField(upload_to=("images/"),default='default_image.png')
 
+    created_at = models.DateTimeField(db_column="created_at",auto_now_add=True, null=True)
+
     class Meta:
         db_table = "petition"
 
@@ -86,6 +88,7 @@ class PetitionPrediction(models.Model):
     ai = models.BooleanField(db_column="ai", null=True, default=None)
     user = models.ForeignKey(to=User, db_column="user", on_delete=CASCADE, null=True, default=None)
     prediction = models.BooleanField(db_column='prediction', null=False)
+    created_at = models.DateTimeField(db_column="created_at",auto_now_add=True, null=True)
     
     class Meta:
         db_table = "petition_prediction"
@@ -94,6 +97,7 @@ class PetitionPrediction(models.Model):
 class PetitionAgreement(models.Model):
     petition = models.ForeignKey(to=Petition, db_column="petition", on_delete=CASCADE)
     user = models.ForeignKey(to=User, db_column="user", on_delete=CASCADE, null=True, default=None)
+    created_at = models.DateTimeField(db_column="created_at",auto_now_add=True, null=True)
     
     class Meta:
         db_table = "petition_agreement"
