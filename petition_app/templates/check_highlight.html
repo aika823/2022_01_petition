@@ -13,7 +13,7 @@
 <section class="highlight-wrap">
   <div class="info">
     <div class="img-hand">
-      <img src="/static/images/point.png" alt="">
+      <img src="/static/images/icons/point.png" alt="">
     </div>
     <p>
       손가락으로 아래 문장을
@@ -21,17 +21,17 @@
     </p>
   </div>
   <div class="highlight-text" id="text">
-    <p ontouchmove="touchDrag(event)">숙의적 시민으로서 거짓없이 작성하겠습니다.</p>
-    <p ontouchmove="touchDrag(event)">감정만을 호소하거나 분풀이 하지 않겠습니다.</p>
-    <p ontouchmove="touchDrag(event)">원하는 바를 명확하게 제시하겠습니다.</p>
-    <p ontouchmove="touchDrag(event)">청원의 합리성을 위해 근거를 제시하겠습니다.</p>
-    <p ontouchmove="touchDrag(event)">저는 타인을 배려하는 태도로 임하겠습니다.</p>
-    <p id="demo"></p>
+    <div id="console"></div>
+    <p class="line line1">숙의적 시민으로서 거짓없이 작성하겠습니다.</p>
+    <p class="line line2">감정만을 호소하거나 분풀이 하지 않겠습니다.</p>
+    <p class="line line3">원하는 바를 명확하게 제시하겠습니다.</p>
+    <p class="line line4">청원의 합리성을 위해 근거를 제시하겠습니다.</p>
+    <p class="line line5">저는 타인을 배려하는 태도로 임하겠습니다.</p>
   </div>
 
 </section>
 
-<a class="btn-validation" href="/good">꼭 지키겠습니다</a>
+<a class="btn-validation btn-highlight" href="/good">꼭 지키겠습니다</a>
 
 
 {% endblock content %}
@@ -71,6 +71,61 @@
       $(this).html($(this).text().replace(regex, "<span class='highlight-color'>" + search + "</span>"));
     });
   }
+</script>
+
+<script>
+  function selectText() {
+     var selectionText = ""; //마우스로 드래그한 글 
+     if (document.getSelection) {
+        selectionText = document.getSelection();
+     } else if (document.selection) {
+        selectionText = document.selection.createRange().text;
+     }
+     return selectionText;
+  }
+
+  document.onmouseup = function () {
+     document.getElementById("console").innerHTML = selectText();
+     var str = document.getElementById("console").innerHTML;
+     var line = [];
+     var slice = [];
+
+     for(var i = 0; i < $('.line').length; i++) {
+        line.push($(".line").eq(i).text());
+        slice.push(line[i].substr(str.length));
+     }
+
+     if(str.substr(0, 2) == '숙의') {
+        highlightText(0, line[0].length, str);
+     } else if(str.substr(0, 2) == '감정') {
+        highlightText(1, line[1].length, str);
+     } else if(str.substr(0, 2) == '원하') {
+        highlightText(2, line[2].length, str);
+     } else if(str.substr(0, 2) == '청원') {
+        highlightText(3, line[3].length, str);
+     } else if(str.substr(0, 2) == '저는') {
+        highlightText(4, line[4].length, str);
+     }
+
+     console.log($('.line.active').length)
+     // 여기에 .line.active 클래스 개수 5개일 때, 버튼 활성화 되도록
+    if($('.line.active').length == 5) {
+      console.log("OK")
+      $(".btn-highlight").css('pointer-events', 'all');
+    }
+
+     function highlightText(num, text_length, str) {
+        if(str.length < text_length) {
+           return $('.line').eq(num).html('<span style="background-color:#B6EECE;">' + str + '</span>' + slice[num]);
+        } else if(str.length == text_length) {
+           $('.line').eq(num).addClass('active');
+           return $('.line').eq(num).html('<span style="background-color:#B6EECE;">' + str + '</span>' + slice[num]);
+        } else {
+           return $('.line span').eq(num).text().substr(0, text_length);
+        }
+     }
+  }
+
 </script>
 {% endblock extrascripts %}
 

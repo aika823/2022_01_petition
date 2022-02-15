@@ -3,7 +3,9 @@
 {% block content %}
 <header class="title-page">
   <div class="title">
-    <a href="javascript:void(0)" onclick="location.href='./check.html'"><i class="fas fa-times"></i></a>
+    <a href="javascript:void(0)" onclick="location.href='/write/title'">
+      <img src="/static/images/icons/close.png" alt="">
+    </a>
   </div>
   <div class="order-header">
     <span></span>
@@ -41,6 +43,10 @@
       "width": "100%"
     }, 400)
   });
+</script>
+<script>
+  $('.btn-multiple').eq(15).find('span').html('문화/예술/<br>체육/언론');
+  $('.btn-multiple').eq(15).find('span').css('padding-top', '3px');
 </script>
 {% endblock extrascripts %}
 

@@ -32,6 +32,8 @@
       </div>
     </div>
 
+    <div class="line" style="margin-top: 40px;"></div>
+
     {% if petition.content %}
     <div class="template-form-item">
       <div class="item-title">
@@ -44,12 +46,14 @@
       </div>
       <p class="item-content">{{petition.content}}</p>
     </div>
+
+    <div class="line"></div>
     
     
     {% else %}
     <div class="template-form-item">
       <div class="item-title">
-        <h3>💭 청원을 작성한 배경</h3>
+        <h3>💭 청원을 하게 된 이유가 무엇인가요?</h3>
         {% if status.content_1 == '적절' %}
         <div class="status good"><i class="fas fa-check"></i></div>
         {% else %}
@@ -59,9 +63,11 @@
       <p class="item-content">{{petition.content_1}}</p>
     </div>
 
+    <div class="line"></div>
+
     <div class="template-form-item">
       <div class="item-title">
-        <h3>📑 제안하는 정책의 효과</h3>
+        <h3>📑 주장을 뒷받침하는 자료가 있나요?</h3>
         {% if status.content_2 == '적절' %}
         <div class="status good"><i class="fas fa-check"></i></div>
         {% else %}
@@ -70,6 +76,8 @@
       </div>
       <p class="item-content">{{petition.content_2}}</p>
     </div>
+
+    <div class="line"></div>
 
     <div class="template-form-item">
       <div class="item-title">
@@ -82,6 +90,8 @@
       </div>
       <p class="item-content">{{petition.content_7}}</p>
     </div>
+
+    <div class="line"></div>
     {% endif %}
 
 
@@ -93,6 +103,8 @@
         {% endfor %}
       </div>
     </div>
+
+    <div class="line"></div>
 
     <div class="template-form-item">
       <h3>🔖 핵심 단어 세 가지</h3>
@@ -162,7 +174,7 @@
         <br>AI 분석 중...
       </h4>
       <div class="img-wrap">
-        <img src="/static/images/loading.png" alt="">
+        <img src="/static/gif_files/load.gif" alt="">
       </div>
     </div>
     <a href="javascript:void(0)" class="close_btn">닫기</a>

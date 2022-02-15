@@ -8,8 +8,8 @@
     <h3>모아보기</h3>
   </div>
   <div class="btn-group">
-    <a href=""><i class="fas fa-search"></i></a>
-    <a href=""><i class="far fa-bell"></i></a>
+    <img src="/static/images/icons/search.png" alt="">
+    <img src="/static/images/icons/bell.png" alt="">
   </div>
 </header>
 
@@ -65,6 +65,15 @@
   for (var i = 0; i < graph.length; i++) {
     graph[i].style.width = percent[i].innerText;
   }
+</script>
+<script src="/static/js/btnActive.js"></script>
+<script>
+  $('.menu-item').eq(1).children('p').show();
+  $('.menu-item').eq(0).children('img').attr('src', '/static/images/icons/btn-home1.png');
+  $('.menu-item').eq(1).children('img').attr('src', '/static/images/icons/btn-group2.png');
+
+  $('.btn-category').eq(17).html('문화/예술/<br>체육/언론');
+  $('.btn-category').eq(17).css({'font-size':'10px', 'padding':'2px'});
 </script>
 {% endblock extrascripts %}
 

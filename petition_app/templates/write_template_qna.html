@@ -17,7 +17,9 @@
     <input type="file" name="images" id="imagesInput" style="display: none" multiple />
 
     <div class="form-header">
-      <a href="javascript:void(0)"><i class="fas fa-times"></i></a>
+      <a href="javascript:void(0)" onclick="location.href='/write/title'">
+        <img src="/static/images/icons/close.png" alt="">
+      </a>
       <h3>청원 작성</h3>
       <button type="submit" class="btn-submit" form="formPetition">완료</button>
       {# <button type="button" class="btn-submit">완료</button> #}
@@ -46,17 +48,17 @@
       </div>
     </div>
 
-    <div class="line"></div>
+    <div class="line" style="margin-top: 40px;"></div>
 
     <div class="template-form-item">
-      <h3>💭 청원을 작성한 배경</h3>
+      <h3>💭&nbsp;&nbsp;청원을 하게 된 이유가 무엇인가요?</h3>
       <textarea name="content_1" id="" placeholder="청원을 하게 된 배경을 상세하게 적어주세요."></textarea>
     </div>
 
     <div class="line"></div>
 
     <div class="template-form-item">
-      <h3>📑 제안하는 정책의 효과</h3>
+      <h3>📑&nbsp;&nbsp;주장을 뒷받침하는 자료가 있나요?</h3>
       <textarea name="content_2" id="" placeholder="경험했던 사실을 구체적으로 기술해주세요.
 기사, 책, 논문, SNS 자료 등 청자를 납득시킬 수
 있는 근거들을 활용해서 적어주세요."></textarea>
@@ -65,7 +67,14 @@
     <div class="line"></div>
 
     <div class="template-form-item">
-      <h3>✨ 청원이 이루어지면 어떤 효과가 있을까요?</h3>
+      <h3>✔️&nbsp;&nbsp;구체적으로 어떤 정책/해결안을 원하시나요?</h3>
+      <textarea name="content_7" id="" placeholder="합리적이고 구체적인 정책/ 해결안을 작성해주세요."></textarea>
+    </div>
+
+    <div class="line"></div>
+
+    <div class="template-form-item">
+      <h3>✨&nbsp;&nbsp;청원이 이루어지면 어떤 효과가 있을까요?</h3>
       <textarea name="content_7" id="" placeholder="공익적으로 효과가 있어야 정책으로 반영됩니다.
 요청하는 청원이 이루어진 세상은 어떻게 바뀔지,
 어떤 효과가 있을지 기술해주세요."></textarea>
@@ -75,7 +84,7 @@
 
     <div class="template-form-item">
       <h3>이해를 돕기 위한 사진 첨부</h3>
-      <p>청원글에 사진이 있으면 더 많은 사람들이 확인해요.</p>
+      <p class="img-comment">청원글에 사진이 있으면 더 많은 사람들이 확인해요.</p>
 
       <div id="preview" class="image-wrap">
         <!-- <div class="uploaded-img" style="background-image: url('/static/images/sample1.png');"></div>
@@ -92,7 +101,7 @@
     <div class="line"></div>
 
     <div class="template-form-item">
-      <h3>🔖 핵심 단어 세 가지</h3>
+      <h3>🔖&nbsp;&nbsp;핵심 단어 세 가지</h3>
       <p>다른 시민들이 이 청원을 찾을 수 있도록 도와요</p>
       <div class="tag-keywords">
         <p class="keyword"># <input type="text" name="keyword_1"></p>
