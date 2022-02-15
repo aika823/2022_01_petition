@@ -1,21 +1,6 @@
-{% extends 'base.html' %}
-
-
-{% block extraheads %}
-<script type="text/javascript" src="//code.jquery.com/jquery-1.11.0.min.js"></script>
-<script type="text/javascript" src="//code.jquery.com/jquery-migrate-1.2.1.min.js"></script>
-<script type="text/javascript" src="/static/js/jquery.waypoints.min.js"></script>
-<script type="text/javascript" src="/static/js/infinite.min.js"></script>
-<style>
-  div.infinite-item {
-    height: 200px;
-  }
-</style>
-{% endblock extraheads %}
-
+{% extends "base.html" %}
 
 {% load humanize %}
-
 
 {% block content %}
 <header>
@@ -31,7 +16,7 @@
 <section class="category">
 
   <a class="btn-category {{active_all}}" href="/list">전체</a>
-
+  
   {% for category in category_list %}
   {% if forloop.counter < 7 %}
   <a class="btn-category {{category.active}}" href="/list?category={{category.id}}">{{category.name}}</a>
@@ -47,15 +32,11 @@
 
 <div class="line-middle"></div>
 
-
 <!-- section.list -->
-<section class="list infinite-container">
+<section class="list">
 
-  {% for number in numbers %}
-  {% load petition_tag %}
-  {% with petition=petition_list|index:number %}
-
-  <div class="list-item infinite-item">
+  {% for petition in petition_list %}
+  <div class="list-item">
     <div class="list-img" style="background-image: url('/media/{{petition.thumbnail}}');"></div>
     <div class="list-info">
       <h3 class="list-title" onclick="location.href='/detail/{{petition.id}}'">{{petition.title}}</h3>
@@ -68,24 +49,34 @@
       </div>
     </div>
   </div>
-
   <div class="line"></div>
-
-  {% endwith %}
   {% endfor %}
 
 </section>
 
-{% if numbers.has_next %}
-<a class="infinite-more-link" href="?page={{ numbers.next_page_number }}">More</a>
-{% endif %}
-
 {% endblock content %}
+
 
 {% block extrascripts %}
 <script>
-  var infinite = new Waypoint.Infinite({
-    element: $('.infinite-container')[0]
-  });
+  var graph = document.getElementsByClassName('graph-bar-percent');
+  var percent = document.getElementsByClassName('percent');
+
+  for (var i = 0; i < graph.length; i++) {
+    graph[i].style.width = percent[i].innerText;
+  }
+</script>
+<script src="/static/js/btnActive.js"></script>
+<script>
+  $('.menu-item').eq(1).children('p').show();
+  $('.menu-item').eq(0).children('img').attr('src', '/static/images/icons/btn-home1.png');
+  $('.menu-item').eq(1).children('img').attr('src', '/static/images/icons/btn-group2.png');
+
+  $('.btn-category').eq(17).html('문화/예술/<br>체육/언론');
+  $('.btn-category').eq(17).css({'font-size':'10px', 'padding':'2px'});
 </script>
 {% endblock extrascripts %}
+
+</body>
+
+</html>

@@ -1,0 +1,91 @@
+{% extends 'base.html' %}
+
+
+{% block extraheads %}
+<script type="text/javascript" src="//code.jquery.com/jquery-1.11.0.min.js"></script>
+<script type="text/javascript" src="//code.jquery.com/jquery-migrate-1.2.1.min.js"></script>
+<script type="text/javascript" src="/static/js/jquery.waypoints.min.js"></script>
+<script type="text/javascript" src="/static/js/infinite.min.js"></script>
+<style>
+div.infinite-item{
+    height:200px;
+}
+</style>
+{% endblock extraheads %}
+
+
+{% load humanize %}
+
+
+{% block content %}
+<header>
+    <div class="title">
+        <h3>모아보기</h3>
+    </div>
+    <div class="btn-group">
+        <img src="/static/images/icons/search.png" alt="">
+        <img src="/static/images/icons/bell.png" alt="">
+    </div>
+</header>
+
+<section class="category">
+
+    <a class="btn-category {{active_all}}" href="/list">전체</a>
+
+    {% for category in category_list %}
+    {% if forloop.counter < 7 %}
+    <a class="btn-category {{category.active}}" href="/list?category={{category.id}}">{{category.name}}</a>
+    {% elif forloop.counter > 7 %}
+    <a class="btn-category hide {{category.active}}" href="/list?category={{category.id}}">{{category.name}}</a>
+    {% else %}
+    <a class="btn-category {{category.active}}" href="/list?category={{category.id}}">{{category.name}}</a>
+    <a class="btn-category more">+ 더보기</a>
+    {% endif %}
+    {% endfor %}
+
+</section>
+
+<div class="line-middle"></div>
+
+
+<!-- section.list -->
+<section class="list infinite-container">
+
+    {% for number in numbers %}
+    {% load petition_tag %}
+    {% with petition=petition_list|index:number %}
+
+    <div class="list-item infinite-item">
+        <div class="list-img" style="background-image: url('/media/{{petition.thumbnail}}');"></div>
+        <div class="list-info">
+            <h3 class="list-title" onclick="location.href='/detail/{{petition.id}}'">{{petition.title}}</h3>
+            <p class="numberOfPeople">🖐 {{petition.agreements | intcomma}}명 동의</p>
+            <div class="graph-wrap">
+                <p class="percent">{{petition.percentage}}%</p>
+                <div class="graph-bar">
+                    <div class="graph-bar-percent"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="line"></div>
+
+    {% endwith %}
+    {% endfor %}
+
+</section>
+
+{% if numbers.has_next %}
+<a class="infinite-more-link" href="?page={{ numbers.next_page_number }}">More</a>
+{% endif %}
+
+{% endblock content %}
+
+{% block extrascripts %}
+<script>
+   var infinite = new Waypoint.Infinite({
+        element: $('.infinite-container')[0]
+    });
+</script>
+{% endblock extrascripts %}
