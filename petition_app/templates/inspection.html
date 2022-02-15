@@ -7,14 +7,16 @@
   <form id="formPetition" action="" method="">
 
     <div class="form-header">
-      <a href="javascript:void(0)"><i class="fas fa-times"></i></a>
+      <a href="javascript:void(0)"><img src="/static/images/icons/close.png" alt=""></a>
       <h3>청원 작성</h3>
-      <button type="button" class="btn-submit" onclick="location.href='/detail/{{petition.id}}'">완료</button>
+      <button type="button" class="btn-submit" onclick="loading()">완료</button>
     </div>
 
+    {% if petition.thumnail %}
     <div id="thumbnailImage" class="form-row form-row--image"
       style="background-image:url('/media/{{petition.thumbnail}}');">
     </div>
+    {% endif %}
 
     <div class="title-wrap">
       <h2 class="write-title">{{petition.title}}</h2>
@@ -164,6 +166,18 @@
     </div>
   </section>
 
+  <div class="loading-motion">
+    <img src="/static/gif_files/load.gif" alt="">
+    <h3>청원을 저장하고 있어요</h3>
+    <p>조금만 기다려 주세요</p>
+  </div>
+
+  <div class="finish-write">
+    <h2>청원 완료</h2>
+    <h3>소중한 청원 감사합니다</h3>
+    <p>20만명의 서명을 모아주세요</p>
+  </div>
+
 </section>
 
 <section class="modal_wrap">
@@ -247,6 +261,21 @@
   });
 </script>
 
+<script>
+  function loading() {
+    $('.loading-motion').fadeIn(300);
+    $('.loading-motion').css('display', 'flex');
+
+    setTimeout(()=>{
+      $('.loading-motion').fadeOut(300);
+      $('.finish-write').css('display', 'flex');
+    }, 1500);
+
+    $('.finish-write').click(function() {
+      location.href='/detail/{{petition.id}}';
+    });
+  }
+</script>
 
 <script>
   function getScrollWidth() {
