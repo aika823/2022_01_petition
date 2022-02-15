@@ -4,18 +4,22 @@
 
 <!-- section.write -->
 <section class="write template">
-  <div class="form-header">
-    <!--<a><i class="fas fa-times"></i></a>-->
-    <h3>{{petition.title}}</h3>
+  <div class="form-header detail-page">
+    <a href="javascript:void(0)" onclick="location.href='/list'">
+      <img src="/static/images/icons/close.png" alt="">
+    </a>
+    <h3>내 청원</h3>
   </div>
 
+  {% if petition.thumnail %}
   <div id="thumbnailImage" class="form-row form-row--image"
     style="background-image:url('/media/{{petition.thumbnail}}');">
   </div>
+  {% endif %}
 
   <div class="title-wrap">
-    <h2 class="write-title">{{title}}</h2>
-    <div class="category-tag">
+    <h2 class="write-title">{{petition.title}}</h2>
+    <div class="category-tag detail-page">
       <div class="tag">
         <p>카테고리</p>
         {% for category in category_list %}
@@ -26,6 +30,8 @@
         <p>희망 수신자</p>
         <p class="receiver">{{petition.department.name}}</p>
       </div>
+
+      <p class="update-date">2022.01.28</p>
     </div>
 
     <a href="javascript:void(0)" class="open-modal">
@@ -33,7 +39,7 @@
     </a>
   </div>
 
-  <div class="line"></div>
+  <div class="line" style="margin-top: 40px;"></div>
 
   <div class="template-form-item">
 
