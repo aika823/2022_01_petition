@@ -1,5 +1,6 @@
 from django.db import models
 from django.db.models.deletion import CASCADE
+import datetime
 
 
 class User(models.Model):
@@ -88,3 +89,11 @@ class PetitionPrediction(models.Model):
     
     class Meta:
         db_table = "petition_prediction"
+
+
+class PetitionAgreement(models.Model):
+    petition = models.ForeignKey(to=Petition, db_column="petition", on_delete=CASCADE)
+    user = models.ForeignKey(to=User, db_column="user", on_delete=CASCADE, null=True, default=None)
+    
+    class Meta:
+        db_table = "petition_agreement"
