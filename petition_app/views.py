@@ -264,6 +264,7 @@ def detail(request, id):
     try:
         user= User.objects.get(id=request.session.get('user'))
         petition = Petition.objects.get(id=id)
+        petition.percentage = min(100,round(100*(petition.agreements/200000), 2))
     except:
         user = None
         petition = None

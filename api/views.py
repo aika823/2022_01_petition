@@ -62,8 +62,19 @@ def agree_petition(request):
     user = User.objects.get(id=request.POST.get('user_id'))
     petition = Petition.objects.get(id=request.POST.get('petition_id'))
     
-    petition_agreement = PetitionAgreement(petition=petition, user=user)
-    petition_agreement.save()
+    
+    try: # 사전 동의 여부 확인
+        petition_agreement = PetitionAgreement.objects.get(petition=petition, user=user)
+        duplicate = True
+    except:
+        petition_agreement = PetitionAgreement(petition=petition, user=user)
+        petition_agreement.save()
+        petition.agreements += 1
+        petition.save()
+        duplicate = False
 
-    petition.agreements += 1
-    petition.save()
+    data = {
+        'duplicate':duplicate
+    }
+
+    return JsonResponse(data, json_dumps_params={'ensure_ascii':True}, status=200)

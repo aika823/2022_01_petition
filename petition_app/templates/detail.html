@@ -109,16 +109,17 @@
     <p class="btn-close"><i class="fas fa-times"></i></p>
   </div>
 
+  {% load humanize %}
 
   <div class="list-info">
-    <p class="numberOfPeople">현재까지 <span>0000명</span> 동의</p>
+    <p class="numberOfPeople">현재까지 <span>{{petition.agreements|intcomma}}명</span> 동의</p>
     <div class="graph-wrap">
-      <p class="percent">00%</p>
+      <p class="percent">{{petition.percentage}}%</p>
       <div class="graph-bar">
-        <div class="graph-bar-percent"></div>
+        <div class="graph-bar-percent" style="width:{{petition.percentage}}%"></div>
       </div>
     </div>
-    <a href="javascript:void(0)" class="btn-agree-datail"><span>🖐</span> 동의합니다</a>
+    <a class="btn-agree-datail" onclick="agreePetition({{user.id}}, {{petition.id}})"><span>🖐</span> 동의합니다</a>
   </div>
 </section>
 {% endblock content %}
@@ -172,6 +173,7 @@
   }
 
   function predictPetition(userID, petitionID, prediction) {
+
     $.ajax({
       url: "/api/predict_petition",
       data: {
@@ -183,13 +185,34 @@
       method: "POST",
       dataType: "json"
     }).done(function (data) {
-      if(data.duplicate){
+      if (data.duplicate) {
         alert("수정");
-      }else{
+      } else {
         alert("완료");
       }
-      
     });
+    
+  }
+
+  function agreePetition(userID, petitionID) {
+
+    $.ajax({
+      url: "/api/agree_petition",
+      data: {
+        user_id: userID,
+        petition_id: petitionID,
+        csrfmiddlewaretoken: '{{ csrf_token }}'
+      },
+      method: "POST",
+      dataType: "json"
+    }).done(function (data) {
+      if (data.duplicate) {
+        alert("이미 동의한 청원입니다.");
+      } else {
+        alert("동의했습니다.");
+      }
+    });
+
   }
 </script>
 {% endblock extrascripts %}
