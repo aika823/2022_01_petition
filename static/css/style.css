@@ -1530,7 +1530,7 @@ section.inspection .slide-inspection {
 }
 
 .loading-motion {
-  position: fixed;
+  position: absolute;
   top: 0;
   left: 0;
   width: 100%;
@@ -1553,7 +1553,7 @@ section.inspection .slide-inspection {
 }
 
 .finish-write {
-  position: fixed;
+  position: absolute;
   top: 0;
   left: 0;
   width: 100%;
