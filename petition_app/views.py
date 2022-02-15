@@ -99,10 +99,7 @@ def list(request):
     active_category = request.GET.get('category')
     category_list = Category.objects.all()
     active_all = "active"
-    print(category_list)
     for category in category_list:
-        print(category.id)
-        print(category.name)
         if active_category and (category.id == int(active_category)):
             category.active = "active"
             active_all = None
@@ -126,9 +123,9 @@ def list(request):
         numbers = paginator.page(1)
     except EmptyPage:
         numbers = paginator.page(paginator.num_pages)
-
-    print(numbers)
     
+    print(numbers)
+
     context={
         'body_class':'background-white2 listpage',
         'bottom_nav':True,
