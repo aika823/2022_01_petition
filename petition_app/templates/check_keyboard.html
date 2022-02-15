@@ -32,11 +32,18 @@
   </div>
 </section>
 
-<a class="btn-validation keyboard-validation" href="/good">꼭 지키겠습니다</a>
+<a class="btn-validation keyboard-validation" href="javascript:void(0)">꼭 지키겠습니다</a>
 {% endblock content %}
 
 
 {% block extrascripts %}
+<script>
+  $('.keyboard-validation').click(function(){
+    if($('.keyboard-input').val() == '나는 성숙한 대한민국 시민으로서 타인에 대한 배려심, 정직함, 청원에 대한 책임감을 가지고 작성하겠습니다.') {
+      location.href="/good";
+    }
+  });
+</script>
 <script>
   $('.keyboard-input').focus(function () {
     $(this).attr("placeholder", "나는 성숙한 대한민국");
@@ -44,12 +51,14 @@
     $('.comment').show();
     $('.bg').css("background-image", "url('/static/images/bg-red.png')")
   });
-  $('.keyboard-input').blur(function () {
-    $(this).attr("placeholder", "");
-    $('.btn-validation').hide();
-    $('.comment').hide();
-    $('.bg').css("background-image", "url('/static/images/bg-blue.png')")
-  });
+  if($('.keyboard-input').val == "") {
+    $('.keyboard-input').blur(function () {
+      $(this).attr("placeholder", "");
+      $('.btn-validation').hide();
+      $('.comment').hide();
+      $('.bg').css("background-image", "url('/static/images/bg-blue.png')")
+    });
+  }
   $('.keyboard-input').keyup(function () {
     if ($('.keyboard-input').val() == '') {
       $(this).attr("placeholder", "");
