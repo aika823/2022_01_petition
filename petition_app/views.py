@@ -7,6 +7,7 @@ from api.check_appropriate import check_appropriate
 from api.social import login_social, callback_social
 from api.petition import create_petition
 from .models import Category, Department, Petition, PetitionCategory, PetitionPrediction, User, PetitionImage
+from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 
 
 def login(request, type):
@@ -98,10 +99,7 @@ def list(request):
     active_category = request.GET.get('category')
     category_list = Category.objects.all()
     active_all = "active"
-    print(category_list)
     for category in category_list:
-        print(category.id)
-        print(category.name)
         if active_category and (category.id == int(active_category)):
             category.active = "active"
             active_all = None
@@ -113,14 +111,28 @@ def list(request):
     for petition in petition_list:
         petition.percentage = min(100,round(100*(petition.agreements/200000), 2))
 
+    # infinite scroll
+    max = petition_list.count()
+    numbers_list = range(1, max)
+    page = request.GET.get("page", 1)
+    paginator = Paginator(numbers_list, 10)
+
+    try:
+        numbers = paginator.page(page)
+    except PageNotAnInteger:
+        numbers = paginator.page(1)
+    except EmptyPage:
+        numbers = paginator.page(paginator.num_pages)
     
-    
+    print(numbers)
+
     context={
         'body_class':'background-white2 listpage',
         'bottom_nav':True,
         'category_list':category_list,
         'petition_list':petition_list,
         'active_all':active_all,
+        'numbers':numbers
     }
     return render(request, "list.html", context=context)
 
