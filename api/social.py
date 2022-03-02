@@ -2,8 +2,8 @@ from django.shortcuts import redirect
 import requests
 import base64
 
-url = "http://localhost:8000"
-# url = "http://petition.kr"
+# url = "http://localhost:8000"
+url = "http://petition.kr"
 
 def login_social(type):
 
