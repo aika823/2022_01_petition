@@ -100,7 +100,7 @@
 
     <div class="line"></div>
 
-    <div class="template-form-item">
+    <div class="template-form-item last">
       <h3>🔖&nbsp;&nbsp;핵심 단어 세 가지</h3>
       <p>다른 시민들이 이 청원을 찾을 수 있도록 도와요</p>
       <div class="tag-keywords">
@@ -110,7 +110,7 @@
       </div>
     </div>
 
-    <div class="edit-tools">
+    <!-- <div class="edit-tools">
       <a href="javascript:void(0)">
         <span class="material-icons-outlined">title</span>
       </a>
@@ -120,7 +120,7 @@
       <a class="blue" href="javascript:void(0)">
         <span class="material-icons-outlined">add</span>
       </a>
-    </div>
+    </div> -->
   </form>
 
 </section>
@@ -134,6 +134,19 @@
       </h4>
       <div class="img-wrap">
         <img src="/static/images/loading.png" alt="">
+      </div>
+    </div>
+    <a href="javascript:void(0)" class="close_btn">닫기</a>
+  </article>
+  <div class="modal_dim"></div>
+</section>
+
+
+<section class="modal_wrap" id="imgView">
+  <article class="modal_cnt">
+    <div class="modal_body">
+      <div class="img-wrap">
+        <img src="" alt="">
       </div>
     </div>
     <a href="javascript:void(0)" class="close_btn">닫기</a>
@@ -178,6 +191,15 @@
   $('.btn-template').click(function () {
     $('.btn-template').removeClass('active');
     $(this).addClass('active');
+  });
+</script>
+
+
+<script>
+  $(function(){
+    for(var i = 1; i < $('.category').length; i++) {
+      $('.category').eq(i).hide();
+    }
   });
 </script>
 {% endblock extrascripts %}

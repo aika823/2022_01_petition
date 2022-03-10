@@ -14,13 +14,14 @@
 html {
   scroll-behavior: smooth;
   background-color: #E5E5E5;
+  height: 100%;
 }
 
 body,
 html {
   margin: 0;
   font-family: 'SF Pro', 'Noto Sans';
-  height: 100%;
+  /* height: 100%; */
 }
 
 body {
@@ -148,8 +149,14 @@ body.background_white {
 body.background-white2 {
   background: #FAFAFC;
 }
+body.background-white2.choose-page {
+  height: 100%;
+}
 body.choose-page header {
   background-color: #FAFAFC;
+}
+body.check-page.write {
+  height: 100%;
 }
 body.check-page.titlepage {
   height: 100%;
@@ -158,6 +165,9 @@ body.check-page.titlepage {
 header.title-page img,
 body.choose-page header img {
   width: 16px;
+}
+body.check-page.good-page {
+  height: 100%;
 }
 
 
@@ -379,6 +389,27 @@ nav.bottom-nav .menu-group .menu-item.active p {
   border-radius: 20px;
   /* padding: 60px 30px; */
 }
+#imgView.modal_wrap .modal_cnt {
+  width: 95%;
+  height: auto;
+  max-width: 768px;
+  background-color: transparent;
+  box-shadow: none;
+}
+#imgView .modal_cnt .img-wrap {
+  width: 100%;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+#imgView .modal_cnt .img-wrap img {
+  width: 100%;
+}
+/* #imgView .modal_cnt .img-wrap::after {
+  display: block;
+  content: "";
+  padding-bottom: 100%;
+} */
 
 .modal_wrap .modal_cnt .close_btn {
   position: absolute;

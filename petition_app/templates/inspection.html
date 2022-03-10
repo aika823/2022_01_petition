@@ -7,7 +7,7 @@
   <form id="formPetition" action="" method="">
 
     <div class="form-header">
-      <a href="javascript:void(0)"><img src="/static/images/icons/close.png" alt=""></a>
+      <a href="javascript:void(0)" onclick="history.back();"><img src="/static/images/icons/close.png" alt=""></a>
       <h3>청원 작성</h3>
       <button type="button" class="btn-submit" onclick="loading()">완료</button>
     </div>
@@ -289,5 +289,13 @@
     body.removeChild(scrollDiv);
     return scrollbarWidth;
   }
+</script>
+
+<script>
+  $(function(){
+    for(var i = 1; i < $('.category').length; i++) {
+      $('.category').eq(i).hide();
+    }
+  });
 </script>
 {% endblock extrascripts %}

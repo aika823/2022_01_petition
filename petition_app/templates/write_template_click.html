@@ -57,18 +57,34 @@
         <a class="btn-template" href="javascript:void(0)">✨ 제안하는 정책의 효과</a>
         <a class="btn-template" href="javascript:void(0)">👀 경험했던 사례 및 근거</a>
         <a class="btn-template" href="javascript:void(0)">📄 신빙성 있는 객관적 근거</a>
-        <a class="btn-template" href="javascript:void(0)">📷 이해를 돕는 자료</a>
+        <a class="btn-template btn-img" href="javascript:void(0)">📷 이해를 돕는 자료</a>
         <a class="btn-template" href="javascript:void(0)">✔️ 제안하는 정책/해결안</a>
       </div>
     </div>
 
     <div class="line"></div>
 
-    <div class="form-row">
+    <div class="template-form-item">
+
+      <div id="preview" class="image-wrap write-click">
+        <!-- <div class="uploaded-img" style="background-image: url('/static/images/sample1.png');"></div>
+        <div class="uploaded-img" style="background-image: url('/static/images/sample3.png');"></div> -->
+        <a class="add-img" onclick="open_images_input()">
+          <div class="inner">
+            <p><i class="fas fa-plus"></i></p>
+            <p><span class="img-count">0</span> / 10</p>
+          </div>
+        </a>
+      </div>
+    </div>
+
+    <div class="line img-line"></div>
+
+    <div class="form-row last">
       <textarea name="content" placeholder="위의 내용들이 반영이 되었는지 체크해가며, 청원을 작성해보세요."></textarea>
     </div>
 
-    <div class="edit-tools">
+    <!-- <div class="edit-tools">
       <a href="javascript:void(0)">
         <span class="material-icons-outlined">title</span>
       </a>
@@ -78,9 +94,22 @@
       <a class="blue" href="javascript:void(0)">
         <span class="material-icons-outlined">add</span>
       </a>
-    </div>
+    </div> -->
   </form>
 
+</section>
+
+
+<section class="modal_wrap" id="imgView">
+  <article class="modal_cnt">
+    <div class="modal_body">
+      <div class="img-wrap">
+        <img src="" alt="">
+      </div>
+    </div>
+    <a href="javascript:void(0)" class="close_btn">닫기</a>
+  </article>
+  <div class="modal_dim"></div>
 </section>
 {% endblock content %}
 
@@ -100,4 +129,23 @@
     $(this).toggleClass('active');
   });
 </script>
+
+<script>
+  $(function(){
+    for(var i = 1; i < $('.category').length; i++) {
+      $('.category').eq(i).hide();
+    }
+  });
+
+
+  $('.btn-img').click(function(){
+    if($(this).hasClass('active') == true) {
+      $('#preview, .img-line').css('display', 'grid');
+    } else {
+      $('#preview, .img-line').hide();
+    }
+  });
+
+</script>
+
 {% endblock extrascripts %}

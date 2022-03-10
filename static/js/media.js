@@ -45,6 +45,41 @@ $('#imagesInput').change(function() {
                     }
                 )
             );
+
+            $body = $('body');
+            $modalImg = $('#imgView');
+
+            $('.uploaded-img').on('click', function () {
+              $body.addClass('modal_in');
+              $modalImg.fadeIn(300);
+              $body.css('padding-right', getScrollWidth());
+              // var img_url = $(this).css("background-image");
+              var img_url = $(this).css("background-image").replace(/^url\(['"](.+)['"]\)/, '$1');
+
+              // console.log(img_url);
+              $('#imgView').find('.img-wrap img').attr('src', img_url);
+            });
+
+            $('.close_btn, .modal_dim').on('click', function () {
+              var speed = 300;
+              $modalImg.fadeOut(speed);
+              setTimeout(function () {
+                $body.removeClass('modal_in');
+                $body.css('padding-right', 0)
+              }, speed)
+            });
+
+            function getScrollWidth() {
+              var body = document.querySelector('body');
+              var scrollDiv = document.createElement('div');
+              scrollDiv.className = 'fake_sjwidth';
+              body.appendChild(scrollDiv);
+              var scrollbarWidth = $(document).height() > $(window).height() ? scrollDiv.offsetWidth - scrollDiv.clientWidth :
+                0;
+
+              body.removeChild(scrollDiv);
+              return scrollbarWidth;
+            }
         });
         reader.readAsDataURL(file);
     }

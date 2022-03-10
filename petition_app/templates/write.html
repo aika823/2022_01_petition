@@ -105,6 +105,12 @@
   $body = $('body');
   $modalWrap = $('.modal_wrap');
 
+  $('section.write').on('click', function () {
+    $body.addClass('modal_in');
+    $modalWrap.fadeIn(300);
+    $body.css('padding-right', getScrollWidth());
+  });
+
   $('.open_modal').on('click', function () {
     $body.addClass('modal_in');
     $modalWrap.fadeIn(300);
