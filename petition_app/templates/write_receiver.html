@@ -41,7 +41,7 @@
       국토교통부
     </p>
 
-    <button type="button" class="btn-validation" onclick="loading()">수신인 선택 완료</button>
+    <button id="checkBtn" type="button" class="btn-validation" onclick="loading()">수신인 선택 완료</button>
   </form>
 </section>
 
@@ -69,21 +69,29 @@
   }
 
   function loading() {
-    $('.loading-box').fadeIn(300);
-    $('.loading-box').css('display', 'flex');
-    setInterval(() => {
-      $('#formDepartment').submit();
-      //location.href = '/write';
-    }, 1000);
+
+    checked = $("input[type=radio]:checked").length;
+    if (!checked) {
+      alert("최소 하나의 수신인을 선택해주세요!");
+      return false;
+    } else {
+      $('.loading-box').fadeIn(300);
+      $('.loading-box').css('display', 'flex');
+      setInterval(() => {
+        $('#formDepartment').submit();
+      }, 1000);
+    }
+
+
   }
 </script>
 
 <script>
-  for(var i = 0; i < $('.reciever-img').length; i++) {
-    if(i < 9) {
-      $('.reciever-img').eq(i).attr('src','/static/images/reciever/0' + (i + 1) + '.png');
+  for (var i = 0; i < $('.reciever-img').length; i++) {
+    if (i < 9) {
+      $('.reciever-img').eq(i).attr('src', '/static/images/reciever/0' + (i + 1) + '.png');
     } else {
-      $('.reciever-img').eq(i).attr('src','/static/images/reciever/' + (i + 1) + '.png');
+      $('.reciever-img').eq(i).attr('src', '/static/images/reciever/' + (i + 1) + '.png');
     }
   }
 
@@ -91,5 +99,7 @@
   $('.department-name').eq(8).text('문화체육 관광부');
   $('.department-name').eq(9).text('농림축산 식품부');
   $('.department-name').eq(10).text('산업통상 자원부');
+
+ 
 </script>
 {% endblock extrascripts %}

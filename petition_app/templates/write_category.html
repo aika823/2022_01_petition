@@ -20,7 +20,7 @@
   <h2>카테고리를 선택해주세요.</h2>
   <p>직접 여러개를 선택할 수 있어요!</p>
   <form action="/write/receiver">
-  <input type="hidden" name="title" value="{{title}}">
+    <input type="hidden" name="title" value="{{title}}">
     <div class="category-grid">
       {% for category in category_list %}
       <div class="btn-multiple">
@@ -30,7 +30,7 @@
       </div>
       {% endfor %}
     </div>
-    <button type="submit" class="btn-validation">카테고리 선택 완료</button>
+    <button id="checkBtn" type="submit" class="btn-validation">카테고리 선택 완료</button>
   </form>
 </section>
 {% endblock content %}
@@ -43,6 +43,16 @@
       "width": "100%"
     }, 400)
   });
+
+  $(document).ready(function () {
+    $('#checkBtn').click(function () {
+      checked = $("input[type=checkbox]:checked").length;
+      if (!checked) {
+        alert("최소 하나의 카테고리를 선택해주세요!");
+        return false;
+      }
+    });
+  });
 </script>
 <script>
   $('.btn-multiple').eq(15).find('span').html('문화/예술/<br>체육/언론');
@@ -53,7 +63,8 @@
 
 <body class="background-white2 check-page">
 
-  
+
 
 </body>
+
 </html>
