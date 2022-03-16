@@ -7,7 +7,7 @@
   <form id="formPetition" action="" method="">
 
     <div class="form-header">
-      <a href="javascript:void(0)"><img src="/static/images/icons/close.png" alt=""></a>
+      <a href="javascript:void(0)" onclick="history.back();"><img src="/static/images/icons/close.png" alt=""></a>
       <h3>청원 작성</h3>
       <button type="button" class="btn-submit" onclick="loading()">완료</button>
     </div>
@@ -124,16 +124,6 @@
     {% endif %}
     
     <div class="edit-tools">
-      <a href="javascript:void(0)">
-        <span class="material-icons-outlined">title</span>
-      </a>
-      <a href="javascript:void(0)">
-        <span class="material-icons-outlined">keyboard_voice</span>
-      </a>
-      <a class="blue" href="javascript:void(0)">
-        <span class="material-icons-outlined">add</span>
-      </a>
-    </div>
 
   </form>
 
@@ -198,6 +188,21 @@
       </div>
     </div>
     <a href="javascript:void(0)" class="close_btn">닫기</a>
+  </article>
+  <div class="modal_dim"></div>
+</section>
+
+
+<section class="modal_wrap" id="imgView">
+  <article class="modal_cnt">
+    <div class="modal_body">
+      <div class="img-wrap">
+        <img src="" alt="">
+      </div>
+    </div>
+    <a href="javascript:void(0)" class="close_btn">
+      <span class="material-icons-outlined">close</span>
+    </a>
   </article>
   <div class="modal_dim"></div>
 </section>
@@ -283,6 +288,42 @@
   }
 </script>
 
+
+<script>
+  $body = $('body');
+  $modalImg = $('#imgView');
+
+  $('.uploaded-img').on('click', function () {
+    $body.addClass('modal_in');
+    $modalImg.fadeIn(300);
+    $body.css('padding-right', getScrollWidth());
+    var img_url = $(this).css("background-image").replace(/^url\(['"](.+)['"]\)/, '$1');
+    $('#imgView').find('.img-wrap img').attr('src', img_url);
+  });
+
+
+  $('.close_btn, .modal_dim').on('click', function () {
+    var speed = 300;
+    $modalImg.fadeOut(speed);
+    setTimeout(function () {
+      $body.removeClass('modal_in');
+      $body.css('padding-right', 0)
+    }, speed)
+  });
+
+  function getScrollWidth() {
+    var body = document.querySelector('body');
+    var scrollDiv = document.createElement('div');
+    scrollDiv.className = 'fake_sjwidth';
+    body.appendChild(scrollDiv);
+    var scrollbarWidth = $(document).height() > $(window).height() ? scrollDiv.offsetWidth - scrollDiv.clientWidth :
+      0;
+
+    body.removeChild(scrollDiv);
+    return scrollbarWidth;
+  }
+</script>
+
 <script>
   function getScrollWidth() {
     var body = document.querySelector('body');
@@ -295,5 +336,13 @@
     body.removeChild(scrollDiv);
     return scrollbarWidth;
   }
+</script>
+
+<script>
+  $(function(){
+    for(var i = 1; i < $('.category').length; i++) {
+      $('.category').eq(i).hide();
+    }
+  });
 </script>
 {% endblock extrascripts %}

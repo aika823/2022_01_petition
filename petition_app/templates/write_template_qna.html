@@ -100,7 +100,7 @@
 
     <div class="line"></div>
 
-    <div class="template-form-item">
+    <div class="template-form-item last">
       <h3>🔖&nbsp;&nbsp;핵심 단어 세 가지</h3>
       <p>다른 시민들이 이 청원을 찾을 수 있도록 도와요</p>
       <div class="tag-keywords">
@@ -110,7 +110,7 @@
       </div>
     </div>
 
-    <div class="edit-tools">
+    <!-- <div class="edit-tools">
       <a href="javascript:void(0)">
         <span class="material-icons-outlined">title</span>
       </a>
@@ -120,7 +120,7 @@
       <a class="blue" href="javascript:void(0)">
         <span class="material-icons-outlined">add</span>
       </a>
-    </div>
+    </div> -->
   </form>
 
 </section>
@@ -140,11 +140,119 @@
   </article>
   <div class="modal_dim"></div>
 </section>
+
+
+<section class="modal_wrap" id="imgView">
+  <article class="modal_cnt">
+    <div class="modal_body">
+      <div class="img-wrap">
+        <img src="" alt="">
+      </div>
+    </div>
+    <a href="javascript:void(0)" class="close_btn">
+      <span class="material-icons-outlined">close</span>
+    </a>
+  </article>
+  <div class="modal_dim"></div>
+</section>
 {% endblock content %}
 
 
 {% block extrascripts %}
-<script src="/static/js/media.js"></script>
+<!-- <script src="/static/js/media.js?ver=1"></script> -->
+<script>
+  function open_image_input() {
+  $('#imageInput').click();
+}
+
+function open_images_input() {
+  $('#imagesInput').click();
+}
+
+$('#imageInput').change(function() {
+  var file = this.files[0];
+  var reader = new FileReader();
+  reader.onloadend = function() {
+      $('#thumbnailImage').css('background-image', 'url("' + reader.result + '")');
+
+      if($('#thumbnailImage').css('background-image')) {
+        $('.btn-img').hide();
+      }
+  }
+
+  if (file) {
+    reader.readAsDataURL(file);
+  } else {}
+});
+
+$('#imagesInput').change(function() {
+  var $preview = $('#preview');
+  $img_count = $('.img-count');
+
+  if ($img_count.text() == "10") {
+      alert("사진은 10장까지 등록할 수 있습니다.");
+  } else {
+      if (this.files) $.each(this.files, readAndPreview);
+      $img_count.text(String($('.uploaded-img').length + 1))
+  }
+
+  function readAndPreview(i, file) {
+      var tmp_images = []
+      if (!/\.(jpe?g|png|gif)$/i.test(file.name)) {
+          return alert(file.name + " 파일은 이미지 형식이 아닙니다.");
+      }
+
+      var reader = new FileReader();
+      $(reader).on("load", function() {
+
+          $preview.prepend(
+              $(
+                  "<div />", {
+                      class: "uploaded-img",
+                      style: "background-image: url('" + this.result + "' )",
+                  }
+              )
+          );
+
+          $body = $('body');
+          $modalImg = $('#imgView');
+
+          $('.uploaded-img').on('click', function () {
+            $body.addClass('modal_in');
+            $modalImg.fadeIn(300);
+            $body.css('padding-right', getScrollWidth());
+            // var img_url = $(this).css("background-image");
+            var img_url = $(this).css("background-image").replace(/^url\(['"](.+)['"]\)/, '$1');
+
+            // console.log(img_url);
+            $('#imgView').find('.img-wrap img').attr('src', img_url);
+          });
+
+          $('.close_btn, .modal_dim').on('click', function () {
+            var speed = 300;
+            $modalImg.fadeOut(speed);
+            setTimeout(function () {
+              $body.removeClass('modal_in');
+              $body.css('padding-right', 0)
+            }, speed)
+          });
+
+          function getScrollWidth() {
+            var body = document.querySelector('body');
+            var scrollDiv = document.createElement('div');
+            scrollDiv.className = 'fake_sjwidth';
+            body.appendChild(scrollDiv);
+            var scrollbarWidth = $(document).height() > $(window).height() ? scrollDiv.offsetWidth - scrollDiv.clientWidth :
+              0;
+
+            body.removeChild(scrollDiv);
+            return scrollbarWidth;
+          }
+      });
+      reader.readAsDataURL(file);
+  }
+});
+</script>
 
 <script>
   $body = $('body');
@@ -179,5 +287,21 @@
     $('.btn-template').removeClass('active');
     $(this).addClass('active');
   });
+</script>
+
+
+<script>
+  $(function(){
+    for(var i = 1; i < $('.category').length; i++) {
+      $('.category').eq(i).hide();
+    }
+  });
+</script>
+
+
+<script>
+  // $('.btn-img').click(function(){
+  //   console.log('asdasd');
+  // });
 </script>
 {% endblock extrascripts %}

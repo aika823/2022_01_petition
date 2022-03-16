@@ -27,7 +27,8 @@
       <br>타인에 대한 배려심, 정직함, 청원에 대한
       <br>책임감을 가지고 작성하겠습니다.
     </h3>
-    <input class="keyboard-input" type="text" placeholder="" />
+    <!-- <input class="keyboard-input" type="text" placeholder="" /> -->
+    <textarea class="keyboard-input" type="text" placeholder=""></textarea>
     <p class="comment">작성 후 밑 버튼을 눌러주세요.</p>
   </div>
 </section>
@@ -41,6 +42,8 @@
   $('.keyboard-validation').click(function(){
     if($('.keyboard-input').val() == '나는 성숙한 대한민국 시민으로서 타인에 대한 배려심, 정직함, 청원에 대한 책임감을 가지고 작성하겠습니다.') {
       location.href="/good";
+    } else {
+      alert('선서문을 정확하게 입력해주세요!')
     }
   });
 </script>
@@ -49,22 +52,27 @@
     $(this).attr("placeholder", "나는 성숙한 대한민국");
     $('.btn-validation').show();
     $('.comment').show();
-    $('.bg').css("background-image", "url('/static/images/bg-red.png')")
+    $('.bg').css("background-image", "url('/static/images/bg-red.png')");
   });
-  if($('.keyboard-input').val == "") {
-    $('.keyboard-input').blur(function () {
-      $(this).attr("placeholder", "");
-      $('.btn-validation').hide();
-      $('.comment').hide();
-      $('.bg').css("background-image", "url('/static/images/bg-blue.png')")
-    });
-  }
+  // if($('.keyboard-input').val == "") {
+  //   $('.keyboard-input').blur(function () {
+  //     $(this).attr("placeholder", "");
+  //     $('.btn-validation').hide();
+  //     $('.comment').hide();
+  //     $('.bg').css("background-image", "url('/static/images/bg-blue.png')")
+  //   });
+  // }
   $('.keyboard-input').keyup(function () {
     if ($('.keyboard-input').val() == '') {
       $(this).attr("placeholder", "");
       $('.btn-validation').hide();
       $('.comment').hide();
       $('.bg').css("background-image", "url('/static/images/bg-blue.png')")
+    } else {
+      $(this).attr("placeholder", "나는 성숙한 대한민국");
+      $('.btn-validation').show();
+      $('.comment').show();
+      $('.bg').css("background-image", "url('/static/images/bg-red.png')");
     }
   });
 </script>

@@ -22,11 +22,16 @@
   </div>
   <div class="highlight-text" id="text">
     <div id="console"></div>
-    <p class="line line1">숙의적 시민으로서 거짓없이 작성하겠습니다.</p>
-    <p class="line line2">감정만을 호소하거나 분풀이 하지 않겠습니다.</p>
-    <p class="line line3">원하는 바를 명확하게 제시하겠습니다.</p>
-    <p class="line line4">청원의 합리성을 위해 근거를 제시하겠습니다.</p>
-    <p class="line line5">저는 타인을 배려하는 태도로 임하겠습니다.</p>
+    <p class="line line1">숙의적 시민으로서 거짓없이 작성하겠습니다.<span class="bg-box"></span></p>
+    <div class="underline"></div>
+    <p class="line line2">감정만을 호소하거나 분풀이 하지 않겠습니다.<span class="bg-box"></span></p>
+    <div class="underline"></div>
+    <p class="line line3">원하는 바를 명확하게 제시하겠습니다.<span class="bg-box"></span></p>
+    <div class="underline"></div>
+    <p class="line line4">청원의 합리성을 위해 근거를 제시하겠습니다.<span class="bg-box"></span></p>
+    <div class="underline"></div>
+    <p class="line line5">저는 타인을 배려하는 태도로 임하겠습니다.<span class="bg-box"></span></p>
+    <div class="underline"></div>
   </div>
 
 </section>
@@ -126,6 +131,44 @@
      }
   }
 
+</script>
+
+
+<script>
+  $('.line').on("touchstart", function (e) {
+
+	  var start = e.originalEvent.touches[0].pageX;
+
+    var text_length = $(this).width();
+
+    if(start >= 20 && start < 70) {
+      $('.line').on("touchmove", function (event) {
+        var touch_length = event.originalEvent.touches[0].pageX;
+
+        var percent = touch_length / text_length * 100;
+        
+        if($(this).find('.bg-box').width() < text_length) {
+          $(this).find('.bg-box').width(percent + '%');
+        }
+
+        if(touch_length > text_length) {
+          console.log('Finish!');
+          $(this).css('background-color', '#B6EECE');
+          $(this).addClass('active');
+          $(this).find('.bg-box').width(0)
+
+          console.log($('.line.active').length);
+          if($('.line.active').length == 5) {
+            console.log("OK");
+            $(".btn-highlight").css('pointer-events', 'all');
+          }
+        }
+      })
+    } else {
+      console.log('No!!')
+    }
+  })
+  
 </script>
 {% endblock extrascripts %}
 

@@ -80,7 +80,7 @@
   <div class="template-form-item">
     <div id="preview" class="image-wrap">
       {% for image in image_list %}
-      <div class="uploaded-img" style="background-image: url('/media/{{image.image}}');"></div>
+      <div class="uploaded-img img-modal" style="cursor:pointer; background-image: url('/media/{{image.image}}');"></div>
       {% endfor %}
     </div>
   </div>
@@ -130,6 +130,21 @@
     <a class="btn-agree-datail" onclick="agreePetition({{user.id}}, {{petition.id}})"><span>🖐</span> 동의합니다</a>
   </div>
 </section>
+
+
+<section class="modal_wrap" id="imgView">
+  <article class="modal_cnt">
+    <div class="modal_body">
+      <div class="img-wrap">
+        <img src="" alt="">
+      </div>
+    </div>
+    <a href="javascript:void(0)" class="close_btn">
+      <span class="material-icons-outlined">close</span>
+    </a>
+  </article>
+  <div class="modal_dim"></div>
+</section>
 {% endblock content %}
 
 
@@ -152,6 +167,18 @@
 <script>
   $body = $('body');
   $modalWrap = $('.modal_wrap');
+  $modalImg = $('#imgView');
+
+  $('.img-modal').on('click', function () {
+    $body.addClass('modal_in');
+    $modalImg.fadeIn(300);
+    $body.css('padding-right', getScrollWidth());
+    // var img_url = $(this).css("background-image");
+    // console.log(img_url);
+    // $('#imgView').find('.img-wrap').css('background-image', img_url);
+    var img_url = $(this).css("background-image").replace(/^url\(['"](.+)['"]\)/, '$1');
+    $('#imgView').find('.img-wrap img').attr('src', img_url);
+  });
 
   $('.btn-submit').on('click', function () {
     $body.addClass('modal_in');
@@ -222,5 +249,14 @@
     });
 
   }
+</script>
+
+
+<script>
+  $(function(){
+    for(var i = 1; i < $('.category').length; i++) {
+      $('.category').eq(i).hide();
+    }
+  });
 </script>
 {% endblock extrascripts %}
