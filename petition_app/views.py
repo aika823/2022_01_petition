@@ -104,16 +104,18 @@ def list(request):
             category.active = "active"
             active_all = None
     if active_category:
-        petition_list = Petition.objects.filter(petitioncategory__category = active_category)
+        petition_list = Petition.objects.filter(petitioncategory__category = active_category).order_by('-agreements')
     else:
-        petition_list = Petition.objects.filter()
+        petition_list = Petition.objects.all().order_by('-agreements')
+    
+    print(petition_list)
         
     for petition in petition_list:
         petition.percentage = min(100,round(100*(petition.agreements/200000), 2))
 
     # infinite scroll
     max = petition_list.count()
-    numbers_list = range(1, max)
+    numbers_list = range(0, max)
     page = request.GET.get("page", 1)
     paginator = Paginator(numbers_list, 10)
 
@@ -248,6 +250,11 @@ def inspection(request):
         petition_prediction.prediction = prediction
         petition_prediction.save()
 
+        
+        has_keyword = True if petition.keyword_1 or petition.keyword_2 or petition.keyword_3 else False
+        print(image_list.count())
+        
+
         context={
             'petition':petition,
             'category_list':category_list,
@@ -255,7 +262,8 @@ def inspection(request):
             'status':status,
             'body_class':'height-auto',
             'active':{'list':"active"},
-            'bottom_nav':False
+            'bottom_nav':False,
+            'has_keyword':has_keyword
         }
         return render(request, "inspection.html", context=context)
 

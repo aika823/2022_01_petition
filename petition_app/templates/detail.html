@@ -87,9 +87,17 @@
 
   <div class="template-form-item">
     <div class="tag-keywords">
+      {% if petition.keyword_1 %}
       <p class="keyword done"># <span>{{petition.keyword_1}}</span></p>
+      {% endif %}
+
+      {% if petition.keyword_2 %}
       <p class="keyword done"># <span>{{petition.keyword_2}}</span></p>
+      {% endif %}
+
+      {% if petition.keyword_3 %}
       <p class="keyword done"># <span>{{petition.keyword_3}}</span></p>
+      {% endif %}
     </div>
   </div>
 
@@ -191,7 +199,7 @@
         alert("완료");
       }
     });
-    
+
   }
 
   function agreePetition(userID, petitionID) {

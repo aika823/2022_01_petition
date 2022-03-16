@@ -50,9 +50,9 @@
     </div>
 
     <div class="line"></div>
-    
-    
+
     {% else %}
+
     <div class="template-form-item">
       <div class="item-title">
         <h3>💭 청원을 하게 된 이유가 무엇인가요?</h3>
@@ -64,7 +64,6 @@
       </div>
       <p class="item-content">{{petition.content_1}}</p>
     </div>
-
     <div class="line"></div>
 
     <div class="template-form-item">
@@ -78,7 +77,6 @@
       </div>
       <p class="item-content">{{petition.content_2}}</p>
     </div>
-
     <div class="line"></div>
 
     <div class="template-form-item">
@@ -92,11 +90,10 @@
       </div>
       <p class="item-content">{{petition.content_7}}</p>
     </div>
-
     <div class="line"></div>
     {% endif %}
 
-
+    {% if image_list %}
     <div class="template-form-item">
       <h3>이해를 돕기 위한 사진 첨부</h3>
       <div id="preview" class="image-wrap">
@@ -105,19 +102,27 @@
         {% endfor %}
       </div>
     </div>
-
     <div class="line"></div>
+    {% endif %}
 
+    {% if has_keyword %}
     <div class="template-form-item">
       <h3>🔖 핵심 단어 세 가지</h3>
       <p>다른 시민들이 이 청원을 찾을 수 있도록 도와요</p>
       <div class="tag-keywords">
+        {% if petition.keyword_1 %}
         <p class="keyword done"># <span>{{petition.keyword_1}}</span></p>
+        {% endif %}
+        {% if petition.keyword_2 %}
         <p class="keyword done"># <span>{{petition.keyword_2}}</span></p>
+        {% endif %}
+        {% if petition.keyword_3 %}
         <p class="keyword done"># <span>{{petition.keyword_3}}</span></p>
+        {% endif %}
       </div>
     </div>
-
+    {% endif %}
+    
     <div class="edit-tools">
       <a href="javascript:void(0)">
         <span class="material-icons-outlined">title</span>
@@ -129,6 +134,7 @@
         <span class="material-icons-outlined">add</span>
       </a>
     </div>
+
   </form>
 
   <section class="inspection">
@@ -266,13 +272,13 @@
     $('.loading-motion').fadeIn(300);
     $('.loading-motion').css('display', 'flex');
 
-    setTimeout(()=>{
+    setTimeout(() => {
       $('.loading-motion').fadeOut(300);
       $('.finish-write').css('display', 'flex');
     }, 1500);
 
-    $('.finish-write').click(function() {
-      location.href='/detail/{{petition.id}}';
+    $('.finish-write').click(function () {
+      location.href = '/detail/{{petition.id}}';
     });
   }
 </script>
