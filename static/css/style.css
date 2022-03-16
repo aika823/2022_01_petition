@@ -1701,7 +1701,7 @@ section.write.template .line {
 
 /* max-height 반응형 */
 
-@media all and (max-height: 1080px) {
+@media all and (max-height: 840px) {
     .modal_wrap.choose-template .modal_cnt .template-box {
         width: 60%;
         margin: 0 auto;
@@ -1715,7 +1715,7 @@ section.write.template .line {
       margin-left: 0px;
     }
 }
-@media all and (max-height: 1024px) {
+@media all and (max-height: 840px) {
   body.check-page {
     height: auto;
   }
@@ -1732,7 +1732,7 @@ section.write.template .line {
     padding: 60px 40px 20px;
   }
 
-@media all and (max-height: 1024px) {
+@media all and (max-height: 840px) {
     body.check-page {
         height: auto;
     }
