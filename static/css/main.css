@@ -403,7 +403,11 @@ nav.bottom-nav .menu-group .menu-item.active p {
   background-size: cover;
 }
 #imgView .modal_cnt .img-wrap img {
-  width: 100%;
+  display: block;
+  max-width: 768px;
+  /* width: 100%; */
+  max-height: 850px;
+  margin: 0 auto;
 }
 /* #imgView .modal_cnt .img-wrap::after {
   display: block;

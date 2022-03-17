@@ -1701,7 +1701,7 @@ section.write.template .line {
 
 /* max-height 반응형 */
 
-@media all and (max-height: 840px) {
+@media all and (max-height: 1080px) {
     .modal_wrap.choose-template .modal_cnt .template-box {
         width: 60%;
         margin: 0 auto;
@@ -1715,10 +1715,7 @@ section.write.template .line {
       margin-left: 0px;
     }
 }
-@media all and (max-height: 840px) {
-  body.check-page {
-    height: auto;
-  }
+@media all and (max-height: 1024px) {
   body.check-page.height-100 {
     height: 100%;
   }
@@ -1731,11 +1728,8 @@ section.write.template .line {
   body.check-page header.title-page {
     padding: 60px 40px 20px;
   }
-
-@media all and (max-height: 840px) {
-    body.check-page {
-        height: auto;
-    }
+}
+@media all and (max-height: 1024px) {
     body.check-page.height-100 {
         height: 100%;
     }
@@ -1759,6 +1753,16 @@ section.write.template .line {
     section.choose-category {
         padding: 120px 40px 150px;
     }
+}
+@media all and (max-height: 840px) {
+  body.check-page {
+    height: auto;
+  }
+}
+@media all and (max-height: 850px) {
+  #imgView .modal_cnt .img-wrap img {
+    max-height: 700px;
+  }
 }
 @media all and (max-height: 680px) {
   body.check-page.titlepage {
