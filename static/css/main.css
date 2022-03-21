@@ -347,6 +347,8 @@ nav.bottom-nav .menu-group .menu-item.active p {
   width: 30px;
   height: 30px;
   cursor: pointer;
+  margin: 0 auto;
+  display: block;
 }
 .modal_wrap.choose-template .modal_cnt .template-box .type img {
   width: 100%;
