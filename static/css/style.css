@@ -1292,7 +1292,8 @@ section.write.template form .edit-tools {
 }
 
 #preview.write-click, .img-line {
-  display: none;
+  /* display: none; */
+  padding-bottom: 80px;
 }
 
 

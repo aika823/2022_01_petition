@@ -14,7 +14,7 @@
     <input type="hidden" name="department" value="{{department.id}}">
 
     <input type="file" name="thumbnail" id="imageInput" style="display: none" />
-    <input type="file" name="images" id="imagesInput" style="display: none" multiple />
+    <input type="file" name="images" id="imagesInput" style="display: none" />
 
     <div class="form-header">
       <a href="javascript:void(0)" onclick="location.href='/write/title'">
@@ -161,97 +161,109 @@
 {% block extrascripts %}
 <!-- <script src="/static/js/media.js?ver=1"></script> -->
 <script>
+  let list = new DataTransfer();
+
   function open_image_input() {
-  $('#imageInput').click();
-}
+    $('#imageInput').click();
+  }
 
-function open_images_input() {
-  $('#imagesInput').click();
-}
+  function open_images_input() {
+    $('#imagesInput').click();
+  }
 
-$('#imageInput').change(function() {
-  var file = this.files[0];
-  var reader = new FileReader();
-  reader.onloadend = function() {
+  $('#imageInput').change(function () {
+    var file = this.files[0];
+    var reader = new FileReader();
+    reader.onloadend = function () {
       $('#thumbnailImage').css('background-image', 'url("' + reader.result + '")');
 
-      if($('#thumbnailImage').css('background-image')) {
+      if ($('#thumbnailImage').css('background-image')) {
         $('.btn-img').hide();
       }
-  }
+    }
 
-  if (file) {
-    reader.readAsDataURL(file);
-  } else {}
-});
+    console.log(file)
+    if (file) {
+      reader.readAsDataURL(file);
+    } else {}
+  });
 
-$('#imagesInput').change(function() {
-  var $preview = $('#preview');
-  $img_count = $('.img-count');
+  $('#imagesInput').change(function () {
+    var $preview = $('#preview');
+    $img_count = $('.img-count');
 
-  if ($img_count.text() == "10") {
+    if ($img_count.text() == "10") {
       alert("사진은 10장까지 등록할 수 있습니다.");
-  } else {
+    } else {
       if (this.files) $.each(this.files, readAndPreview);
       $img_count.text(String($('.uploaded-img').length + 1))
-  }
+    }
 
-  function readAndPreview(i, file) {
+    let file = this.files[0];
+    list.items.add(file);
+
+    let myFileList = list.files;
+    // console.log(myFileList)
+    this.files = myFileList;
+
+
+    function readAndPreview(i, file) {
       var tmp_images = []
       if (!/\.(jpe?g|png|gif)$/i.test(file.name)) {
-          return alert(file.name + " 파일은 이미지 형식이 아닙니다.");
+        return alert(file.name + " 파일은 이미지 형식이 아닙니다.");
       }
 
       var reader = new FileReader();
-      $(reader).on("load", function() {
+      $(reader).on("load", function () {
 
-          $preview.prepend(
-              $(
-                  "<div />", {
-                      class: "uploaded-img",
-                      style: "background-image: url('" + this.result + "' )",
-                  }
-              )
-          );
+        $preview.prepend(
+          $(
+            "<div />", {
+              class: "uploaded-img",
+              style: "background-image: url('" + this.result + "' )",
+            }
+          )
+        );
+        
+        $body = $('body');
+        $modalImg = $('#imgView');
 
-          $body = $('body');
-          $modalImg = $('#imgView');
+        $('.uploaded-img').on('click', function () {
+          $body.addClass('modal_in');
+          $modalImg.fadeIn(300);
+          $body.css('padding-right', getScrollWidth());
+          // var img_url = $(this).css("background-image");
+          var img_url = $(this).css("background-image").replace(/^url\(['"](.+)['"]\)/, '$1');
 
-          $('.uploaded-img').on('click', function () {
-            $body.addClass('modal_in');
-            $modalImg.fadeIn(300);
-            $body.css('padding-right', getScrollWidth());
-            // var img_url = $(this).css("background-image");
-            var img_url = $(this).css("background-image").replace(/^url\(['"](.+)['"]\)/, '$1');
+          // console.log(img_url);
+          $('#imgView').find('.img-wrap img').attr('src', img_url);
+        });
 
-            // console.log(img_url);
-            $('#imgView').find('.img-wrap img').attr('src', img_url);
-          });
+        $('.close_btn, .modal_dim').on('click', function () {
+          var speed = 300;
+          $modalImg.fadeOut(speed);
+          setTimeout(function () {
+            $body.removeClass('modal_in');
+            $body.css('padding-right', 0)
+          }, speed)
+        });
 
-          $('.close_btn, .modal_dim').on('click', function () {
-            var speed = 300;
-            $modalImg.fadeOut(speed);
-            setTimeout(function () {
-              $body.removeClass('modal_in');
-              $body.css('padding-right', 0)
-            }, speed)
-          });
+        function getScrollWidth() {
+          var body = document.querySelector('body');
+          var scrollDiv = document.createElement('div');
+          scrollDiv.className = 'fake_sjwidth';
+          body.appendChild(scrollDiv);
+          var scrollbarWidth = $(document).height() > $(window).height() ? scrollDiv.offsetWidth - scrollDiv
+            .clientWidth :
+            0;
 
-          function getScrollWidth() {
-            var body = document.querySelector('body');
-            var scrollDiv = document.createElement('div');
-            scrollDiv.className = 'fake_sjwidth';
-            body.appendChild(scrollDiv);
-            var scrollbarWidth = $(document).height() > $(window).height() ? scrollDiv.offsetWidth - scrollDiv.clientWidth :
-              0;
-
-            body.removeChild(scrollDiv);
-            return scrollbarWidth;
-          }
+          body.removeChild(scrollDiv);
+          return scrollbarWidth;
+        }
       });
-      reader.readAsDataURL(file);
-  }
-});
+        reader.readAsDataURL(file);
+    }
+  });
 </script>
 
 <script>
@@ -291,8 +303,8 @@ $('#imagesInput').change(function() {
 
 
 <script>
-  $(function(){
-    for(var i = 1; i < $('.category').length; i++) {
+  $(function () {
+    for (var i = 1; i < $('.category').length; i++) {
       $('.category').eq(i).hide();
     }
   });
