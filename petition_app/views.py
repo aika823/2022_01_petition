@@ -47,7 +47,10 @@ def index(request):
 
 
 def main(request):
-    user = User.objects.get(id=request.session.get('user'))
+    try:
+        user = User.objects.get(id=request.session.get('user'))
+    except:
+        return redirect('/')
     petition_list = Petition.objects.all().order_by('-agreements')[:5]
     for petition in petition_list:
         petition.category_list = Category.objects.filter(petitioncategory__petition=petition)

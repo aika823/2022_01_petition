@@ -28,7 +28,7 @@
 
 
     {% for petition in petition_list %}
-    <div class="slide-card">
+    <div class="slide-card" onclick="location.href='/detail/{{petition.id}}'">
       <div class="slide-wrap">
         <div class="img-wrap" style="background-image: url('/media/{{petition.thumbnail}}');"></div>
         <div class="recommend-info">
